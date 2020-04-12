@@ -7,3 +7,4 @@ lobby_b,255,295,4	script	teste#01	90,{
 	}
 	close;
 }
+//
