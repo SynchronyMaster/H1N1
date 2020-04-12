@@ -1,0 +1,33 @@
+new_1-2,84,88,5	script	Namikaze Minato	10235,{
+cutin "minato",2;
+mes "[Minato]";
+mes "Você quer escolher a classe Minato?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class > 0) goto neh;
+jobchange 4013; 
+getitem 19008,1;
+next;
+
+mes "^FF9900[Minato]^000000";
+mes "Parabéns, agora você é da classe Minato!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Minato",0;
+cutin "",255;
+close;
+
+neh:
+next;
+mes "^FF9900[Minato]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+cutin "",255;
+close;
+
+nao:
+next;
+mes "^FF9900[Minato]^000000";
+mes "Estarei esperando caso mude de ideia.";
+cutin "",255;
+close;
+}

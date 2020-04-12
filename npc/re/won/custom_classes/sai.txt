@@ -1,0 +1,33 @@
+new_1-2,95,93,5	script	Sai	10208,{
+cutin "sai",2;
+mes "[Sai]";
+mes "Você quer escolher a classe Sai?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class > 0) goto neh;
+jobchange 4079; 
+getitem 19008,1;
+next;
+
+mes "^FF9900[Sai]^000000";
+mes "Parabéns, agora você é da classe Sai!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Sai",0;
+cutin "",255;
+close;
+
+neh:
+next;
+mes "^FF9900[Sai]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+cutin "",255;
+close;
+
+nao:
+next;
+mes "^FF9900[Sai]^000000";
+mes "Estarei esperando caso mude de ideia.";
+cutin "",255;
+close;
+}

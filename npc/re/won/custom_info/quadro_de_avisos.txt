@@ -1,0 +1,24 @@
+alberta,111,59,5	script	quadro_de_avisos#01	837,{
+	mes "[Alberta: The Port City]";
+	mes "Welcome to Alberta, the Port City.";
+	next;
+	mes "[Alberta: The Port City]";
+	mes "In Alberta, you can find the Merchant guild where adventurers can change their job to merchant";
+	next;
+	mes "[Alberta: The Port City]";
+	mes "As a city that provides dependable sea travel, Alberta has provided the means for the foreign commerce that has brought prosperity to the Rune-Midgarts Kingdom.";
+	next;
+	mes "[Alberta: The Port City]";
+	mes "On the docks, you may find representatives from foreign lands that will guide tourists to their countries.";
+	next;
+	mes "[Alberta: The Port City]";
+	mes "Among seafarers, there is a rumor of a place known as ^338C60Turtle Island^000000. Intrepid adventurers may seek to investigate this rumor and learn the truth for themselves";
+	next;
+	mes "[Alberta: The Port City]";
+	mes "There is also a sunken ship that has been discovered near Alberta, and it has become a popular area for adventurers to explore";
+	next;
+	mes "[Alberta: The Port City]";
+	mes "From Alberta, ^1F3A11Payon^000000 is located to the Northwest. You can board passenger ships at the dock to travel to ^5E5C69Izlude^000000.";
+	mes "Enjoy your travels."; 
+	close;
+}

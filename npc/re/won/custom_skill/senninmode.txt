@@ -1,0 +1,4 @@
+-	Script	senninmode	-1,{
+	showscript "Modo Sennin";
+
+}

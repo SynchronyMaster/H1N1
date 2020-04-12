@@ -1,0 +1,65 @@
+-	Script	LogoutEventWON	-1,{
+	OnPCLogoutEvent:
+	
+	if (@shaskill == 1){
+		dispbottom "Sharingan (Nv. 1) Desativado.";
+		bonus_script_clear;
+		set @shaskill,0;
+		changelook 5,@atual;
+		deltimer "sharingan1::OnSha1";
+		}
+
+	if (@shaskill == 2){
+		dispbottom "Sharingan (Nv. 2) Desativado.";
+		bonus_script_clear;
+		set @shaskill,0;
+		changelook 5,@atual;
+		deltimer "sharingan2::OnSha2";
+		}
+
+	if (@shaskill == 3){
+		dispbottom "Sharingan (Nv. 3) Desativado.";
+		bonus_script_clear;
+		set @shaskill,0;
+		changelook 5,@atual;
+		deltimer "sharingan3::OnSha3";
+		}
+
+	if (@shaskill == 6){
+		dispbottom "Mangekyou Sharingan Desativado!";
+		bonus_script_clear;
+		set @shaskill,0;
+		changelook 5,@atual;
+		deltimer "sharingan3::OnSha3";
+		}
+
+
+	if(@shaskill == 9){
+		dispbottom "Susano'o Inativo!";
+		dispbottom "Sharingan Inativo!";
+		set @shaskill,0;
+		bonus_script_clear;
+		changelook 5,@atual;
+		changelook 3,@atuals;
+	}
+	
+	
+	//Sensorial
+	for(set .@i,1;.@i<=$PlayerNumber;set .@i,.@i+1){
+		if(!isloggedin(getd("$RecordAID"+.@i)))
+		{
+			set $PlayerNumber,$PlayerNumber-1;
+			setd "$RecordAID"+.@i,getd("$RecordAID"+(.@i+1));
+			setd "$RecordAID"+(.@i+1),0;
+			set .@i,.@i-1;
+		}
+	}
+
+
+	//Kamui
+	if(@NPC_MY_BN$!=""){
+		query_sql( "DELETE FROM `all_buraconegro` WHERE `cid`='"+getcharid(0)+"' ");
+	}
+
+
+}

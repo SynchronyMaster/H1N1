@@ -1,0 +1,81 @@
+-	script	kagemane1	-1,{
+	@shika1 = getcharid(3);
+	set @shadskill,1;
+//	pcblockmove @shika1,1;
+	addtimer 30000,"kagemane1::OnFnsh";
+	doevent "kagemane1::OnUser";
+	unittalk @shika1,"Fiquei Preso";
+	
+		do {
+			sleep2 500;
+			set @varix, getvar(@varix,kagemane1);
+			set @variy, getvar(@variy,kagemane1);
+			unittalk @shika1,""+@variy+"";
+				if (@varix != 0 || @variy != 0) {
+					unittalk @shika1,"Vou ter que andar";
+					getmapxy(@mapname3$,@map3x,@map3y,0);
+					unitwalk @shika1,@map3x+@variy,@map3y+@variy;
+				}
+			}	
+	while (@shadskill == 1);
+        end;
+		
+	OnFnsh:
+	set @shadskill,0;
+	pcblockmove @shika1,0;
+	end;
+	
+	OnUser:
+	attachrid(getcharid(3,strcharinfo(0,kagemane1)));
+	@shika2 = getcharid(3);
+	@shadskill = 1;
+	addtimer 30000,"kagemane1::OnFnsh";
+	
+		do {
+			getmapxy(@mapname$,@mapx,@mapy,0);
+			sleep2 1000;
+			getmapxy(@mapname2$,@map2x,@map2y,0);
+			@varix = @map2x-@mapx;
+			@variy = @map2y-@mapy;			
+			} 
+		while (@shadskill == 1);
+	}
+	
+	
+	
+//	addtimer 300000,"kagemane1::OnShadOv";
+	
+//	.@shika = getcharid(0);
+	
+	///	.@shika2 = getcharid(0);
+///	@sync = 1;
+///		do {
+///			attachrid (.@shika2);
+///			getmapxy(@mapname$,@mapx,@mapy,0);
+///			sleep2 100;
+///			getmapxy(@mapname2$,@map2x,@map2y,0);
+///			
+//        if(@mapname$!=@mapname2$){
+//		showscript "Nada2";
+//		//nothing
+//		}
+///
+///		if(@mapx==@map2x && @map2y==@mapy){
+///			showscript "Parado";
+///			
+///        }else{
+///		showscript "Andando";
+///		.@varix = @map2x-@mapx;
+///		.@variy = @map2y-@mapy;
+///		detachrid;
+///		
+///		attachrid (.@shika);
+///		getmapxy(@mapname3$,@map3x,@map3y,0);
+///		unitwalk getcharid(3),@map3x+.@varix,@map3y+.@variy;
+///		showscript "Andei";
+///		
+///		detachrid;
+///		attachrid (.@shika2);
+///        }
+///               
+///        } while (@sync==1);

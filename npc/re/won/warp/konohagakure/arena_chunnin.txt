@@ -1,0 +1,17 @@
+chunnin01,77,39,0	script	Porteiro#AR1	111,1,4,{
+
+	OnTouch:	
+	if (@arquibancada == 1){
+		warp "chunnin01",97,38;
+		end;
+		}
+}
+
+chunnin01,93,38,0	script	Porteiro#AR2	111,1,4,{
+
+	OnTouch:	
+	if (@arquibancada == 1){ 
+		warp "chunnin01",74,38;
+		end;
+		}
+}

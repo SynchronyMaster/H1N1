@@ -1,0 +1,3 @@
+-	Script	infuuikai	-1,{
+	showscript "Infuui Kai";
+}

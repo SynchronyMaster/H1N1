@@ -1,0 +1,69 @@
+// Lobby
+iz_ng01,25,18,0	script	Ini#Lob	45,3,3,{
+
+	OnTouch:	
+	query_sql ("select vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@minhavila);
+	if (.@minhavila == 0 || .@minhavila == 1){
+		mes "Error #4001, chame um GM pelo fórum ou pela página.";
+		close;
+		end;
+	}
+	
+	warp "lobby_b",263,225;
+			end;
+}
+
+
+// Barco Fogo - Vento
+gef_fild14,73,267,4	script	Takahashi#1	86,{
+	mes "[Takahashi]";
+	mes "Bom Dia.";
+	mes "O preço para a travessia é de 50000 zeny?";
+	mes "Quer atravessar para fora do País do Fogo?";
+	next;
+	switch(select("Atravessar","Não, Obrigado.")) {
+		case 1:
+			if (Zeny < 50000) {
+				mes "[Takahashi]";
+				mes "Parece que você não tem dinheiro o suficiente, meu amigo. Retorne quando puder pagar.";
+				close;
+			} else {
+				set Zeny,Zeny - 50000;
+				warp "pay_fild09",321,267;
+				close;
+			}
+		case 2:
+			mes "[Takahashi]";
+			mes "Tudo bem...";
+			mes "Eu estarei aqui";
+			mes "caso você mude";
+			mes "de ideia.";
+			close;
+	}
+}
+pay_fild09,333,267,4	script	Takahashi#2	86,{
+	mes "[Takahashi]";
+	mes "Bom Dia.";
+	mes "O preço para a travessia é de 50000 zeny?";
+	mes "Quer atravessar para dentro do País do Fogo?";
+	next;
+	switch(select("Atravessar","Não, Obrigado.")) {
+		case 1:
+			if (Zeny < 50000) {
+				mes "[Takahashi]";
+				mes "Parece que você não tem dinheiro o suficiente, meu amigo. Retorne quando puder pagar.";
+				close;
+			} else {
+				set Zeny,Zeny - 50000;
+				warp "gef_fild14",76,263;
+				close;
+			}
+		case 2:
+			mes "[Takahashi]";
+			mes "Tudo bem...";
+			mes "Eu estarei aqui";
+			mes "caso você mude";
+			mes "de ideia.";
+			close;
+	}
+}

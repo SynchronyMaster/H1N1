@@ -1,0 +1,9 @@
+lobby_b,255,295,4	script	teste#01	90,{
+	mes "Testando";
+	next;
+	switch(select("Ativar....:Desativar.")){
+		case 1:
+		hateffect 200,true;
+	}
+	close;
+}

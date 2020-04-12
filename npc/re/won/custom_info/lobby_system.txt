@@ -1,0 +1,1843 @@
+//============================// Sistema de Vilas//========================
+prontera,164,169,4	script	Lobby#01	637,{
+	cutin "aca_ninja_k",2;
+	mes "Olá, "+strcharinfo(0)+"!";
+	mes "Deseja ir para o Lobby?";
+	next;
+	switch(select("Sim, eu quero:Não, talvez mais tarde")){
+		case 1:
+			mes "Até mais!";
+			close2;
+			set lobby,1;
+			warp "que_qaru05",251,335;
+			end;
+		case 2:
+			mes "Entendo...";
+			cutin "",255;
+			close;
+			end;
+
+	}
+}
+
+konoha,177,236,4	script	Lobby#02	637,{
+	cutin "aca_ninja_k",2;
+	mes "Olá, "+strcharinfo(0)+"!";
+	mes "Deseja ir para o Lobby?";
+	next;
+	switch(select("Sim, eu quero:Não, talvez mais tarde")){
+		case 1:
+			mes "Até mais!";
+			close2;
+			set lobby,2;
+			warp "que_qaru05",251,335;
+			end;
+		case 2:
+			mes "Entendo...";
+			cutin "",255;
+			close;
+			end;
+
+	}
+}
+suna,207,196,4	script	Lobby#03	637,{
+	cutin "aca_ninja_k",2;
+	mes "Olá, "+strcharinfo(0)+"!";
+	mes "Deseja ir para o Lobby?";
+	next;
+	switch(select("Sim, eu quero:Não, talvez mais tarde")){
+		case 1:
+			mes "Até mais!";
+			close2;
+			set lobby,3;
+			warp "que_qaru05",251,335;
+			end;
+		case 2:
+			mes "Entendo...";
+			cutin "",255;
+			close;
+			end;
+
+	}
+}
+kirigakure,168,228,4	script	Lobby#04	637,{
+	cutin "aca_ninja_k",2;
+	mes "Olá "+strcharinfo(0)+"!";
+	mes "Deseja ir para o Lobby?";
+	next;
+	switch(select("Sim, eu quero:Não, talvez mais tarde")){
+		case 1:
+			mes "Até mais!";
+			close2;
+			set lobby,4;
+			warp "que_qaru05",251,335;
+			end;
+		case 2:
+			mes "Entendo...";
+			cutin "",255;
+			close;
+			end;
+
+	}
+}
+
+lobby_b,254,371,4	script	Tenso no Jutsu	111,2,2,{
+query_sql ("select vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@VILL);
+	mes "Utilizando o Tenso no Jutsu podemos te levar para qualquer lugar, mas cuidado, o jutsu é instável e pode te causar danos dependendo da distância.";
+	
+		if (lobby == 1)	{
+			set .@op1$, "Voltar para Prontera";
+	} else {
+			set .@op1$, "";
+	}
+		
+		if (.@VILL == 2) {
+			set .@op2$, "Ir para a Vila da Folha";
+	} else {
+			set .@op2$, "";
+	}
+	
+		if (.@VILL == 3) {
+			set .@op3$, "Ir para a Vila da Areia";
+	} else {
+			set .@op3$, "";
+	}
+	
+		if (.@VILL == 4) {
+			set .@op4$, "Ir para a Vila da Névoa";
+	} else {
+			set .@op4$, "";
+	}
+		if (.@VILL == 5) {
+			set .@op5$, "Ir para a Vila da Pedra";
+	} else {
+			set .@op5$, "";
+	}
+	
+	
+	if (@iatsudelay == 0) {
+	if (getskilllv("IATSU") != 0) {
+			set .@opf$, "^FF0000[Iatsu] Entrar na sala VIP^000000";
+	} else {
+			set .@opf$, "";
+	}	
+	} else {
+	set .@opf$, "^FF0000[Iatsu] (Delay) Entrar na sala VIP^000000";
+	}
+
+menu .@op1$,L_pt,.@op2$,L_knh,.@op3$,L_suna,.@op4$,L_kiri,.@op5$,L_kumo,.@opf$,L_iatsu;
+
+	L_pt:
+			mes "Tenso no Justsu!";
+			close2;
+			set lobby,0;
+			warp "prontera",172,236; //Arrumar cordenadas
+			npctalk "Tenso no Jutsu!!","Nadeshiko#02";
+			end;
+	L_knh:
+			mes "Tenso no Justsu!";
+			close2;
+			set lobby,0;
+			warp "konoha",172,236;
+			npctalk "Tenso no Jutsu!!","Nadeshiko#02";
+			end;
+	L_suna:
+			mes "Tenso no Justsu!";
+			close2;
+			set lobby,0;
+			warp "suna",199,188;
+			npctalk "Tenso no Jutsu!!","Nadeshiko#02";
+			end;
+	L_kiri:
+			mes "Tenso no Justsu!";
+			close2;
+			set lobby,0;
+			warp "kirigakure",178,219;
+			npctalk "Tenso no Jutsu!!","Nadeshiko#02";
+			end;
+	L_kumo:
+			mes "Tenso no Justsu!";
+			close2;
+			set lobby,0;
+			warp "kirigakure",178,219;
+			npctalk "Tenso no Jutsu!!","Nadeshiko#02";
+			end;
+	L_iatsu:
+		if (@iatsudelay == 0) {
+			set .@random, rand(1,100);
+			if (getskilllv("IATSU") == 1) {
+				if (.@random <= 10) { 
+					goto sucess;
+				}
+			}
+
+			if (getskilllv("IATSU") == 2) {
+				if (.@random <= 20) { 
+					goto sucess;
+				}
+			}
+			
+			if (getskilllv("IATSU") == 3) {
+				if (.@random <= 40) { 
+					goto sucess;
+				}
+			}
+			
+			npctalk "Tens...?!!!";
+			npctalk "Como você ousa usar um genjutsu em mim, "+strcharinfo(0)+"!!!!","Nadeshiko#02";
+			emotion 7;
+			specialeffect 220,AREA,"Nadeshiko#02";
+			specialeffect2 231;
+			set HP, HP - 70000;
+			npcskill 2201,5,500,400;
+						if (getskilllv("IATSU") == 1) {
+			dispbottom "O genjutsu fracassou, você não pode reutiliza-lo por 10 minutos",0xff0000;
+			set @iatsudelay,1;
+			addtimer 600000,"Tenso no Jutsu::OnDIEND";
+			}
+						if (getskilllv("IATSU") == 2) {
+			dispbottom "O genjutsu fracassou, você não pode reutiliza-lo por 5 minutos",0xff0000;
+			set @iatsudelay,1;
+			addtimer 300000,"Tenso no Jutsu::OnDIEND";
+			}
+						if (getskilllv("IATSU") == 3) {
+			dispbottom "O genjutsu fracassou, você não pode reutiliza-lo por 30 segundos",0xff0000;
+			set @iatsudelay,1;
+			addtimer 30000,"Tenso no Jutsu::OnDIEND";
+			}
+			close;
+			end;
+			
+			
+			sucess:
+			mes "Tenso no Justsu!";
+			close2;
+			npctalk "???..Ten-so... no Jutsu!?","Nadeshiko#02";
+						if (getskilllv("IATSU") == 1) {
+			dispbottom "O genjutsu foi um sucesso, você não pode reutiliza-lo por 10 minutos",0xff0000;
+			set @iatsudelay,1;
+			addtimer 600000,"Tenso no Jutsu::OnDIEND";
+			}
+						if (getskilllv("IATSU") == 2) {
+			dispbottom "O genjutsu foi um sucesso, você não pode reutiliza-lo por 5 minutos",0xff0000;
+			set @iatsudelay,1;
+			addtimer 300000,"Tenso no Jutsu::OnDIEND";
+			}
+						if (getskilllv("IATSU") == 3) {
+			dispbottom "O genjutsu foi um sucesso, você não pode reutiliza-lo por 30 segundos",0xff0000;
+			set @iatsudelay,1;
+			addtimer 30000,"Tenso no Jutsu::OnDIEND";
+			}
+			end;
+		}
+		else
+		{
+		dispbottom "Você não pode utilizar o genjutsu até o delay acabar.",0xff0000;
+		end;	
+		}
+		
+		
+		OnDIEND:
+		dispbottom "Você já pode utilizar um genjutsu novamente",0xff0000;
+		set @iatsudelay,0;
+		end;
+			
+}
+
+
+//=====================// Avisos //==================================
+que_qaru05,262,371,4	script	Quadro de Avisos#svl	837,{
+	mes "[Sala VIP]";
+	mes "Somente jogadores VIP podem ter acesso a essa sala.";
+
+	close;
+}
+
+que_qaru05,247,343,5	script	Quadro de Avisos#avl	837,{
+	mes "Seja bem-vindo ao Lobby do Golden Word Of Naruto.";
+	close;
+}
+
+
+
+
+
+//==================================// Sala de Suporte //============================================
+
+//que_qaru05,243,297,6	duplicate(enq)	Enquete#Lobby	469
+
+que_qaru05,242,345,5	script	Sala de Suporte	475,{
+set .@npc$,"[^FF0000 Sala de Suporte ^000000]";	//Nome do Npc.
+set $np,30;	//Número maximo de players na sala.
+set $gm,2;	//Nível de GM para abrir a sala.
+
+	if(getgmlevel() >= $gm){
+	mes .@npc$;
+	mes "Olá Senhor(a)^0000CD "+strcharinfo(0)+"^000000!";
+	mes "o que gostaria de fazer?";
+	menu "- Abrir Sala de Suporte",case1,"- Fechar Sala de Suporte",case2,"- Entrar na Sala de Suporte",case3;
+	case1:
+	if($@switch == 1){
+		next;
+		mes .@npc$;
+		mes "A sala já estava aberta deseja mante-la assim?";
+		menu "- Sim",-,"- Não",N1;
+		next;
+		mes .@npc$;
+		mes "Certo!";
+		mes "A sala continua aberta!";
+		close;
+		N1:
+		next;
+		set $@switch,0;
+		mes .@npc$;
+		mes "A sala está fechada!";
+		close;
+		}
+		next;
+		set $@switch,1;
+		mes .@npc$;
+		mes "A sala está aberta!";
+		announce "[ Suporte Online ]: Suporte inicíado na Sala de Suporte. Abram chat's 1/2!",bc_yellow;
+		close;
+	case2:
+	if($@switch == 0){
+		next;
+		mes .@npc$;
+		mes "A sala já estava fechada deseja mante-la assim?";
+		menu "- Sim",-,"- Não",N2;
+		next;
+		mes .@npc$;
+		mes "Muito bem!";
+		mes "A sala continua fechada!";
+		close;
+		N2:
+		next;
+		set $@switch,1;
+		mes .@npc$;
+		mes "A sala está aberta!";
+		announce "[ Suporte Online ]: Suporte inicíado na Sala de Suporte. Abram chat's 1/2!",bc_yellow;
+		close;
+		}
+		next;
+		set $@switch,0;
+		mes .@npc$;
+		mes "A sala está fechada no momento!";
+		announce "[ Suporte Offline ]: Suporte Encerrado ! Bom jogo.",bc_yellow;
+		close;
+	case3:
+		warp "jupe_area1",120,158;
+		end;
+		}
+	if($@switch == 0){
+	mes .@npc$;
+	mes "^FF0000- A Sala de Suporte está fechada!^000000";
+	close;
+	}
+	mes .@npc$;
+	mes "Gostaria de ir para Sala de Suporte? ";
+	menu "- Entrar na Sala [" + getmapusers("jupe_area1") + " / "+$np+"]",Entrar,"- Cancelar",Cancel;
+
+Entrar:
+if (getmapusers("jupe_area1")>$np){
+	mes .@npc$;
+	mes "A sala agora esta lotada";
+	mes "O limite maximo é de^FF0000 "+$np;
+	mes "pessoas lá dentro!";
+	close;
+
+}
+warp "jupe_area1",120,158;
+end;
+
+Cancel:
+end;
+}
+
+jupe_area1,115,160,3	script	Retornar	475,{
+
+set .@npc$,"[^FF0000 Sala de Suporte ^000000]";	//Nome do Npc.
+set $np,30;	//Número maximo de players na sala.
+set $gm,20;	//Nível de GM para abrir a sala.
+
+	if(getgmlevel() >= $gm){
+	mes .@npc$;
+	mes "Olá Senhor(a)^0000CD "+strcharinfo(0)+"^000000!";
+	mes "o que gostaria de fazer?";
+	menu "- Abrir Sala de Suporte",case1,"- Fechar Sala de Suporte",case2,"- Sair da Sala de Suporte",case3;
+	case1:
+	if($@switch == 1){
+		next;
+		mes .@npc$;
+		mes "A sala já estava aberta deseja mante-la assim?";
+		menu "- Sim",-,"- Não",N1;
+		next;
+		mes .@npc$;
+		mes "Certo!";
+		mes "A sala continua aberta!";
+		close;
+		N1:
+		next;
+		set $@switch,0;
+		mes .@npc$;
+		mes "A sala está fechada!";
+		close;
+		}
+		next;
+		set $@switch,1;
+		mes .@npc$;
+		mes "A sala está aberta!";
+		announce "[ Suporte Online ]: Suporte inicíado na Sala de Suporte. Abram chat's 1/2!",bc_yellow;
+		close;
+	case2:
+	if($@switch == 0){
+		next;
+		mes .@npc$;
+		mes "A sala já estava fechada deseja mante-la assim?";
+		menu "- Sim",-,"- Não",N2;
+		next;
+		mes .@npc$;
+		mes "Muito bem!";
+		mes "A sala continua fechada!";
+		close;
+		N2:
+		next;
+		set $@switch,1;
+		mes .@npc$;
+		mes "A sala está aberta!";
+		announce "[ Suporte Online ]: Suporte inicíado na Sala de Suporte. Abram chat's 1/2!",bc_yellow;
+		close;
+		}
+		next;
+		set $@switch,0;
+		mes .@npc$;
+		mes "A sala está fechada no momento!";
+		announce "[ Suporte Offline ]: Suporte Encerrado ! Bom jogo.",bc_yellow;
+		close;
+	case3:
+		warp "que_qaru05",251,333;
+		end;
+		}
+	if($@switch == 0){
+	warp "que_qaru05",150,150;
+	close;
+	}
+	mes .@npc$;
+	mes "Gostaria de ir para Sala de Suporte?";
+	menu "- Sair da Sala",Entrar,"- Cancelar",Cancel;
+
+Entrar:
+warp "que_qaru05",251,333;
+end;
+Cancel:
+end;
+}
+
+jupe_area1	mapflag	nomemo
+jupe_area1	mapflag	nowarp
+jupe_area1	mapflag	nowarpto
+jupe_area1	mapflag	noicewall
+jupe_area1	mapflag	noreturn
+jupe_area1	mapflag	noskill
+jupe_area1	mapflag	nosave	SavePoint
+
+
+
+//============================================ Salas de Classes (Avisos) =========================//
+new_1-2,104,79,4	script	Classes Primárias#01	857,{
+	mes "[Classes Primárias]";
+	mes "As classes primárias são classes liberadas no momento em que você cria a conta do jogo. Não há necessidade de nenhum item para obtê-las";
+	next;
+	switch(select("As classes primárias são....:Parar de ler.")){
+		case 1:
+			mes "As classes primárias são Uzumaki Naruto, Haruno Sakura, Uchiha Sasuke, Rock Lee, Hyuuga Hinata, Nara Shikamaru, Sai, Hyuuga Neji e Inuzuka Kiba!";
+			close2;
+			end;
+		case 2:
+			end;
+
+	}
+	close;
+}
+new_1-2,97,105,5	script	Classes Secundárias#01	857,{
+	mes "[Classes secundárias]";
+	mes "As classes sécundárias podem ser obtidas pelo cartão de classe, um cartão de classe secundária, ou um cartão geral.";
+	switch(select("As classes secundárias são....:Parar de ler.")){
+		case 1:
+			mes "As classes secundárias são Momochi Zabuza, Yuki Haku, Sabaku no Gaara, Kankuro, Hatake Kakashi, Chiyo, Maito Gai, Temari.";
+			close2;
+			end;
+		case 2:
+			end;
+	}
+	close;
+}
+
+new_1-2,83,98,5	script	Classes Cash#01	857,{
+	mes "[Classes Cash]";
+	mes "As classes cash podem ser obtidas pelo cartão da classe, cartão de classe cash (disponível na loja) ou pelo cartão geral  .";
+	switch(select("As classes cash são....:Parar de ler.")){
+		case 1:
+			mes "As classes cash são Tobi, Zetsu, Uchiha Madara, Senju Hashirama, Senju Tobirama, Sarutobi Hiruzen, Namikazze Minato, Senju Tsunade.";
+			close2;
+			end;
+		case 2:
+			end;
+	}
+	close;
+}
+
+new_1-2,119,99,4	script	Classes Quest#01	857,{
+	mes "[Classes Quest]";
+	mes "As classes quest podem ser obtida pelo cartão da classe, cartão de classe quest ou pelo cartão geral.";
+	switch(select("As classes quest são....:Parar de ler.")){
+		case 1:
+			mes "As classes quest são a Akatsuki(Uzumaki Nagato, Konan, Kakuzu, Hidan, Akasuna no Sasori, Deidara, Uchiha Itachi e Hoshigaki Kisame.).";
+			close2;
+			end;
+		case 2:
+			end;
+	}
+	close;
+}
+
+new_1-2,107,115,5	script	Classes Evento#01	857,{
+	mes "[Classes Evento]";
+	mes "As classes evento podem ser obtida pelo cartão da classe, cartão de classe evento ou pelo cartão geral  .";
+	switch(select("As classes cash são....:Parar de ler.")){
+		case 1:
+			mes "As classes cash são Tobi, Zetsu, Uchiha Madara, Senju Hashirama, Senju Tobirama, Sarutobi Hiruzen, Namikazze Minato, Senju Tsunade.";
+			close2;
+			end;
+		case 2:
+			end;
+	}
+	close;
+}
+
+
+
+
+que_qaru05,232,297,5	script	Sala de Quests#01	857,{
+	mes "[Sala de Quest]";
+	mes "Sala onde ficam as quests do jogo.";
+			end;
+	close;
+}
+
+
+//=================================Inicial - Ajuda ====================//
+
+// Inicio do Personagem
+
+iz_ng01,123,71,2	script	Nadeshiko#01	10668,{		////////////////////////////////////////////////////////////
+//	if (#LNG == 2){
+//			.@F1$ = "Você quer que eu lhe mostre novamente os comandos básicos do jogo?";
+//			.@F2$ = "Olá, "+strcharinfo(0)+"!";
+//			.@F3$ = ""+(Sex?"Bem vindo":"Bem vinda")+" ao World Of Naruto!";
+//			.@F4$ = "Aperte o botão [prox] ou pressione [Enter] para continuar.";
+//			.@F5$ = "Meu nome é Nadeshiko, eu sou uma das organizadoras dos registros de vilas, estou aqui para te ensinar a jogar. Irei te ajudar quando precisar.";
+//			.@F6$ = "Você quer que eu lhe mostre os comandos básicos do jogo?";
+//			.@F7$ = "Sim, Por favor";
+//			.@F8$ = "Não precisa, obrigado";
+//			.@F9$ = "Antes de ir para o Lobby, você deve falar com o <NAVI>Kyo<INFO>iz_ng01,109,70,0,000,0</INFO></NAVI>. Ele irá te ensinar algumas habilidades básicas.";	
+//			.@F10$ = "Antes de se registrar, dê uma lida no livro que o Kyo te entregou.";
+//			.@F11A$ = "Fale com o Kyo mais uma vez e peça o segundo volume do livro ''Habilidades Ninjas Básicas''.";
+//			.@F11$ = "Fale com o Kyo mais uma vez e peça o segundo volume do livro ''Habilidades Ninjas Básicas''.";
+//			.@F12$ = "Agora que você terminou o seu registro, eu vou nos mandar para o Lobby com a minha Técnica de Transferência Celestial (Tenso no Jutsu), deseja ir agora?.";
+//			.@F13$ = "Tudo bem, me avise quando estiver "+(Sex?"pronto":"pronta")+".";
+//			.@F14$ = "Vamos ver o que está faltando nos seus registros....";
+//	}
+//
+//	if (#LNG == 1){
+//			.@F1$ = "Want me to show the very basics of controlling your character again?";
+//			.@F2$ = "Hello, "+strcharinfo(0)+"!";
+//			.@F3$ = "Welcome to the World Of Naruto!";
+//			.@F4$ = "Click on the [->] button or press [Enter] to continue.";
+//			.@F5$ = "My name is Nadeshiko and I'm in charge of giving you basic gameplay tips. I'll be with you to help when you need.";
+//			.@F6$ = "Want me to show the very basics of controlling your character?";
+//			.@F7$ = "Yes, please";
+//			.@F8$ = "Don't need, thank you";
+//			.@F9$ = "All right. Before going to lobby you have to talk to <NAVI>Kyo<INFO>iz_ng01,109,70,0,000,0</INFO></NAVI>. He'll teach you some basic habilities";
+//	}
+//			
+//	if (#LNG == 4){
+//			.@F1$ = "Voulez-vous que je vous montre comment diriger votre personnage encore?";
+//			.@F2$ = "Salut, "+strcharinfo(0)+"!";
+//          .@F3$ = "Bienvenue dans le Monde de Naruto!";
+//          .@F4$ = "Cliquez sur le bouton [->] ou appuyer sur [Enter] pour continuer.";	
+//			.@F5$ = "Mon nom est Nadeshiko et je serai en charge de vous expliquer les bases du jeux. Je serai avec vous si vous avez besoin d'aide.";
+//			.@F7$ = "Oui, s'il-vous-plait.";
+//			.@F8$ = "Non, merci.";
+//			.@F9$ = "Bien. Avant de continuer vers le Lobby, vous devez parler à <NAVI>Kyo<INFO>iz_ng01,109,70,0,000,0</INFO></NAVI>";
+//	}
+			if (TkN == 2) {
+				if (BK == 1){
+					mes "Vamos ver o que está faltando nos seus registros....";
+					callfunc "funcwons2";
+					completequest 3303;
+					set TkN,3;
+					end;
+				} 
+				if (BK == 0){
+					mes "Antes de se registrar, dê uma lida no livro que o Kyo te entregou.";
+					close2;
+					end;
+				}
+				mes "Fale com o Kyo mais uma vez e peça o segundo volume do livro ''Habilidades Ninjas Básicas''.";
+				setquest 3302;
+				close2;
+				end;
+			}
+			
+			if (TkN == 3) {
+			if (BK == 1){
+			mes "Fale com o Kyo mais uma vez e peça o segundo volume do livro ''Habilidades Ninjas Básicas''.";
+			close2;
+			end;
+			} else {
+			mes "Agora que você terminou o seu registro, eu vou nos mandar para o Lobby com a minha Técnica de Transferência Celestial (Tenso no Jutsu), deseja ir agora?.";
+			switch(prompt(.@F7$,.@F8$)) {  // sim, não
+				case 1:
+					mes "Tenso no Justsu!";
+					close2;
+					set lobby,0;
+					npctalk "Tenso no Jutsu!!","Nadeshiko#01";
+					warp "lobby_b",254,362;
+					end;
+				case 2:
+					mes .@F13$; // Tudo bem, me avise quando estiver "+(Sex?"pronto":"pronta")+".
+				end;
+			}}}
+			if (TkN == 1){
+				mes "Você quer que eu lhe mostre novamente os comandos básicos do jogo?";
+			}
+			if (TkN == 0){
+				mes "Olá, "+strcharinfo(0)+"!";
+				mes ""+(Sex?"Bem vindo":"Bem vinda")+" ao World Of Naruto!";
+				mes "Aperte o botão [prox] ou pressione [Enter] para continuar.";
+				next;
+				mes "Meu nome é Nadeshiko, eu sou uma das organizadoras dos registros de vilas, estou aqui para te ensinar a jogar. Irei te ajudar quando precisar.";
+				mes "Você quer que eu lhe mostre os comandos básicos do jogo?";
+			}
+		cutin "nadeshiko_n",1;
+		next;
+		switch(prompt("Sim, Por favor.","Não precisa, obrigado.")) {
+			case 1:
+				callfunc "funcwons";
+				mes "Antes de ir para o Lobby, você deve falar com o <NAVI>Kyo<INFO>iz_ng01,109,70,0,000,0</INFO></NAVI>. Ele irá te ensinar algumas habilidades básicas.";	;
+				cutin "nadeshiko_n",255;
+				if (TkN == 0){
+					setquest 3300;
+					set TkN,1;
+				}
+				close2;
+				end;
+			case 2:
+				mes "Antes de ir para o Lobby, você deve falar com o <NAVI>Kyo<INFO>iz_ng01,109,70,0,000,0</INFO></NAVI>. Ele irá te ensinar algumas habilidades básicas.";
+				if (TkN == 0){
+					setquest 3300;
+					set TkN,1;
+				}
+				close2;
+				cutin "nadeshiko_n",255;
+				end;
+				}
+	
+	}
+
+
+
+
+iz_ng01,109,70,2	script	Kyo#01	10667,{		////////////////////////////////////////////////////////////
+//		if (#LNG == 1){
+//				.@F1$ = "Hello, Welcome to World Of Naruto.";
+//				.@F2$ = "My name is Kyo, I am one of the organizers of Clans and Battles Events.";
+//				.@F3$ = "I'm in charge of help your training.";
+//				.@F4$ = "Read this book to learn some basic habilities.";
+//				.@F5$ = "Go and inform <NAVI>Nadeshiko<INFO>iz_ng01,123,71,0,000,0</INFO></NAVI> your village. Don't forget to take a look in the book I gave you";
+//				.@F6$ = "Talk to <NAVI>Nadeshiko<INFO>iz_ng01,123,71,0,000,0</INFO></NAVI> before coming to see me";
+//		}
+//		if (#LNG == 2){
+//				.@F1$ = ""+(Sex?"Bem vindo":"Bem vinda")+" ao World Of Naruto.";
+//				.@F2$ = "O meu nome é Kyo. Eu sou um dos organizadores dos Clãs e dos Eventos de batalha.";
+//				.@F3$ = "Estou encarregado de ajudar no seu treino.";
+//				.@F4$ = "Leia esse livro para aprender algumas habilidades básicas.";
+//				.@F5$ = "Vá até a <NAVI>Nadeshiko<INFO>iz_ng01,123,71,0,000,0</INFO></NAVI> e informe a sua vila. Não se esqueça de dar uma lida no livro que eu te entreguei antes.";
+//				.@F6$ = "Fale com a <NAVI>Nadeshiko<INFO>iz_ng01,123,71,0,000,0</INFO></NAVI> antes de vir falar comigo."
+//				.@F8$ = "Leia o livro e fale com a Nadeshiko, ela irá nos levar para o Lobby";
+//				.@F9$ = "Já podemos ir para o lobby, diga a Nadeshiko que está pronto para ir para lá com o Tenso no Jutsu dela.";
+//				.@F10$ = "Pelo visto você já leu o primeiro volume e terminou o seu registro, aqui está o segundo volume. Fale novamente com a <NAVI>Nadeshiko<INFO>iz_ng01,123,71,0,000,0</INFO></NAVI> para continuar.";
+//				.@F11$ = "Leia o livro e fale com a Nadeshiko, ela irá nos levar para o Lobby.";
+//		}
+		
+	if (TkN == 0){
+		mes "[Kyo]";
+		mes .@F6$;	
+		cutin "kyo_n",2;
+	}
+	if (TkN == 1 || TkN == 2){
+		
+		cutin "kyo_n",2;
+			
+
+			if (TkK == 0){
+			cutin "kyo_n",2;
+				mes "[Kyo]";
+				mes ""+(Sex?"Bem vindo":"Bem vinda")+" ao World Of Naruto.";
+				mes "O meu nome é Kyo. Eu sou um dos organizadores dos Clãs e dos Eventos de batalha.";
+				mes "Estou encarregado de ajudar no seu treino.";
+				next;
+				mes "Leia esse livro para aprender algumas habilidades básicas.";
+				getitem 30103,1;
+				completequest 3300;
+				setquest 3301;
+				setquest 3303;
+				set TkN,2;
+				set TkK,1;
+			}
+			mes .@F5$;
+			close2;
+			cutin "kyo_n",255;
+			end;
+	}
+			if (TkN == 3) {
+			if (BK == 1){
+				if (BK2 == 0){
+					mes "Pelo visto você já leu o primeiro volume e terminou o seu registro, aqui está o segundo volume. Fale novamente com a <NAVI>Nadeshiko<INFO>iz_ng01,123,71,0,000,0</INFO></NAVI> para continuar.";
+					getitem 30104,1;
+					setquest 3302;
+					set BK2,1;
+					close2;
+					cutin "kyo_n",255;
+					end;
+				}
+				if (BK2 == 1){
+					mes "Leia o livro e fale com a Nadeshiko, ela irá nos levar para o Lobby.";
+					close2;
+					cutin "kyo_n",255;
+					end;
+				}
+				
+			}
+			if (BK == 2){
+				cutin "kyo_n",2;
+				mes .@F9$;
+				close2;
+				cutin "kyo_n",255;
+				end;
+			}
+			}
+	close2;
+	cutin "kyo_n",255;
+	end;
+}
+
+chunnin,94,146,4	script	Guarda da Arquibancada#Lobby1x	10021,{
+
+OnInit:
+//SetVisibility(1);
+End;
+}
+
+lobby_b,266,357,4	script	Guarda da Arquibancada#Lobby1	10021,{
+		query_sql ("select vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@VILL);
+		mes "Olá, "+strcharinfo(0)+", o que deseja?";
+		switch(select("Nada, obrigado:Voltar para a entrada:Ir para arquibancada da minha Vila:Ir para a arquibancada V.I.P.:Ir para a arquibancada VIP da minha vila")){
+		
+		case 1:
+		close;
+		
+		case 2:
+			warp "lobby_b",256,360;
+			end;
+			
+		case 3:
+			if (.@VILL == 2){
+				warp "lobby_b",330,253;
+				end;
+			}
+			if (.@VILL == 3){
+				warp "lobby_b",276,190;
+				end;
+			}
+			if (.@VILL == 4){
+				warp "lobby_b",180,251;
+				end;
+			}
+			if (.@VILL == 5){
+				warp "lobby_b",330,282;
+				end;
+			}
+			if (.@VILL == 6){
+				warp "lobby_b",183,287;
+				end;
+			}
+			
+			
+		end;
+		
+		case 4:
+		switch(select("Pista:Telhado - Centro: Telhado - <<: Telhado - >>:Cancelar")){
+			case 1:
+				warp "lobby_b",254,338;
+				end;
+			case 2:
+				warp "lobby_b",249,319;
+				end;
+			case 3:
+				warp "lobby_b",235,333;
+				end;
+			case 4:
+				warp "lobby_b",274,329;
+				end;
+			case 5:
+				close;
+		}
+		
+		case 5:
+		
+		
+		end;
+		
+		
+		close;
+		}
+}
+
+lobby_b,335,283,4	script	Guarda da Arquibancada#Lobbynuvem	10022,{
+	mes "Você deseja voltar para a entrada principal?";
+	switch(select("Sim, obrigado:Não, obrigado")){
+	
+	
+		case 1:
+			warp "lobby_b",256,360;
+			end;
+	
+	
+		case 2:
+			close;
+			end;
+}
+}
+
+lobby_b,336,250,4	script	Guarda da Arquibancada#Lobbykonoha	10023,{
+	mes "Você deseja voltar para a entrada principal?";
+	switch(select("Sim, obrigado:Não, obrigado")){
+	
+	
+		case 1:
+			warp "lobby_b",256,360;
+			end;
+	
+	
+		case 2:
+			close;
+			end;
+}
+}
+
+lobby_b,272,185,4	script	Guarda da Arquibancada#Lobbysuna	10021,{
+	mes "Você deseja voltar para a entrada principal?";
+	switch(select("Sim, obrigado:Não, obrigado")){
+	
+	
+		case 1:
+			warp "lobby_b",256,360;
+			end;
+	
+	
+		case 2:
+			close;
+			end;
+}
+}
+
+lobby_b,179,251,4	script	Guarda da Arquibancada#Lobbynevoa	10022,{
+	mes "Você deseja voltar para a entrada principal?";
+	switch(select("Sim, obrigado:Não, obrigado")){
+	
+	
+		case 1:
+			warp "lobby_b",256,360;
+			end;
+	
+	
+		case 2:
+			close;
+			end;
+}
+}
+
+lobby_b,175,296,4	script	Guarda da Arquibancada#Lobbypedra	10023,{
+	mes "Você deseja voltar para a entrada principal?";
+	switch(select("Sim, obrigado:Não, obrigado")){
+	
+	
+		case 1:
+			warp "lobby_b",256,360;
+			end;
+	
+	
+		case 2:
+			close;
+			end;
+}
+}
+
+lobby_b,263,364,4	script	Nadeshiko#Lobby	10668,{		////////////////////////////////////////////////////////////
+		query_sql ("select account_id from login where account_id='"+getcharid(3)+"'",.@meuid$);
+		query_sql ("select vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@VILL);
+		query_sql ("select dias_vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@vilatempo);
+		query_sql ("select cargo from woncharinfo where char_id='"+getcharid(0)+"'",.@CARG);
+		
+		if (#LNG == 2){
+		.@F1$ = "Olá, "+strcharinfo(0)+"!";
+		.@F2$ = "Está precisando de alguma coisa?";
+		.@F3$ = "O que é isso azul girando?";
+		.@F4$ = "Que lugar é esse?";
+		.@F5$ = "Pode repetir os comandos básicos do jogo?";
+		.@F6$ = "É o meu Tenso no Jutsu, com ele eu sou capaz de transportar objetos e pessoas para	qualquer lugar na velocidade da luz. Originalmente a técnica causaria muitos danos em quem é teleportado, mas eu posso te curar e evitar que isso aconteça. Não adianta pedir que eu não vou te mandar para nenhum lugar muito perigoso!!";
+		.@F7$ = "Esse é o ^4d4dffLobby^000000 do World Of Naruto!";
+		.@F8$ = "Aqui você pode se encontrar com todos os personagens do jogo, mesmo com pessoas de vilas diferentes da sua, nukenins, jinchuurikis e até membros da Akatsuki; mas não poderá capturá-los.";
+		.@F9$ = "Quer saber mais sobre o Lobby???";
+		.@F10$ = "Sim, quero saber mais.";
+		.@F11$ = "Não, já sei o suficiente.";
+		.@F12$ = "O Lobby é o local onde você irá interagir com outros personagens e descobrir formas de ficar mais forte.";
+		.@F13$ = "Você pode escolher diferentes maneiras de evoluir.";
+		.@F14$ = "O Lobby também te da acesso à <NAVI>Arquibancada da Sala de Shiken<INFO>que_qaru05,277,298,0,000,0</INFO></NAVI>, onde você poderá ir assistir alguns eventos como o ^4d4dffChunnin Shiken^000000.";
+		.@F15$ = "Você também pode visitar a ^4d4dffSala de Eventos^000000.";
+		.@F16$ = "Se você for um Jogador VIP, você poderá entrar na <NAVI>Sala VIP<INFO>que_qaru05,259,377,0,000,0</INFO></NAVI> cuja entrada fica aqui do lado, nela você encontrará muitos NPC's úteis que podem te ajudar.";
+		.@F17$ = "Então até logo!";
+		if (.@VILL == 2 || .@VILL == 3 || .@VILL == 4 || .@VILL == 5 || .@VILL == 6 || .@VILL == 7 ){
+			.@F18$ = "Abandonar vila";
+		}
+		if (.@VILL == 8 ){
+			.@F18$ = "Ingressar em uma vila";
+		}
+		.@F19$ = "Há quanto tempo estou na minha vila?";
+		.@F20$ = "Quero saber mais sobre as vilas.";
+		.@F21$ = "?";
+		}
+		
+		
+		mes .@F1$;
+		mes .@F2$;
+		cutin "nadeshiko_n",1;
+		
+		switch(select(.@F3$,.@F4$,.@F5$,.@F18$,.@F19$,.@F20$)){
+	
+		case 1:
+		next;
+		mes .@F6$;
+		cutin "nadeshiko_n",1;
+		close2;
+		cutin "nadeshiko_n",255;
+		end;
+		
+		case 2:
+		next;
+		mes .@F7$;
+		mes .@F8$;
+		cutin "nadeshiko_n",1;
+		next;
+		mes .@F9$;
+		cutin "nadeshiko_n",1;
+		next;
+		switch(select(.@F10$,.@F11$)){
+			case 1:
+				mes .@F12$;
+				mes .@F13$;
+			cutin "nadeshiko_n",1;
+				mes .@F14$;
+				cutin "nadeshiko_n",1;
+			next;
+				mes .@F15$;
+			cutin "nadeshiko_n",1;
+				next;
+				mes .@F16$;
+			cutin "nadeshiko_n",1;
+				close2;
+			cutin "nadeshiko_n",255;
+				end;
+			case 2:
+				mes .@F17$;
+				cutin "nadeshiko_n",1;
+				close2;
+				cutin "nadeshiko_n",255;
+				end;		
+		}
+		
+			case 3:
+				callfunc "funcwons";
+				end;
+				
+			case 4:
+				if (.@VILL == 2 || .@VILL == 3 || .@VILL == 4 || .@VILL == 5 || .@VILL == 6 || .@VILL == 7 ){
+					next;
+					if(.@vilatempo >= 10) goto checknukejob;
+						mes "Você não pode abandonar sua vila porque não possui tempo o suficiente nela, você precisa de 10 dias na vila e você tem "+.@vilatempo+" Dia(s)";
+						cutin "nadeshiko_n",2;
+						close2;
+						cutin "nadeshiko_n",255;
+						end;
+				}
+				if (.@VILL == 8){
+						mes "Deseja ingressar em uma vila?";
+						cutin "nadeshiko_n",1;
+						menu "Sim",-,"Não, obrigado",Cancel,"Quero saber mais sobre as vilas",sabermais;
+					if(.@vilatempo <= 10) goto nukenotleave;
+						mes "Escolha sua vila com cuidado, você só poderá sair dela após 10 dias e a escolha é válida para todos os seus personagens.";
+						menu "Vila Oculta da Folha",konoha,"Vila Oculta da Areia",suna,"Vila Oculta da Névoa",kiri,"Sair",Cancel;
+				}
+				end;
+						
+			case 5:
+				mes "Você está na sua vila há "+.@vilatempo+" Dia(s)";
+				mes "Os dias são contados com a passagem da meia-noite";
+				cutin "nadeshiko_n",2;
+				close2;
+				cutin "nadeshiko_n",255;
+				end;
+				
+			case 6:
+				goto sabermais;
+				end;
+	}
+	
+		
+		
+	sabermais:
+		next;
+			mes "O nosso mundo é dividido em vilas.";
+			mes "Ao escolher uma vila ela se torna seu lar, você será levado até ela sempre que for derrotado.";
+			mes "Nela você pode completar missões, passar de cargo seus personagens (genin, chunin, jounin) e, quem sabe, se tornar kage um dia.";
+			cutin "nadeshiko_n",1;
+			next;
+			mes "Existem outros cargos na vila como Anbu, Líder Anbu e Jinchuuriki, que são definidos em eventos chamados Shikens e que podem ser substituidos a qualquer momento.";
+			cutin "nadeshiko_n",1;
+			next;
+			mes "A partir do momento que você escolhe uma vila você deve permanecer por pelo menos 10 dias. Caso você já tenha se tornado um jounin, você poderá optar por abandonar vila e se tornar um Nukenin.";
+			cutin "nadeshiko_n",1;
+			next;
+			mes "Os nukenins completam missões para mercenários. Apesar do nome comum, eles não são uma unidade e podem se atacar em áreas de PvP.";
+			mes "Para voltar à sua vila antiga ou ingressar em uma nova você deve aguardar 10 dias após ter se tornado um Nukenin. Para tentar ser um membro da Akatsuki você precisa estar como Nukenin por pelo menos 15 dias.";
+			cutin "nadeshiko_n",1;
+			next;
+			mes "Deseja saber mais sobre as vilas e seus cargos?";
+			cutin "nadeshiko_n",1;
+			menu "Não, Obrigado",Cancel,"Sim, quero saber mais",sabermuitomais;
+			next;
+			cutin "nadeshiko_n",255;
+			end;
+			
+	sabermuitomais:
+			next;
+			mes "Sobre o que quer saber?";
+			menu "Qual a vantagem de ter um cargo?",cargoinfo,"O que são Shikens?", shikinfo,"As vilas possuem diferenças?",vilainfo,"sair",Cancel;
+			end;
+						cargoinfo:
+					next;
+					mes "Um cargo te da vantagens de status, deixando o seu personagem mais forte em status e te dando jutsus especiais.","O líder akatsuki, por exemplo, pode invocar a estátua Gedou Mazo para tomar o biju de um jinchuuriki fora do esconderijo akatsuki.","Os outros akatsukis, por outro lado, possuem habilidades para prender e levar o jinchuuriki até o esconderijo akatsuki";
+					next;
+					mes "Os Anbus possuem jutsus que identificam a localização de pessoas dentro da vila e nos arredores.";
+					next;
+					mes "O jinchuuriki possui habilidades especiais, boatos dizem que, com treinamento, alguns podem se tornar o próprio bijuu no campo de batalha.";
+					next;
+					mes "Os kages também possuem jutsus especiais dependendo da vila. É possivel que algum até consiga selar um bijuu sozinho";
+					next;
+					mes "Infelizmente isso é tudo que eu sei por enquanto... Lamento... Mas continue voltando, quem sabe eu descubro mais alguma coisa.";
+					close2;
+					cutin "nadeshiko_n",255;
+					end;
+
+						shikinfo:
+					next;
+					mes "Os shikens são eventos que podem ser somente PvP ou envolver algum tipo de estratégia diferente, nele ocorrem as premiações de cargos";
+					close2;
+					cutin "nadeshiko_n",255;
+					end;
+						vilainfo:
+					next;
+					mes "Sim, cada vila possui uma habilidade especial. A folha, por exemplo, tem mais Anbus devido à Anbu Ne. A Núvem possui inicialmente 2 Jinchuurikis e por aí vai...";
+					next;
+					mes "Infelizmente isso é tudo que eu sei por enquanto... Lamento... Mas continue voltando, quem sabe eu descubro mais alguma coisa.";
+					close;
+					cutin "nadeshiko_n",255;
+					end;
+					
+	konoha:
+					next;
+				mes "Seja bem vindo(a) à Vila Oculta da Folha.";
+				mes "Agora "+(Sex?"o senhor":"a senhora")+" pode ir para a sua vila usando a saída do lobby.";
+					//guild_addmember(2,getcharid(0));
+				set lobby,2;
+				cutin "",255;
+				dispbottom "Você está na Vila Oculta da Folha, essa escolha será aplicada em todos os personagens.";
+				query_sql("UPDATE `wonplayerinfo` SET `vila` = '2' WHERE `account_id` = '"+getcharid(3)+"'");
+				announce "O Jogador "+strcharinfo(0)+" entrou para a Vila Ocuta da Folha",bc_all,0xe57c00;
+				cutin "nadeshiko_n",1;
+				close;
+				cutin "nadeshiko_n",255;
+			end;
+	suna:
+					next;
+				mes "Seja "+(Sex?"bem vindo":"bem vinda")+" à Vila Oculta da Areia.";
+				mes "Agora "+(Sex?"o senhor":"a senhora")+" pode ir para a sua vila usando a saída do lobby.";
+				//guild_addmember(3,getcharid(0));
+				set lobby,3;
+				cutin "",255;
+				query_sql("UPDATE `wonplayerinfo` SET `vila` = '3' WHERE `account_id` = '"+getcharid(3)+"'");
+				announce "O Jogador "+strcharinfo(0)+" entrou para a Vila Ocuta da Areia",bc_all,0xe57c00;
+				cutin "nadeshiko_n",1;
+				close;
+				cutin "nadeshiko_n",255;
+			end;
+	kiri:
+					next;
+				mes "Seja "+(Sex?"bem vindo":"bem vinda")+" à Vila Oculta da Névoa.";
+				mes "Agora "+(Sex?"o senhor":"a senhora")+" pode ir para a sua vila usando a saída do lobby.";
+				//guild_addmember(4,getcharid(0));
+				set lobby,4;
+				cutin "",255;
+				query_sql("UPDATE `wonplayerinfo` SET `vila` = '4' WHERE `account_id` = '"+getcharid(3)+"'");
+				announce "O Jogador "+strcharinfo(0)+" entrou para a Vila Ocuta da Névoa",bc_all,0xe57c00;
+				cutin "nadeshiko_n",1;
+				close;
+				cutin "nadeshiko_n",255;
+			end;
+				checknukejob:
+				if(.@CARG > 1) goto nukenin;
+					next;
+				mes ""+(Sex?"O senhor":"A senhora")+" não pode se tornar "+(Sex?"um":"uma")+" Nukenin.";
+				mes "Você precisa ao menos ter se tornado um Chunnin.";
+				cutin "nadeshiko_n",1;
+				close;
+				cutin "nadeshiko_n",255;
+			end;
+
+			nukenotleave:
+			next;
+			mes ""+(Sex?"O senhor":"A senhora")+" não pode entrar em uma vila porque não foi Nukenin tempo o suficiente, você pelo menos 10 dias como nukenin e você tem "+.@vilatempo+" Dia(s)";		
+				close2;
+			cutin "nadeshiko_n",255;
+			end;
+			
+	Cancel:
+			next;
+			mes "Caso precise de algo é só me procurar...";
+			cutin "nadeshiko_n",1;
+			close2;
+			cutin "nadeshiko_n",255;
+		end;
+	
+	
+	nukenin:
+		dispbottom "Você se tornou um nukenin";
+		if (.@VILL == 2){
+			announce "O Jogador "+strcharinfo(0)+" saiu da Vila da Folha e se tornou um Nukenin",bc_all,0xe57c00;
+		}
+		if (.@VILL == 3){
+			announce "O Jogador "+strcharinfo(0)+" saiu da Vila da Areia e se tornou um Nukenin",bc_all,0xe57c00;
+		}
+		if (.@VILL == 4){
+			announce "O Jogador "+strcharinfo(0)+" saiu da Vila da Névoa e se tornou um Nukenin",bc_all,0xe57c00;
+		}
+		//guild_delmember getcharid(0);
+		query_sql("UPDATE `wonplayerinfo` SET `vila` = '8' WHERE `account_id` = '"+getcharid(3)+"'");
+		cutin "gc_mayssel03",255;
+		close;
+		end;
+	
+}
+
+que_qaru05,243,333,6	script	Funcionária Kafra#custom	861,{		////////////////////////////////////////////////////////////
+	cutin "kafra_09",2;
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo ao World Of Naruto!";
+	mes "Os serviços Kafra estarão sempre ao seu lado.";
+	mes "Como posso ajudá-lo?";
+	callfunc "F_Kafra",5,4,1,50,800;
+	savepoint "que_qaru05",252,339;
+	callfunc "F_KafEnd",0,1,"na Lobby do World Of Naruto";
+}
+
+
+prontera,150,182,6	script	Funcionária Kafra#prt	861,{
+	cutin "kafra_09",2;
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo ao World Of Naruto!";
+	mes "Os serviços Kafra estarão sempre ao seu lado.";
+	mes "Como posso ajudá-lo?";
+	callfunc "F_Kafra",5,4,1,50,800;
+	savepoint "prontera",156,191;
+	callfunc "F_KafEnd",0,1,"em prontera";
+}
+
+//================ Menu do Lobby =========================//
+
+
+
+
+lobby_b,246,364,6	script	Kyo#02	10667,{
+	getmapxy(.@dummy$, .@px, .@py, 0);			// get Player coordinates
+	getmapxy(.@dummy$, .@nx, .@ny, 1, strnpcinfo(3));	// get NPC coordinates
+	if (distance(.@px, .@py, .@nx, .@ny) > 250) {
+		mes "NÃO CONSIGO FALAR COM VOCÊ, VOCÊ ESTÁ MUITO LONGE!!!";
+		close;
+		end;
+	}
+		
+	cutin "kyo_n",2;
+	mes "Olá "+strcharinfo(0)+"!";
+	mes "Estou aqui para te ajudar a ficar mais forte.";
+	mes "O que você está procurando?";
+	next;
+	
+	set .@opa0$, "Ver o Rank da arena";
+	
+		if (Class == 4007){
+		if (chosemode == 0){
+			set .@opu1$, "Escolher o Modo do Clã Uzumaki";
+		}
+	}
+
+		if (Class == 4007){
+		if (getskilllv(1216) == 1){
+		if (getskilllv(1214) == 0){
+			set .@opu2$, "Aprender o Jutsu Kage Bunshin";
+			}
+		}
+		set .@opu2$, "Aprender o Jutsu Taijuu Kage Bunshin";
+	}
+	
+		if(getareausers("lobby_b",213,209,296,317) + getareausers("lobby_b",209,290,212,296) + getareausers("lobby_b",203,268,212,289) + getareausers("lobby_b",208,260,212,267) + getareausers("lobby_b",203,259,212,236) + getareausers("lobby_b",209,229,212,235) + getareausers("lobby_b",297,290,300,296) + getareausers("lobby_b",297,268,306,289) + getareausers("lobby_b",297,260,300,267) + getareausers("lobby_b",297,259,306,236) 
+		+ getareausers("lobby_b",297,229,300,235) == 1){
+			set .@opa2$, "Desafiar o jogador que está na arena.";
+	}
+	
+		if(getareausers("lobby_b",213,209,296,317) + getareausers("lobby_b",209,290,212,296) + getareausers("lobby_b",203,268,212,289) + getareausers("lobby_b",208,260,212,267) + getareausers("lobby_b",203,259,212,236) + getareausers("lobby_b",209,229,212,235) + getareausers("lobby_b",297,290,300,296) + getareausers("lobby_b",297,268,306,289) + getareausers("lobby_b",297,260,300,267) + getareausers("lobby_b",297,259,306,236) 
+		+ getareausers("lobby_b",297,229,300,235) == 0){
+			set .@opa1$, "Ir para a arena lutar contra um desafiante.";
+	}
+	
+	
+	
+menu .@opa0$,L_PvPR,.@opu1$,L_uzum,.@opu2$,L_uzum2,.@opa1$,L_APvP1,.@opa2$,L_APvP2;
+
+	L_PvPR:
+			mes "[Top 10 PvP Players]";
+            mes "^0000FFClã^000000 | ^FF0000Pontuação^000000 |";
+            query_sql "SELECT `char_id`, `pvp_point_total` FROM `woncharinfo` ORDER BY `woncharinfo`.`pvp_point_total` DESC LIMIT 10", .@char$, .@point;
+            for(set .@i, 0; .@i < getarraysize(.@char$); set .@i, .@i + 1){
+            mes .@i+1+". "+strcharinfo(0,.@char$[.@i])+" ^0000FF"+.@point[.@i]+"^000000 ^FF0000"+.@point[.@i]+"^000000 ";
+			}
+	close;
+	end;
+
+	L_APvP1:
+	if ($LBPVP1$ != "0"){
+		goto L_APvP2;
+	}
+	set $LBPVP1$, strcharinfo(0);
+	setcell "lobby_b",262,261,266,265,cell_walkable,0;
+	setcell "lobby_b",263,262,265,264,cell_walkable,1;
+	warp "lobby_b",264,263;
+	announce "O jogador "+strcharinfo(0)+" entrou na Arena e está aguardando um desafiante",bc_map,0xFF7C70;
+	
+	
+	close;
+	end;
+	
+	L_APvP2:
+	if ($LBPVP2$ != "0"){
+		mes "A arena lotou, você terá que esperar";
+		close;
+		end;
+	}
+	set $LBPVP2$, strcharinfo(0);
+	setcell "lobby_b",243,261,247,265,cell_walkable,0;
+	setcell "lobby_b",244,262,246,264,cell_walkable,1;
+	warp "lobby_b",245,263;
+	announce "O jogador "+$LBPVP2$+" aceitou o desafio de "+$LBPVP1$+"",bc_map,0xFF7C70;
+	sleep2 3000;
+	announce "A batalha irá começar em 10 segundos e durará 1 minuto",bc_self;
+	detachrid;
+	attachrid(getcharid(3,$LBPVP1$));
+	announce "A batalha irá começar em 10 segundos e durará 1 minuto",bc_self;
+	sleep2 5000;
+	announce "A batalha irá começar em 5 segundos",bc_self;
+	detachrid;
+	attachrid(getcharid(3,$LBPVP2$));
+	announce "A batalha irá começar em 5 segundos",bc_self;
+	sleep2 2000;
+	announce "3",bc_self;
+	detachrid;
+	attachrid(getcharid(3,$LBPVP1$));
+	announce "3",bc_self;
+	sleep2 1000;
+	announce "2",bc_self;
+	detachrid;
+	attachrid(getcharid(3,$LBPVP2$));
+	announce "2",bc_self;
+	sleep2 1000;
+	announce "1",bc_self;
+	detachrid;
+	attachrid(getcharid(3,$LBPVP1$));
+	announce "1",bc_self;
+	sleep2 1000;
+	setcell "lobby_b",261,260,267,266,cell_walkable,1;
+	setcell "lobby_b",242,260,248,266,cell_walkable,1;
+	announce "A batalha entre "+$LBPVP1$+" e "+$LBPVP2$+" começou!",bc_map,0xFF7C70;
+	addtimer 10000, strnpcinfo(3) + "::PVP1END";
+	end;
+	
+	PVP1END:
+	announce "A batalha entre "+$LBPVP1$+" e "+$LBPVP2$+" terminou em empate!",bc_map,0xFF7C70;
+	set $LBPVP1$, "0";
+	set $LBPVP2$, "0";
+	end;
+	
+	
+	L_uzum:
+			set .@loop,1;
+			while (.@loop) {
+			switch(select("Deixar para escolher depois:Quero saber mais sobre cada modo:Escolher o ^FFA500[ Modo Naruto ]^000000:Escolher o ^FF0072[ Modo Karin ]^000000:Escolher o ^C700FF[ Modo Nagato ]^000000:Escolher o ^FF0000[ Modo Kushina ]^000000")){
+				case 1:
+					mes "Tudo bem, até mais tarde";
+					set .@loop,0;
+					cutin "",255;
+					close;
+					end;
+				case 2:
+					mes "Você quer saber mais sobre qual modo?";
+					switch(select("^FFA500[ Modo Naruto ]^000000:^FF0072[ Modo Karin ]^000000:^C700FF[ Modo Nagato ]^000000:^FF0000[ Modo Kushina ]^000000:Voltar")){
+						case 1:
+						mes "tururu";
+						break;
+						case 2:
+						mes "tururu";
+						break;
+						case 3:
+						mes "tururu";
+						break;
+						case 4:
+						mes "tururu";
+						break;
+						case 5:
+						break;				
+					
+					}
+				close;
+				
+			
+				case 3:
+					next;
+					mes "Você escolheu o ^FFA500[ Modo Naruto ]^000000, deseja continuar?";
+					switch(select("Sim, essa é a minha escolha:Não, desejo escolher outro modo")){
+						case 1:
+							set .@loop,0;
+							set chosemode,1;
+							skill 1216,1,0;
+							cutin "",255;						
+							close;
+						case 2:
+							close;
+						}
+						
+				case 4:
+					next;
+					mes "Você escolheu o ^FF0072[ Modo Karin ]^000000, deseja continuar?";
+					switch(select("Sim, essa é a minha escolha:Não, desejo escolher outro modo")){
+						case 1:
+							set .@loop,0;
+							set chosemode,1;
+							skill 1218,1,0;
+							cutin "",255;
+							close;
+						case 2:
+							close;
+					}
+				
+				case 5:
+					mes "Você escolheu o ^C700FF[ Modo Nagato ]^000000, deseja continuar?";
+					switch(select("Sim, essa é a minha escolha:Não, desejo escolher outro modo")){
+						case 1:
+							set .@loop,0;
+							set chosemode,1;
+							skill 1217,1,0;
+							cutin "",255;
+							break;
+						case 2:
+							break;
+					}
+				
+				case 6:
+					mes "Você escolheu o ^FF0000[ Modo Kushina ]^000000, deseja continuar?";
+					switch(select("Sim, essa é a minha escolha:Não, desejo escolher outro modo")){
+						case 1:
+							set .@loop,0;
+							set chosemode,1;
+							skill 1219,1,0;
+							cutin "",255;
+							break;
+						case 2:
+							break;		
+
+			end;
+		
+			}					
+		}		
+		}		
+		L_uzum2:
+			close2;
+			end;
+					
+										
+	}
+
+new_1-2,94,102,4	script	Teleportador#02	468,{
+	mes "Olá "+strcharinfo(0)+"!";
+	mes "Deseja ir para algum dos lugares abaixo?";
+	next;
+	switch(select("Prontera:Sala de Eventos:Mercado Negro:Lobby")){
+		case 1:
+			mes "Até mais!";
+			close2;
+			warp "prontera",156,191;
+			end;
+		case 2:
+			mes "Até mais!";
+			close2;
+			warp "que_qaru05",116,156;
+			end;
+		case 3:
+			mes "Até mais!";
+			close2;
+			warp "force_3-1",100,91;
+			end;
+		case 4:
+			mes "Até mais!";
+			close2;
+			warp "que_qaru05",251,339;
+			end;
+	}
+	}
+
+
+
+
+function	script	funcwons2	{
+		query_sql ("select vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@VILL);
+
+					if (#LNG == 1){
+					.@F1$ = "Hello, Wellcome to World Of Naruto.";
+					.@F2$ = "My name is Nadeshiko, I am one of the organizers of village's record.";
+					.@F3$ = "Before you go anywhere, please inform me what's your clan.";
+					.@F4$ = "^0x83cf[ More information ]^000000";
+					.@F5$ = " Choose the ^00992D[ Clan Uzumaki  ]^000000";
+					.@F6$ = " Choose the^00992D[ Clan Uchiha ]^000000";
+					.@F7$ = " Choose the^00992D[ Clan Haruno ]^000000";
+					.@F8$ = " Choose the ^001ECE[ Clan Hatake ]^000000";
+					.@F9$ = " Choose the ^001ECE[ Clan Momochi ]^000000";
+					.@F10$ = " Choose the ^B71B00[ Clan Yuki ]^000000";
+					.@F11$ = "You cannot proceed before you tell me what is your clan, you can't change the records later on.";
+					.@F12$ = "The clan determines part of your abilities and the style of the ninjutsu specialty.";
+					.@F13$ = " For example the uchiha will be able to awaken the sharingan one day, who knows maybe even one day some of them will be capable to awaken susano's, some say they can even  achieve the rinnegan.";
+					.@F14$ = "I wish to inform my clan";
+					.@F15$ = "I wish to know a little more about the clan's subject";
+					}
+					
+					if (#LNG == 2){
+					.@F1$ = "Olá, "+(Sex?"Bem vindo":"Bem vinda")+" ao World Of Naruto.";
+					.@F2$ = "Meu nome é Nadeshiko e eu sou uma das organizadoras das vilas.";
+					.@F3$ = "Antes de começar a jogar você precisa me informar o seu Clã.";
+					.@F4$ = "^0x83cf[ Mais informações ]^000000";
+					.@F5$ = "Escolher o ^00992D[ Clã Uzumaki ]^000000";
+					.@F6$ = "Escolher o ^00992D[ Clã Uchiha ]^000000";
+					.@F7$ = "Escolher o ^00992D[ Clã Haruno ]^000000";
+					.@F8$ = "Escolher o ^001ECE[ Clã Hatake ]^000000";
+					.@F9$ = "Escolher o ^001ECE[ Clã Momochi ]^000000";
+					.@F10$ = "Escolher o ^B71B00[ Clã Yuki ]^000000";
+					.@F11$ = "Você não pode prosseguir sem antes me dizer qual é o seu clã, o registro não pode ser alterado depois.";
+					.@F12$ = "O clã determina parte de suas habilidades e direciona os seus ninjutsus especiais.";
+					.@F13$ = "Um Uchiha, por exemplo, dispertará o sharingan e, quem sabe um dia, será capaz de conseguir liberar o Susano'o e alguns até dizem que é possível despertar o Rinnegan";
+					.@F14$ = "Desejo escolher meu clã";
+					.@F15$ = "Desejo saber um pouco sobre o assunto";
+					.@F16$ = "Sobre o que deseja saber?";
+					.@F17$ = "[ Tipos de Classe ]";
+					.@F18$ = "^A09BFF[ Clã Uzumaki ]^000000:";
+					.@F19$ = "^E04C51[ Clã Uchiha ]^000000";
+					.@F20$ = "^EF4AB4[ Clã Haruno ]^000000";
+					.@F21$ = "^B3B0B7 [ Clã Hatake]^000000";
+					.@F22$ = "^3700A5[ Clã Momochi ]^000000";
+					.@F23$ = "^2FBCBA[ Clã Yuki ] ^000000";
+					.@F24$ = "Os Clãs sao divididos em 3 tipos diferentes, os ^00992DComuns^000000, os ^001ECERaros^000000 e ^001ECELendários^000000";
+					.@F25$ = "Os Clãs Comuns podem ser escolhidos a qualquer momento, basta criar um personagem novo e selecionar a opção.";
+					.@F26$ = "Os Clãs Raros e Lendários só podem ser escolhidos caso você os tenha liberado com outro personagem. Se isso acontecer, você estará livre para criar 1 personagem do clã obtido, mas cuidado, se o personagem novo for deletado você não recupera possibilidade de escolher novamente o Clã.";
+					.@F27$ = "Algumas classes podem ter subdivisoes. O Clã Uzumaki, por exemplo, possui diferentes modos de combate";
+					.@F28$ = "Foi um clã de destaque na extinta uzushiogakure. São parentes distantes do Cla Senju, com membros muito experientes na arte do Fuuinjutsu (Selamento)";
+					.@F29$ = "Caso está seja sua escolha, você verá que o Clã é dividido em modos de combates, dentre os quais você poderá usar 1 por vez.";
+					.@F30$ = "O ^FFA500[ Modo Naruto ]^000000 não possui pre-requisitos, caso deseje escolhe-lo, basta falar com o Lider do seu clã. Esse modo e forte em combates a curta e média distancia, com Jutsus destrutivos e poderosos.";
+					.@F31$ = "Os outros modos, como o ^FF0072[ Modo Karin]^000000 possuem pre-requisitos que devem ser anteriormente completos com outro personagem. Este modo é forte para combate em grupo, com jutsus poderos de cura e de selamento";
+					.@F32$ = "O ^C700FF[ Modo Nagato ]^000000 possui o Doujutsu (Técnica Ocular) Rinnegan, que da ao usuário habilidades dos 6 caminhos. Requer agilidade e destreza do usuário para alternar entre os caminhos enquanto luta.";
+					.@F33$ = "E por último o ^FF0000[ Modo Kushina ]^000000, tambem chamado de Modo Uzumaki Mito. Mistura tecnicas de combate fisico com poderosos Jutsus de selamento";
+					.@F34$ = "Clã descendente de Indra. São famosos pelo chakra poderoso, pelas tecnicas excepcionalmente fortes e aptidão com combate.";
+					.@F35$ = "O Clã Uchiha é possuidor de um dos 3 principais Doujutsus, o Sharingan, que permite esquivar, analisar e copiar com facilidade as habilidades do oponente.";
+					.@F36$ = "Possuem forte ninjutsu e genjutsu, mas alcancar um nível alto requer muito treinamento. Suas habilidades mais poderosas, como o Mangekyou Sharingan e o Izanagi, possuem fortes efeitos colaterais, então devem ser usadas com precaução.";
+					.@F37$ = "Clã que por muitos anos se possuiu pouco reconhecimento sobre, pois poucos de seus membros escolhiam se tornarem shinobis.";
+					.@F38$ = "Possuem exepcional manipulacao de chakra, o que contribui para desferir golpes poderosos nos adversarios, facilita o aprendizado de habilidades médicas e torna o usuário resistente a genjutsus.";
+					.@F39$ = "Você não pode sair antes de escolher a classe";
+					.@format$ = "Você selecionou o %s, tem certeza que essa é a sua opção e deseja prosseguir para o jogo";
+					.@F40$ = "Clã Uzumaki"
+					.@F41$ = "Clã Uchiha";
+					.@F42$ = "Clã Haruno";
+					.@F43$ = "Clã Hatake"; 
+					.@F44$ = "Clã Momochi"; 
+					.@F45$ = "Clã Yuki"; 
+					.@F50$ = "Sim";
+					.@F51$ = "Não";
+					.@F52$ = "Este clã ainda não está disponível, aguarde as próximas temporadas.";
+					.@F53$ = "Você não pode sair desse menu";
+					.@F54$ = "Eu preciso que você me diga a sua vila.";
+					.@F55$ = "A opção poderá ser alterada posteriormente e é válida para todos os personagens da sua conta.";
+					.@F56$ = "Caso futuramente você abandone a vila e se torne um Nukenin com um deles, todos os outros personagens abandarão.";
+					.@F57$ = "Vila Oculta da Folha";
+					.@F58$ = "Vila Oculta da Areia";
+					.@F59$ = "Vila Oculta da Névoa";
+					.@F60$ = "Vila Oculta da Núvem";
+					.@F61$ = "Vila Oculta da Pedra";
+					.@format2$ = "Seja "+(Sex?"bem vindo":"bem vinda")+" a %s";
+					.@format3$ = "Você está na %s, essa escolha será aplicada em todos os personagens.";
+					.@format4$ = "O jogador "+strcharinfo(0)+" entrou para a %s";
+					}
+					
+					if (#LNG == 4){
+					//JAPANESE, FIX W/ LANG
+					}
+			
+		if (Class == 0){
+				LOCK:			
+				mes .@F3$;
+				//cutin "nadeshiko_n",1;
+			set .@loop,1;
+			while (.@loop) {
+				switch(prompt(.@F4$,.@F5$,.@F6$,.@F7$,.@F8$,.@F9$,.@F10$)) {
+							case 1:
+								next;
+								mes .@F11$;
+								mes .@F12$;
+								mes .@F13$;
+								switch(prompt(.@F14$,.@F15$)){
+								
+									case 1:
+											break;
+									case 2:
+											mes .@F16$;
+											switch(prompt(.@F17$,.@F18$,.@F19$,.@F20$,.@F21$,.@F22$,.@F23$)){
+												case 1:
+													mes .@F24$;
+													next;
+													mes .@F25$;
+													next;
+													mes .@F26$;
+													next;
+													mes .@F27$;
+													break;
+												case 2:
+													next;
+													mes .@F28$;
+													mes .@F29$;
+													next;
+													mes .@F30$;
+													next;										
+													mes .@F31$;
+													next;
+													mes .@F32$;
+													next;
+													mes .@F33$;
+													break;
+												case 3:
+													mes .@F34;
+													mes .@F35;
+													mes .@F36;
+													break;
+												case 4:
+													mes .@F37;
+													mes .@F38;
+													break;
+													
+												case 255:
+													mes .@F39;
+													close;
+													break;		
+												
+											}				
+										break;
+																																		
+									case 255:
+											mes .@F39;
+											goto LOCK;
+											close;
+											break;	
+					}
+					break;
+					
+					
+				case 2:
+					mes sprintf(.@format$, .@F40$); 
+					switch(prompt(.@F50$,.@F51$)){
+					case 1:
+					next;
+					jobchange 4007;
+					set CLCHO, 1;
+					set .@loop,0;
+					break;
+					
+					case 2:
+					next;
+					break;
+					
+					case 255:
+											mes .@F39$;
+											goto LOCK;
+											close;
+											break;	
+					}
+					break;
+					
+					
+				case 3:
+					mes sprintf(.@format$, .@F41$); 
+					switch(prompt(.@F50$,.@F51$)){
+					case 1:
+					next;
+//					jobchange 0;
+					set .@loop,0;
+					
+					case 2:
+					break;
+					
+					case 255:
+											mes .@F39$;
+											goto LOCK;
+											close;
+											break;	
+					}
+					break;
+					
+				case 4:
+					mes sprintf(.@format$, .@F42$); 
+					switch(prompt(.@F50$,.@F51$)){
+					case 1:
+					next;
+//					jobchange 0;
+					set .@loop,0;
+					
+					case 2:
+					break;
+					
+					case 255:
+											mes .@F39$;
+											goto LOCK;
+											close;
+											break;	
+					}
+					break;
+					
+				case 5:
+					mes .@F43$;
+					mes .@F52$;
+					next;
+//					set .@loop,0;
+					break;
+				
+				case 6:
+//					mes .@F44$;
+					mes .@F52$;
+					next;
+//					set .@loop,0;
+					break;;
+							
+				case 7:
+//					mes .@F45$;
+					mes .@F52$;
+					next;
+//					set .@loop,0;
+					break;
+					
+				case 255:
+					mes .@F53$;
+					goto LOCK;
+					close;
+					break;		
+		
+				}
+				
+			}
+			}
+		next;
+		
+		if (.@VILL == 0){
+									//cutin "nadeshiko_n",1;
+									mes .@F54$;
+									mes .@F55$;
+									mes .@F56$;
+									set .@loop2,1;
+									while (.@loop2) {
+									switch(prompt(.@F57$,.@F58$,.@F59$,.@F60$,.@F61$)){									
+							case 1:		//leafv
+											next;
+										mes sprintf(.@format2$, .@F57$);
+											next;
+											//guild_addmember(2,getcharid(0));
+											set lobby,2;
+
+										mes sprintf(.@format3$, .@F57$);
+										query_sql("UPDATE `wonplayerinfo` SET `vila` = '2' WHERE `account_id` = '"+getcharid(3)+"'");
+										announce sprintf(.@format4$, .@F57$),bc_all,0xe57c00;
+										close2;
+									return;
+							case 2:		//sandv
+											next;
+										mes sprintf(.@format2$, .@F58$);
+											//guild_addmember(3,getcharid(0));
+										set lobby,3;
+
+										mes sprintf(.@format3$, .@F58$);
+										query_sql("UPDATE `wonplayerinfo` SET `vila` = '3' WHERE `account_id` = '"+getcharid(3)+"'");
+										announce sprintf(.@format4$, .@F58$),bc_all,0xe57c00;
+										close2;
+									return;
+							case 3:		//mist
+											next;
+										mes sprintf(.@format2$, .@F59$);
+											//guild_addmember(4,getcharid(0));
+										set lobby,4;
+										
+										mes sprintf(.@format3$, .@F59$);
+										query_sql("UPDATE `wonplayerinfo` SET `vila` = '4' WHERE `account_id` = '"+getcharid(3)+"'");
+										announce sprintf(.@format4$, .@F59$),bc_all,0xe57c00;
+										close2;
+									return;			
+			
+							case 4:		//cloud
+											next;
+										mes sprintf(.@format2$, .@F60$);
+											//guild_addmember(4,getcharid(0));
+										set lobby,4;
+										
+										mes sprintf(.@format3$, .@F60$);
+										query_sql("UPDATE `wonplayerinfo` SET `vila` = '5' WHERE `account_id` = '"+getcharid(3)+"'");
+										announce sprintf(.@format4$, .@F60$),bc_all,0xe57c00;
+										close2;
+									return;	
+									
+							case 5:		//stone
+											next;
+										mes sprintf(.@format2$, .@F61$);
+											//guild_addmember(4,getcharid(0));
+										set lobby,4;
+										
+										mes sprintf(.@format3$, .@F60$);
+										query_sql("UPDATE `wonplayerinfo` SET `vila` = '6' WHERE `account_id` = '"+getcharid(3)+"'");
+										announce sprintf(.@format4$, .@F60$),bc_all,0xe57c00;
+										close2;
+									return;	
+							
+							case 255:
+										mes .@F53$;
+										break;
+								}
+						}
+			
+	}
+	return;
+	}
+
+
+
+
+function	script	funcwons	{
+			if (#LNG == 1){
+				next;
+					mes "Click on the [Next] button or press [Enter] to continue.";
+					next;
+					mes "All the basic ^4d4dffmoves, selection of items, and attacks^000000 use the ^4d4dff left click of the mouse^000000.";
+					mes "Clique no chão para mover seu personagem.";
+					mes "Click on the ground to move the character.";
+					mes "Attacking monsters and conversations with the people of this world can be done by simply clicking on them.";
+				cutin "tutorial01",3;
+					next;
+					mes "The mission Info Window, as the name say for itself, show you the missions that you are involved!";
+					mes "You can open the Mission Info Window by pressing the ^4d4dffAlt + U^000000 keys at the same time.";
+				cutin "tutorial02",3;
+					next;
+					mes "Item are ^ 4d4dffequipped and used ^ 000000 by ^ 4d4dffclicking ^ 000000 twice. The same is done to remove them";
+					mes "The present for the Inventory is ^ 4d4dffALT + E ^ 000000.";
+				cutin "tutorial03",3;
+					next;
+					mes "To check the ^ 4d4dffitens that are equipped ^ 000000, the shortcut is ^ 4d4dffAlt + Q ^ 000000.";
+					mes "You can also drag the item to the location where you want to equip it.";
+				cutin "tutorial03",3;
+					next;
+					mes "To show ^ 4d4dffinformations about the item ^ 000000 just click with the ^ 4d4dff right mouse button ^ 000000.";
+					mes "The same action in other characters shows a menu that allows ^ 4d4dff to invite to a group, exchange items, etc. ^ 000000.";
+				cutin "tutorial04",3;
+					next;
+					mes "^ 4d4dffTo add items, jutsus or equipment ^ 000000 in the hotkey you just need to click and drag to the desired slot, this will allow you to use them with the keyboard.";
+					mes "Jutsus or items can be used / equipped by pressing the corresponding key.";
+				cutin "tutorial05",3;
+					next;	
+					mes "You can customize your Hot Key to use any key you want by going to ^ 4d4dff Shortcut Settings ^ 000000 in the menu options.";
+				cutin "tutorial05",3;
+					next;
+					mes "If you hadn't yet, go and talk to Kyo <NAVI>Kyo<INFO>iz_ng01,25,21,0,000,0</INFO></NAVI>.";
+				cutin "nadeshiko_n",1;
+					next;
+					mes "With the 'Esc' tile you can close the screen or image that remains open in the front. For more tips type \"/tip\".";
+				cutin "nadeshiko_n",1;
+					close2;
+				cutin "nadeshiko_n",255;
+			}
+			if (#LNG == 2){
+				next;
+					mes "Clique em [Próximo] ou pressione [Enter] para continuar.";
+					next;
+					mes "Todas as ações básicas como ^4d4dffmover, selecionar itens e atacar^000000 são controladas com ^4d4dff o botão esquerdo do mouse^000000.";
+					mes "Clique no chão para mover seu personagem.";
+					mes "Para ^4d4dffmover^000000 você precisa clicar onde quer ir.";
+					mes "Para ^4d4dffatacar^000000 você deve clicar no monstro ou personagem que deseja atacar.";
+				cutin "tutorial01",3;
+					next;
+					mes "Na janela de Missões, você encontra informações sobre as missões que o seu personagem está envolvido!";
+					mes "Você pode abrir a ^4d4dffJanela de Missões^000000 precionando as teclas ^4d4dffAlt + U^000000 ao mesmo tempo.";
+				cutin "tutorial02",3;
+					next;
+					mes "Item são ^4d4dffequipados e usados^000000 ao ^4d4dffclicar^000000 duas vezes. O mesmo é feito para remove-los";
+					mes "O atalho para o Inventário é  ^4d4dffALT + E^000000.";
+				cutin "tutorial03",3;
+					next;
+					mes "Para conferir os ^4d4dffitens que estão equipados^000000, o atalho é ^4d4dffAlt+Q^000000.";
+					mes "Você também pode arrastar o item para o local em que deseja equipá-lo.";
+				cutin "tutorial03",3;
+					next;
+					mes "Para mostrar ^4d4dffinformações sobre o item^000000 basta clicar com o ^4d4dffbotão direito do Mouse^000000.";
+					mes "A mesma ação em outros personagens mostra um menu que permite ^4d4dffconvidar para um grupo, trocar itens, etc^000000.";
+				cutin "tutorial04",3;
+					next;
+					mes "^4d4dffPara adicionar itens, jutsus ou equipamentos^000000 na Hotkey você só precisa clicar e arrastar até o slot desejado. Isso lhe permitirá usa-los com o teclado.";
+					mes "Jutsus registrados ou itens podem ser usados/equipados precionando a tecla correspondente.";
+				cutin "tutorial05",3;
+					next;	
+					mes "Você pode personalizar sua Hot Key para usar qualquer tecla que desejar indo em ^4d4dffConfigurações de Atalho^000000 nas opções do menu.";
+				cutin "tutorial05",3;
+					next;
+					mes "Com a telha 'Esc' você pode fechar a tela ou imagem que ficar aberta na frente. Para ver mais dicas digite \"/tip\".";
+				cutin "nadeshiko_n",1;
+					close2;
+				cutin "nadeshiko_n",255;
+			}
+			return;
+			end;
+}

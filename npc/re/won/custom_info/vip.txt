@@ -1,0 +1,299 @@
+function	script	vip1	{
+// 1 DIA
+        if (getgroupid() >= 5){        
+        dispbottom "Você tem permissões elevadas.";
+        dispbottom "O item não tem efeito sobre você.";
+        }
+        if (getgroupid() < 1){
+        query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`+24 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Parabéns! Foram colocados 1 dia de VIP na sua Conta.";
+        dispbottom "Relogue no jogo para que as alterações sejam feitas.";
+        }
+        if (getgroupid() == 1){
+        query_sql "UPDATE `login` SET `diasvip`=`diasvip`+24 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Foram adicionados mais 1 dias Vips!.";
+        }
+        return 0;
+        }
+		
+function	script	vip3	{
+// 3 DIAS
+        if (getgroupid() >= 5){        
+        dispbottom "Você tem permissões elevadas.";
+        dispbottom "O item não tem efeito sobre você.";
+        }
+        if (getgroupid() < 1){
+        query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`+72 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Parabéns! Foram colocados 3 dias de VIP na sua Conta.";
+        dispbottom "Relogue no jogo para que as alterações sejam feitas.";
+        }
+        if (getgroupid() == 1){
+        query_sql "UPDATE `login` SET `diasvip`=`diasvip`+72 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Foram adicionados mais 3 dias Vips!.";
+        }
+        return 0;
+        }
+		
+function	script	vip5	{
+// 5 DIAS
+        if (getgroupid() >= 5){        
+        dispbottom "Você tem permissões elevadas.";
+        dispbottom "O item não tem efeito sobre você.";
+        }
+        if (getgroupid() < 1){
+        query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`+120 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Parabéns! Foram colocados 1 dia de VIP na sua Conta.";
+        dispbottom "Relogue no jogo para que as alteraçõe sejam feitas.";
+        }
+        if (getgroupid() == 1){
+        query_sql "UPDATE `login` SET `diasvip`=`diasvip`+120 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Foram adicionados mais 1 dias Vips!.";
+        }
+        return 0;
+        }
+		
+function	script	vip10	{
+// 10 DIAS
+        if (getgroupid() >= 5){        
+        dispbottom "Você tem permissões elevadas.";
+        dispbottom "O item não tem efeito sobre você.";
+        }
+        if (getgroupid() < 1){
+        query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`+240 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Parabéns! Foram colocados 1 dia de VIP na sua Conta.";
+        dispbottom "Relogue no jogo para que as alteraçõe sejam feitas.";
+        }
+        if (getgroupid() == 1){
+        query_sql "UPDATE `login` SET `diasvip`=`diasvip`+240 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Foram adicionados mais 1 dias Vips!.";
+        }
+        return 0;
+        }
+		
+function	script	vip15	{
+// 15 DIAS
+        if (getgroupid() >= 5){        
+        dispbottom "Você tem permissões elevadas.";
+        dispbottom "O item não tem efeito sobre você.";
+        }
+        if (getgroupid() < 1){
+        query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`+360 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Parabéns! Foram colocados 1 dia de VIP na sua Conta.";
+        dispbottom "Relogue no jogo para que as alteraçõe sejam feitas.";
+        }
+        if (getgroupid() == 1){
+        query_sql "UPDATE `login` SET `diasvip`=`diasvip`+360 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Foram adicionados mais 1 dias Vips!.";
+        }
+        return 0;
+        }
+		
+function	script	vip20	{
+// 20 DIAS
+        if (getgroupid() >= 5){        
+        dispbottom "Você tem permissões elevadas.";
+        dispbottom "O item não tem efeito sobre você.";
+        }
+        if (getgroupid() < 1){
+        query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`+480 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Parabéns! Foram colocados 1 dia de VIP na sua Conta.";
+        dispbottom "Relogue no jogo para que as alteraçõe sejam feitas.";
+        }
+        if (getgroupid() == 1){
+        query_sql "UPDATE `login` SET `diasvip`=`diasvip`+480 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Foram adicionados mais 1 dias Vips!.";
+        }
+        return 0;
+        }
+		
+function	script	vip30	{
+// 30 DIAS
+        if (getgroupid() >= 5){        
+        dispbottom "Você tem permissões elevadas.";
+        dispbottom "O item não tem efeito sobre você.";
+        }
+        if (getgroupid() < 1){
+        query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`+720 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Parabéns! Foram colocados 1 dia de VIP na sua Conta.";
+        dispbottom "Relogue no jogo para que as alteraçõe sejam feitas.";
+        }
+        if (getgroupid() == 1){
+        query_sql "UPDATE `login` SET `diasvip`=`diasvip`+720 WHERE `account_id`='"+ getcharid(3) +"'";
+        dispbottom "Foram adicionados mais 1 dias Vips!.";
+        }
+        return 0;
+        }
+		
+// diminuidor de dias
+-	script	retirando#vip	-1,{
+
+OnMinute30:
+	query_sql "UPDATE `login` SET `diasvip`=`diasvip`-1 WHERE `group_id`='1'";
+	end;
+OnMinute31:
+	query_sql "UPDATE `login` SET `group_id`='0' WHERE `diasvip`<='0' AND `group_id`='1'";
+	end;
+}
+
+
+
+
+
+
+
+
+
+prontera,164,172,3	script	Sistema Vip	560,{
+
+//====== Configurações =======================================
+set @npc$,"[^FF7F24Sistema Vip^000000]"; // Nome do npc
+set @srv$,"Golden World Of Naruto"; // Nome do seu servidor
+set @lvl,99; // Level da conta para administrar o vip
+set @price,10000; // Preço dos dias vip.
+set @dias,720; // Quantidade de dias vip.
+set @map$,"sec_in02"; // Mapa da sala vip
+set @x,132; // Coordenada x do mapa da sala vip
+set @y,161; // Coordenada y do mapa da sala vip
+//============================================================
+
+if (getgroupid() < @lvl){
+if (getgroupid() < 1){
+mes @npc$;
+mes "Me desculpe mais você não é vip, deseja adquirir seu vip agora mesmo?";
+if (select("- Sim:- Não") == 2) close;
+
+    mes @npc$;
+    mes "Você pode adquirir "+@dias+" dias vip por apenas "+@price+" Cashs ";
+    mes "Deseja comprar?";
+    if (select("- Sim:- Não") == 2) close;
+    
+    if(#CASHPOINTS < @price){ next; mes @npc$; mes "Desculpe mas você não possui cash suficiente"; close; }
+    next;
+    mes @npc$;
+    mes "Parabéns seus dias vip foram adquiridos com sucesso, relogue para ativar";
+    query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`+"+@dias+" WHERE `account_id`='"+ getcharid(3) +"'";
+    set #CASHPOINTS,#CASHPOINTS-@price;
+    close;
+    }
+    
+        mes @npc$;
+        query_sql "SELECT `diasvip` FROM `login` WHERE `account_id` = '"+getcharid(3)+"'", .@diasvip;
+        mes "Olá ^FF7F24"+strcharinfo(0)+"^000000 !";
+        mes "Você Possui ^00BFFF"+.@diasvip+"^000000 Dias VIP.";
+        mes "Deseja ir para a Sala Vip ?";
+        if (select("- Sim:- Não") == 2) close;
+        
+        close2;
+        warp @map$,@x,@Y;
+        end;
+    }
+
+
+mes @npc$;
+mes "Olá "+strcharinfo(0)+" o que deseja administrar no sistema vip?";
+switch(select("- Adicionar Vip:- Remover Vip:- Ver dias vip")){
+
+case 1:
+    next;
+    mes @npc$;
+    mes "Digite o login da conta que deseja adicionar os dias vip";
+    input .@conta$;
+
+    query_sql "SELECT `account_id` FROM `login` WHERE `userid`='"+.@conta$+"'",.@cont;
+    if(.@cont == 0)
+    {
+    next;
+    mes @npc$;
+    mes "Desculpe mais você não digitou o login da conta corretamente.";
+    close;
+}
+    next;
+    mes @npc$;
+    mes "Agora digite a quantidade de dias vip que deseja adicionar a conta "+.@conta$+".";
+    input .@quant;
+            if(.@quant == 0)
+            {
+            next;
+            mes @npc$;
+            mes "Desculpe mas você digitou uma quantidade invalida.";
+            close;
+            }
+    next;
+    mes @npc$;
+    mes "Tem certeza que deseja adicionar ^00BFFF"+.@quant+"^000000 dias vip na conta ^00BFFF"+.@conta$+"^000000?";
+    if (select("- Sim:- Não") == 2) close;
+    
+    next;
+        mes @npc$;
+        mes "Os dias vip da conta "+@conta$+" foram adicionados com sucesso.";
+        query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`+"+.@quant+" WHERE `userid`='"+.@conta$+"'";
+        close;
+
+case 2:
+    next;
+    mes @npc$;
+    mes "Digite o login da conta que deseja remover os dias vip";
+    input .@conta$;
+            query_sql "SELECT `account_id` FROM `login` WHERE `userid`='"+.@conta$+"'",.@cont;
+            if(.@cont == 0)
+            {
+            next;
+            mes @npc$;
+            mes "Desculpe mais você não digitou o login da conta corretamente.";
+            close;
+            }
+    next;
+    mes @npc$;
+    mes "Agora digite a quantidade de dias vip que deseja remover da conta "+.@conta$+".";
+    input .@quant;
+            if(.@quant == 0)
+            {
+            next;
+            mes @npc$;
+            mes "Desculpe mas você digitou uma quantidade invalida.";
+            close;
+            }
+    next;
+    mes @npc$;
+    mes "Tem certeza que deseja remover ^00BFFF"+.@quant+"^000000 dias vip da conta ^00BFFF"+.@conta$+"^000000?";
+    if (select("- Sim:- Não") == 2) close;
+    
+        next;
+        mes @npc$;
+        mes "Os dias vip da conta "+@conta1$+" foram removidos com sucesso.";
+        query_sql "UPDATE `login` SET `group_id`='1',`diasvip`=`diasvip`-"+.@quant+" WHERE `userid`='"+.@conta$+"'";
+        close;
+
+case 3:
+    next;
+    mes @npc$;
+    mes "Digite o login da conta que deseja ver a quantidade de dias vip";
+    input .@conta$;
+            query_sql "SELECT `account_id` FROM `login` WHERE `userid`='"+.@conta$+"'",.@cont;
+            if(.@cont == 0)
+            {
+            next;
+            mes @npc$;
+            mes "Desculpe mais você não digitou o login da conta corretamente.";
+            close;
+            }
+    next;
+    mes @npc$;
+    query_sql "SELECT `diasvip` FROM `login` WHERE `userid` = '"+.@conta$+"'", .@diasvip;
+    mes "A Conta ^00BFFF"+.@conta$+"^000000 Possui ^00BFFF"+.@diasvip+"^000000 dias de vip.";
+    close;
+}
+}
+
+
+
+-	script	loginvip#info	-1,{
+
+OnPCLoginEvent:
+	query_sql "SELECT `diasvip` FROM `login` WHERE `account_id` = '"+ getcharid(3) +"'", .@diasvip;
+	        if (.@diasvip > 0)
+		{
+			dispbottom "[Controle VIP]: Você ainda tem "+.@diasvip+" hora(s) de VIP.";
+		}
+	end;
+}

@@ -1,0 +1,33 @@
+new_1-2,95,83,5	script	Uzumaki Naruto	10210,{
+cutin "naruto",2;
+mes "[Uzumaki Naruto]";
+mes "Você quer escolher a classe Uzumaki Naruto?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class > 0) goto neh;
+jobchange 4007; 
+getitem 19008,1;
+next;
+
+mes "^FF9900[Uzumaki Naruto]^000000";
+mes "Parabéns, agora você é da classe Uzumaki Naruto!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Uzumaki Naruto",0;
+cutin "",255;
+close;
+
+neh:
+next;
+mes "^FF9900[Uzumaki Naruto]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+cutin "",255;
+close;
+
+nao:
+next;
+mes "^FF9900[Uzumaki Naruto]^000000";
+mes "Estarei esperando caso mude de ideia.";
+cutin "",255;
+close;
+}

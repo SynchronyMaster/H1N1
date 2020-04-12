@@ -1,0 +1,42 @@
+//	lobby_b,252,233,4	script	Uzumaki#L	601,{
+//			OnInit:
+//			SetVisibility(1);
+//			End;
+//			
+//			mes "Olá, eu sou o líder do Clã Uzumaki";	
+//	}
+//	lobby_b,252,233,4	script	Uchiha#L	601,{
+//			OnInit:
+//			SetVisibility(2);
+//			End;
+//			
+//			mes "Olá, eu sou o líder do Clã Uchiha";	
+//	}
+//
+//	lobby_b,252,233,4	script	Haruno#L	601,{
+//			OnInit:
+//			SetVisibility(1);
+//			End;
+//			
+//			mes "Olá, eu sou o líder do Clã Haruno";	
+//	}
+//	lobby_b,252,233,4	script	Hatake#0L	601,{
+//			OnInit:
+//			SetVisibility(2);
+//			End;
+//			
+//			mes "Olá, eu sou o líder do Clã Hatake";	
+//	}
+
+
+
+//lobby_b,250,230,4	script	Visão#02	601,{
+//	mes "Deseja alterar o seu \"npcvisibility\" para poder ver o NPC Teste2?";
+//	if(select("Sim:Não")==2) close;
+//	input .@valor;
+//	set npcvisibility, .@valor;
+//	close2;
+//	atcommand "@refresh";
+//	end;
+//}
+//}

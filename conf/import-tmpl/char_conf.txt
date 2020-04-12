@@ -1,0 +1,45 @@
+server_name: WON
+wisp_server_name: World Of Naruto
+
+//login_ip: 127.0.0.1
+login_ip: wonnaruto.ddns.net
+//char_ip: 127.0.0.1
+char_ip: wonnaruto.ddns.net
+
+// 0=normal, 1=maintenance, 2=over 18, 3=paying, 4=P2P
+char_maintenance: 0
+gm_allow_group: 19
+start_point: iz_ng01,129,64:iz_ng01,131,64:iz_ng01,129,62:iz_ng01,131,62
+start_items: 1201,1,2:2301,1,16
+start_items_doram: 1681,1,2:2301,1,16
+char_name_letters: abcdefghijklmnopqrstuvwxyzÁÉÍÓÚáéíóúÀÈÌÒÙàèìòùÂÊÎÔÛâêîôûÃÕãõÄËÏÖÜäëïöüñÑ ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
+char_del_delay: 259200
+char_del_option: 1
+char_del_restriction: 3
+allowed_job_flag: 1
+
+// NOTE: Requires client 2011-03-09aragexeRE or newer.
+// A window is opened before you can select your character and you will have to enter a pincode by using only your mouse.
+// Default: yes
+pincode_enabled: yes
+
+// How often does a user have to change his pincode?
+// 0: never (default)
+// X: every X days
+pincode_changetime: 0
+
+// How often can a user enter the wrong pincode?
+// Default: 3 (client maximum)
+pincode_maxtry: 3
+
+// Are users forced to use a pincode when the system is enabled?
+// Default: yes
+pincode_force: yes
+
+// Are repeated numbers allowed?
+// Default: no
+pincode_allow_repeated: yes
+
+// Are sequential numbers allowed?
+// Default: no
+pincode_allow_sequential: yes

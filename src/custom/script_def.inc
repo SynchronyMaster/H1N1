@@ -9,3 +9,13 @@
  **/
 
 //BUILDIN_DEF(example,""),
+		//World Of Naruto
+		BUILDIN_DEF(dirP,"i"),
+		BUILDIN_DEF(guild_addmember,"i?"),
+		BUILDIN_DEF(guild_delmember,"i???"),
+		
+		
+		BUILDIN_DEF(duplicatecreate, "ssssiii???"),
+		BUILDIN_DEF(duplicateremove, "?"),
+	
+	

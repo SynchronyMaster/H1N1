@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS `skill` (
+  `char_id` int(11) unsigned NOT NULL auto_increment,
+  `SkillID` int(11) NOT NULL default '0',
+  `SkillSave1` int(11) NOT NULL default '0',
+  `SkillSave2` int(11) NOT NULL default '0',
+  `SkillSave3` int(11) NOT NULL default '0',
+  `SkillSave4` int(11) NOT NULL default '0',
+  `SkillSave5` int(11) NOT NULL default '0',
+  `SkillSave6` int(11) NOT NULL default '0',
+  `SkillSave7` int(11) NOT NULL default '0',
+  `SkillSave8` int(11) NOT NULL default '0',
+  `SkillSave9` int(11) NOT NULL default '0',
+  `SkillSave10` int(11) NOT NULL default '0',
+  `SkillSave11` int(11) NOT NULL default '0',
+  `SkillSave12` int(11) NOT NULL default '0',
+  `SkillSave13` int(11) NOT NULL default '0',
+  `SkillSave14` int(11) NOT NULL default '0',
+  `SkillSave15` int(11) NOT NULL default '0',
+  PRIMARY KEY (`char_id`),
+  KEY `char_id` (`char_id`)
+) ENGINE=MyISAM;

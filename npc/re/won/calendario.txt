@@ -1,0 +1,70 @@
+-	pointshop	freqstore	640,#lppoint,514:10,515:10;//(Adicionar itens)
+
+
+prontera,100,100,5	script	Pontos de Frequência	640,{
+
+	mes "Olá, "+strcharinfo(0)+".";
+	mes "Está precisando de algo?";
+	switch(select("Trocar meus pontos","Ver meus pontos","Informações","Sair"))
+	{
+		case 1:
+		next;
+		callshop "freqstore",0;
+		npcshopattach "freqstore";
+		end;
+
+
+		case 2:
+		next;
+		mes "Atualmente você possui "+#lppoint+" pontos de frequência.";
+		close;
+		end;
+
+	case 3:
+	next;
+	mes "Aqui você poderá ganhar pontos por tempo online no servidor.";
+	mes "A cada 60 minutos, você ganhará 1 ponto.";
+	mes "Você pode trocar os pontos acumulados por itens.";
+	mes "Você também pode ganhar pontos extras a partir de alguns dias.";
+	mes "Aproveite!";
+	close;
+	end;
+	
+	
+	case 4:
+	close;
+	end;
+	}
+	
+	
+
+OnPCLogoutEvent:
+		set #offline_time,#online_time - gettimetick(2);
+		set #ddps,1;
+		end;
+OnPCLoginEvent:
+		set #ddps,0;
+		set #online_time, gettimetick(2) + #offline_time;
+		
+
+	while (#ddps == 0){
+	sleep2 540000;
+	
+		if (#online_time + 216000 >= gettimetick(2))
+		{	
+			if (#online_time + 180000 >= gettimetick(2))
+			dispbottom "Falta menos de 10 minuto(s) para você ganhar 1 ponto no diário.";
+			
+			
+		} else {
+		dispbottom "Receba agora seu ponto de presença "+gettimetick(2)+" e "+$time+".";
+		set #lppoint,#lppoint + 1;
+		}
+} 
+end;
+	
+
+	OnInit:
+	if(!$new_time) { set $time,3600; }
+	end;
+	}

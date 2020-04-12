@@ -1,4 +1,4 @@
-// Copyright (c) rAthena Dev Teams - Licensed under GNU GPL
+﻿// Copyright (c) rAthena Dev Teams - Licensed under GNU GPL
 // For more information, see LICENCE in the main folder
 
 #include "status.hpp"
@@ -1130,6 +1130,27 @@ void initChangeTables(void)
 	StatusIconChangeTable[SC_CHASEWALK2] = EFST_CHASEWALK2;
 	StatusIconChangeTable[SC_MIRACLE] = EFST_SOULLINK;
 	StatusIconChangeTable[SC_INTRAVISION] = EFST_CLAIRVOYANCE;
+	StatusIconChangeTable[SC_BYAKUGAN1] = EFST_BYAKUGAN1;
+	StatusIconChangeTable[SC_BYAKUGAN2] = EFST_BYAKUGAN2;
+	StatusIconChangeTable[SC_BYAKUGAN3] = EFST_BYAKUGAN3;
+	StatusIconChangeTable[SC_BYAKUGAN4] = EFST_BYAKUGAN4;
+	StatusIconChangeTable[SC_SHARINGAN] = EFST_SHARINGAN;
+	StatusIconChangeTable[SC_SHARINGAN2] = EFST_SHARINGAN2;
+	StatusIconChangeTable[SC_SHARINGAN3] = EFST_SHARINGAN3;
+	StatusIconChangeTable[SC_SHARINGANMK] = EFST_SHARINGANMK;
+	StatusIconChangeTable[SC_SHARINGANMO] = EFST_SHARINGANMO;
+	StatusIconChangeTable[SC_SHARINGANMS] = EFST_SHARINGANMS;
+	StatusIconChangeTable[SC_SHARINGANMI] = EFST_SHARINGANMI;
+	StatusIconChangeTable[SC_SHARINGANMM] = EFST_SHARINGANMM;
+	StatusIconChangeTable[SC_SUSANOS1] = EFST_SUSANOS1;
+	StatusIconChangeTable[SC_SUSANOS2] = EFST_SUSANOS2;
+	StatusIconChangeTable[SC_SUSANOS3] = EFST_SUSANOS3;
+	StatusIconChangeTable[SC_SUSANOS4] = EFST_SUSANOS4;
+	StatusIconChangeTable[SC_HENGE] = EFST_HENGE;
+	StatusIconChangeTable[SC_CLOAKKYU1] = EFST_CLOAKKYU1;
+	StatusIconChangeTable[SC_CLOAKKYU4] = EFST_CLOAKKYU4;
+	StatusIconChangeTable[SC_CLOAKKYU9] = EFST_CLOAKKYU9;
+	StatusIconChangeTable[SC_CLOAKKYU0] = EFST_CLOAKKYU0;
 	StatusIconChangeTable[SC_STRFOOD] = EFST_FOOD_STR;
 	StatusIconChangeTable[SC_AGIFOOD] = EFST_FOOD_AGI;
 	StatusIconChangeTable[SC_VITFOOD] = EFST_FOOD_VIT;
@@ -3757,7 +3778,9 @@ int status_calc_pc_sub(struct map_session_data* sd, enum e_status_calc_opt opt)
 	memset (&sd->left_weapon.overrefine, 0, sizeof(sd->left_weapon) - sizeof(sd->left_weapon.atkmods));
 
 	if (sd->special_state.intravision && !sd->sc.data[SC_INTRAVISION]) // Clear intravision as long as nothing else is using it
-		clif_status_load(&sd->bl, EFST_CLAIRVOYANCE, 0);
+		if (!sd->sc.data[SC_INTRAVISION] || !sd->sc.data[SC_BYAKUGAN1] || !sd->sc.data[SC_BYAKUGAN2] || !sd->sc.data[SC_BYAKUGAN3] || !sd->sc.data[SC_BYAKUGAN4]) {
+			clif_status_load(&sd->bl, EFST_CLAIRVOYANCE, 0);
+		}
 
 	if (sd->special_state.no_walk_delay)
 		clif_status_load(&sd->bl, EFST_ENDURE, 0);
@@ -13250,6 +13273,10 @@ int status_change_end_(struct block_list* bl, enum sc_type type, int tid, const 
 			clif_status_load(bl, EFST_ACTIVE_MONSTER_TRANSFORM, 0);
 			break;
 		case SC_INTRAVISION:
+		case SC_BYAKUGAN1:
+		case SC_BYAKUGAN2:
+		case SC_BYAKUGAN3:
+		case SC_BYAKUGAN4:
 			calc_flag = SCB_ALL; // Required for overlapping
 			break;
 
@@ -14612,6 +14639,10 @@ int status_change_timer_sub(struct block_list* bl, va_list ap)
 	switch( type ) {
 	case SC_SIGHT: // Reveal hidden ennemy on 3*3 range
 	case SC_CONCENTRATE:
+	case SC_BYAKUGAN1:
+	case SC_BYAKUGAN2:
+	case SC_BYAKUGAN3:
+	case SC_BYAKUGAN4:
 		status_change_end(bl, SC_HIDING, INVALID_TIMER);
 		status_change_end(bl, SC_CLOAKING, INVALID_TIMER);
 		status_change_end(bl, SC_CLOAKINGEXCEED, INVALID_TIMER);

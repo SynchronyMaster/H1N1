@@ -1,4 +1,4 @@
-// Copyright (c) rAthena Dev Teams - Licensed under GNU GPL
+﻿// Copyright (c) rAthena Dev Teams - Licensed under GNU GPL
 // For more information, see LICENCE in the main folder
 
 #include "npc.hpp"
@@ -137,6 +137,10 @@ struct view_data* npc_get_viewdata(int class_) {
 		}
 	}
 	return nullptr;
+}
+void npc_duplicate_2(struct npc_data *nd)
+{
+	strdb_put(npcname_db, nd->exname, nd);
 }
 
 int npc_isnear_sub(struct block_list* bl, va_list args) {
@@ -490,6 +494,48 @@ static int npc_event_export(struct npc_data *nd, int i)
 	}
 	return 0;
 }
+
+/*==========================================
+* exports a npc event label
+* called from npc_parse_script
+*------------------------------------------*/
+int npc_event_export_2(struct npc_data *nd, int i)
+{
+	char* lname = nd->u.scr.label_list[i].name;
+	int pos = nd->u.scr.label_list[i].pos;
+	if ((lname[0] == 'O' || lname[0] == 'o') && (lname[1] == 'N' || lname[1] == 'n')) {
+		struct event_data *ev;
+		char buf[EVENT_NAME_LENGTH];
+
+		if (nd->bl.m > -1 && map[nd->bl.m].instance_id > 0) { // Block script events in instances
+			int j;
+
+			for (j = 0; j < NPCE_MAX; j++) {
+				if (strcmpi(npc_get_script_event_name(j), lname) == 0) {
+					ShowWarning("npc_event_export: attempting to duplicate a script event in an instance (%s::%s), ignoring\n", nd->name, lname);
+					return 0;
+				}
+			}
+		}
+
+		// NPC:<name> the prefix uses 4 characters
+		if (!strncasecmp(lname, script_config.onwhisper_event_name, NAME_LENGTH) && strlen(nd->exname) >(NAME_LENGTH - 4)) {
+			// The client only allows that many character so that NPC could not be whispered by unmodified clients
+			ShowWarning("Whisper event in npc '" CL_WHITE "%s" CL_RESET "' was ignored, because it's name is too long.\n", nd->exname);
+			return 0;
+		}
+
+		snprintf(buf, ARRAYLENGTH(buf), "%s::%s", nd->exname, lname);
+		// generate the data and insert it
+		CREATE(ev, struct event_data, 1);
+		ev->nd = nd;
+		ev->pos = pos;
+		if (strdb_put(ev_db, buf, ev)) // There was already another event of the same name?
+			return 1;
+	}
+	return 0;
+}
+
 
 int npc_event_sub(struct map_session_data* sd, struct event_data* ev, const char* eventname); //[Lance]
 

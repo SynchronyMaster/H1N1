@@ -1,0 +1,33 @@
+new_1-2,80,88,5	script	Senju Tobirama	10236,{
+cutin "tobirama",2;
+mes "[Senju Tobirama]";
+mes "Você quer escolher a classe Senju Tobirama?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class > 0) goto neh;
+jobchange 4074; 
+getitem 19008,1;
+next;
+
+mes "^FF9900[Senju Tobirama]^000000";
+mes "Parabéns, agora você é da classe Senju Tobirama!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Senju Tobirama",0;
+cutin "",255;
+close;
+
+neh:
+next;
+mes "^FF9900[Senju Tobirama]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+cutin "",255;
+close;
+
+nao:
+next;
+mes "^FF9900[Senju Tobirama]^000000";
+mes "Estarei esperando caso mude de ideia.";
+cutin "",255;
+close;
+}

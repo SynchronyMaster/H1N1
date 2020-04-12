@@ -1,0 +1,31 @@
+payon,143,230,5	script	Inuzuka Jounin	46,{
+
+mes "Ola, você gostaria de virar um Jounin?";
+mes "voce precisara estar no level 30! já esta nesse lv?";
+menu "Sim",sim,"Não",nao;
+next;
+sim:
+next;
+mes "Então vamos la";
+next;
+if (basejob == JOB_RANGER2) goto neh;
+if (baselevel < 30) goto neh2;
+mes "Não posso fazer nada por você";
+close;
+
+neh:
+jobchange 4062; 
+getitem 19008,1;
+mes "Parabens você é um Inuzuka";
+close;
+
+neh2:
+next;
+mes "Você Nao tem level suficiente";
+close;
+
+nao:
+next;
+mes "Adeus Mais se quiser meu serviços Volte";
+close;
+}

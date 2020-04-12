@@ -1,0 +1,32 @@
+-	script	sasukesharingan02	-1,{
+OnPCBaseLvUpEvent:
+	if (sharingan1 == 1) {
+	if(BaseLevel == .clvl){
+		for(set @i,0; @i < getarraysize(.cid);set @i,@i+1){
+			if(Class == .cid[@i]){
+				dispbottom "Parabéns, Você Liberou o Sharingan Lv. 1.";
+				announce "O jogador "+strcharinfo(0)+" liberou o Sharingan(Lv. 2)",0;
+				for(set @x,0; @x < getarraysize(.ipm);set @x,@x+1){
+						set sharingan1,2;
+						set shaquest,1;
+						completequest 3501;
+						setquest 3502;
+						getitem .ipm[@x],.qpm[@x];
+						equip .ipm[@x];
+					
+				}
+			}
+		}
+	}
+	}
+	close;
+end;
+
+OnInit:
+	set .clvl, 100;                  // Level em que o personagem ganha o premio
+	setarray .cid[0], 4002;     // Id das classes que ganham o premio
+	setarray .ipm[0], 3069,501;      // Id dos premios ganhos
+	setarray .qpm[0], 1,1;          // Quantidade de premios ganhos
+
+end;
+}

@@ -1,0 +1,13 @@
+prontera,158,213,1	script	quadro de mensagens#01	111,{
+	mes "^993300- The Sign Post Reads -^000000";
+	mes "North to Prontera Castle";
+	mes "North to Al De Baran";
+	mes "Northwest to Geffen";
+	mes "East to Prontera Fields";
+	mes "South to Prontera Fields";
+	mes "Southeast to Alberta";
+	mes "Southwest to Morroc";
+	mes "Southwest to Comodo";
+	mes "West to Prontera Fields";
+	close;
+}

@@ -1,0 +1,70 @@
+-	Script	kagebunshin1	-1,{
+dispbottom "teste.";
+		if(@NV_DOP>0)
+	{
+		unitkill @NV_DOP;
+		dispbottom "Você desfez seus clones.";
+		@NV_DOP = 0;
+		end;
+	}
+
+		showscript "Kage Bunshin no Jutsu";
+		getmapxy(.@mapclone$,.@mapxclone,.@mapyclone,0);
+			if (dirP(getcharid(0)) == 0 || dirP(getcharid(0)) == 4){
+				@NV_DOP = clone(.@mapclone$,.@mapxclone+2,.@mapyclone,"kagebunshin1::OnKBDead",getcharid(0),getcharid(0),0,1,10);
+			}
+			if (dirP(getcharid(0)) == 1 || dirP(getcharid(0)) == 5){
+				@NV_DOP = clone(.@mapclone$,.@mapxclone+1,.@mapyclone+1,"kagebunshin1::Onlab",getcharid(0),getcharid(0),0,1,10);
+				}		
+			if (dirP(getcharid(0)) == 2 || dirP(getcharid(0)) == 6){
+				@NV_DOP = clone(.@mapclone$,.@mapxclone,.@mapyclone+2,"kagebunshin1::Onlab",getcharid(0),getcharid(0),0,1,10);
+			}		
+			if (dirP(getcharid(0)) == 3 || dirP(getcharid(0)) == 7){
+				@NV_DOP = clone(.@mapclone$,.@mapxclone-1,.@mapyclone+1,"kagebunshin1::Onlab",getcharid(0),getcharid(0),0,1,10);
+			}	
+		atcommand "@sound Kage2";
+		end;
+}
+
+-	Script	kagebunshin2	-1,{
+		announce "Direção do Jogador "+dirP(getcharid(0))+" ",bc_yellow;
+		set .@kgb,1;
+		showscript "Kage Bunshin no Jutsu";
+		getmapxy(.@mapclone$,.@mapxclone,.@mapyclone,0);
+			if (dirP(getcharid(0)) == 0 || dirP(getcharid(0)) == 4){
+			clone .@mapclone$,.@mapxclone+2,.@mapyclone,"kagebunshin1::Onlab",getcharid(0),getcharid(0),0,1,10;
+			clone .@mapclone$,.@mapxclone-2,.@mapyclone,"kagebunshin1::Onlab",getcharid(0),getcharid(0),0,1,10;
+			}
+			if (dirP(getcharid(0)) == 1 || dirP(getcharid(0)) == 5){
+				
+			}		
+			if (dirP(getcharid(0)) == 2 || dirP(getcharid(0)) == 6){
+				
+			}		
+			if (dirP(getcharid(0)) == 3 || dirP(getcharid(0)) == 7){
+				
+			}	
+		
+		atcommand "@sound Kage2";
+		end;
+}
+
+-	Script	kagebunshin3	-1,{
+		showscript "Kage Bunshin no Jutsu";
+		getmapxy(.@mapclone$,.@mapxclone,.@mapyclone,0);
+		clone .@mapclone$,.@mapxclone+2,.@mapyclone,"kagebunshin1::Onlab",getcharid(0),getcharid(0),0,1,10;
+		clone .@mapclone$,.@mapxclone-2,.@mapyclone,"kagebunshin1::Onlab",getcharid(0),getcharid(0),0,1,10;
+		atcommand "@sound Kage2";
+		end;
+}
+
+-	Script	kagebunshin4	-1,{
+		showscript "Kage Bunshin no Jutsu";
+		getmapxy(.@mapclone$,.@mapxclone,.@mapyclone,0);
+		clone .@mapclone$,.@mapxclone+2,.@mapyclone,"kagebunshin1::Onlab",getcharid(0),getcharid(0),0,1,20;
+		clone .@mapclone$,.@mapxclone-2,.@mapyclone,"kagebunshin1::Onlab",getcharid(0),getcharid(0),0,1,20;
+		atcommand "@sound Kage2";
+		end;
+}
+
+

@@ -1,0 +1,33 @@
+new_1-2,116,109,5	script	Temari	10242,{
+cutin "temari",2;
+mes "[Temari]";
+mes "Você quer escolher a classe Temari?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class > 0) goto neh;
+jobchange 4050; 
+getitem 19008,1;
+next;
+
+mes "^FF9900[Temari]^000000";
+mes "Parabéns, agora você é da classe Temari!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Temari",0;
+cutin "",255;
+close;
+
+neh:
+next;
+mes "^FF9900[Temari]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+cutin "",255;
+close;
+
+nao:
+next;
+mes "^FF9900[Temari]^000000";
+mes "Estarei esperando caso mude de ideia.";
+cutin "",255;
+close;
+}

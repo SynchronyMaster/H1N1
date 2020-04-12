@@ -1,0 +1,30 @@
+new_1-2,82,109,5	script	Momochi Zabuza	10227,{
+
+mes "[Momochi Zabuza]";
+mes "Você quer escolher a classe Momochi Zabuza?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class > 0) goto neh;
+jobchange 4003; 
+getitem 19008,1;
+next;
+
+mes "^FF9900[Momochi Zabuza]^000000";
+mes "Parabéns, agora você é da classe Momochi Zabuza!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Momochi Zabuza",0;
+close;
+
+neh:
+next;
+mes "^FF9900[Momochi Zabuza]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+close;
+
+nao:
+next;
+mes "^FF9900[Momochi Zabuza]^000000";
+mes "Estarei esperando caso mude de ideia.";
+close;
+}

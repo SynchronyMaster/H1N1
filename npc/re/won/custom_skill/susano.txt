@@ -1,0 +1,59 @@
+//========================================================  SUSANO'O 1 SASUKE ====================================================/
+-	Script	susanos1	-1,{
+//	if(@shaskill == 6){
+	dispbottom "Susano'o Ativo.";
+	deltimer "sharinganms::OnShams";
+	bonus_script_clear;
+	bonus_script "{ bonus bAspdRate,-50; bonus bFleeRate,100; bonus bCriticalRate,50; bonus bSpeedRate,-100; bonus bIntravision,0;}",300,9,0,SC_SHARINGANMS;
+	bonus_script "{ bonus bAllStats,100; bonus bWeaponAtkRate,50; }",300,9,0,SC_SUSANOS1;
+//  bonus3 bAutoSpellWhenHit,"ML_AUTOGUARD",1,10;  bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,30;
+	set @atuals,getlook(3);
+	changelook 3,3101;
+	soundeffectall "susano.wav", 0;
+
+	specialeffect2 6;
+	pcblockmove getcharid(3),0;
+	set @shaskill,9;
+	showscript "Susano'o";
+	addtimer 300000,"susanos1::OnSusms";
+	addtimer 500000,"susanos1::OnColateralss";
+	while (@shaskill == 9){
+		set hp,hp-2000;
+		set sp,sp-80;
+		sleep2 100;
+		if (sp <= 10) {
+		goto OnSusms;
+		}
+	}
+	end;
+//	}
+	
+	if(@shaskill == 9){
+	dispbottom "Susano'o Desativado";
+	dispbottom "Sharingan Desativado";
+	bonus_script_clear;
+	set @shaskill,0;
+	changelook 5,@atual;
+	changelook 3,@atuals;
+	end;
+	}
+	
+	OnSusms:
+	if(@shaskill == 9){
+	dispbottom "Susano'o Inativo!";
+	dispbottom "Sharingan Inativo!";
+	bonus_script_clear;
+	set @shaskill,0;
+	changelook 5,@atual;
+	changelook 3,@atuals;
+	end;
+	}
+	
+	
+}
+
+-	Script	susanos2	-1,{}
+-	Script	susanos3	-1,{}
+
+-	Script	susanoi	-1,{}
+-	Script	susanom	-1,{}

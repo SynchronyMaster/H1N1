@@ -1,0 +1,4 @@
+//char_ip: 127.0.0.1
+char_ip: wonnaruto.ddns.net
+//map_ip: 127.0.0.1
+map_ip: wonnaruto.ddns.net

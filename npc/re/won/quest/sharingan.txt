@@ -1,0 +1,150 @@
+sec_in01,95,154,4	script	Sharingan Quest	90,{
+	if (shaquest == 0) {
+	if(Class == 4002){
+		cutin "v_sprakki01",2;
+		mes "Olá, Gostaria de fazer a quest do Sharingan(Nv. 1)?";
+		next;
+		switch(select("Sim, quero fazer a quest do Sharingan:Não, obrigado. Talvez mais tarde.")){
+		case 1:
+			mes "Ok, você precisa completar a quest Massacre do Clã Uchiha!";
+			mes "Para mais informações acesse a sua janela de Quests.";
+			setquest 3500;
+			set shaquest,1;
+			cutin "",255;
+			close;
+		case 2:
+			mes "Tudo bem.";
+			cutin "",255;
+			close;
+			}
+		}
+	mes "Você não pode realizar a Quest do Sharingan";
+	cutin "",255;
+	close;
+		}
+	if (shaquest == 1) {
+	if (sharingan1 == 0) {
+		cutin "v_sprakki01",2;
+		mes "Você já está no meio de uma quest para receber o seu sharingan.";
+		cutin "",255;
+		close;
+				}
+	if (sharingan1 == 1) {
+		cutin "v_sprakki01",2;
+		mes "Você já está no meio de uma quest para fortalezer o seu sharingan.";
+		mes "Você deve chegar até o Nível 100";
+		cutin "",255;
+		close;
+				}
+	if (sharingan1 == 2) {
+		cutin "v_sprakki01",2;
+		mes "Você já está no meio de uma quest para fortalezer o seu sharingan.";
+		mes "Você deve chegar até o Nível 150";
+		cutin "",255;
+		close;
+				}
+	
+	}
+		cutin "v_sprakki01",2;
+		mes "Desculpe, mas você não pode realizar essa Quest.";
+		cutin "",255;
+		close;
+		end;
+		
+	}
+	
+	
+// UCHIHA SASUKE SHARINGAN(1)
+-	script	sasukesharingan01	-1,{
+OnPCBaseLvUpEvent:
+	if (sharingan1 == 0) {
+	if(BaseLevel == .clvl){
+		for(set @i,0; @i < getarraysize(.cid);set @i,@i+1){
+			if(Class == .cid[@i]){
+				dispbottom "Parabéns, Você Liberou o Sharingan Lv. 1.";
+				announce "O jogador "+strcharinfo(0)+" liberou o Sharingan(Lv. 1)",0;
+				for(set @x,0; @x < getarraysize(.ipm);set @x,@x+1){
+						set sharingan1,1;
+						set shaquest,1;
+						completequest 3500;
+						setquest 3501;
+						skill "SHARINGAN",1,4;
+						end;
+				}
+			}
+		}
+	}
+	}
+
+OnInit:
+	set .clvl, 50;                  // Level em que o personagem ganha o premio
+	setarray .cid[0], 4002,4061;     // Id das classes que ganham o premio
+	setarray .ipm[0], 3068,501;      // Id dos premios ganhos
+	setarray .qpm[0], 1,1;          // Quantidade de premios ganhos
+
+end;
+}
+// UCHIHA SASUKE SHARINGAN(2)
+-	script	sasukesharingan02	-1,{
+OnPCBaseLvUpEvent:
+	if (sharingan1 == 1) {
+	if(BaseLevel == .clvl){
+		for(set @i,0; @i < getarraysize(.cid);set @i,@i+1){
+			if(Class == .cid[@i]){
+				dispbottom "Parabéns, Você Liberou o Sharingan Lv. 1.";
+				announce "O jogador "+strcharinfo(0)+" liberou o Sharingan(Lv. 2)",0;
+				for(set @x,0; @x < getarraysize(.ipm);set @x,@x+1){
+						set sharingan1,2;
+						set shaquest,1;
+						completequest 3501;
+						setquest 3502;
+						skill "SHARINGAN",2,4;
+						end;
+				}
+			}
+		}
+	}
+	}
+
+OnInit:
+	set .clvl, 100;                  // Level em que o personagem ganha o premio
+	setarray .cid[0], 4002,4061;     // Id das classes que ganham o premio
+	setarray .ipm[0], 3069,501;      // Id dos premios ganhos
+	setarray .qpm[0], 1,1;          // Quantidade de premios ganhos
+
+end;
+}
+// UCHIHA SASUKE SHARINGAN(3)
+-	script	sasukesharingan03	-1,{
+OnPCBaseLvUpEvent:
+	if (sharingan1 == 2) {
+	if(BaseLevel == .clvl){
+		for(set @i,0; @i < getarraysize(.cid);set @i,@i+1){
+			if(Class == .cid[@i]){
+				dispbottom "Parabéns, Você Liberou o Sharingan Lv. 1.";
+				announce "O jogador "+strcharinfo(0)+" liberou o Sharingan(Lv. 3)",0;
+				for(set @x,0; @x < getarraysize(.ipm);set @x,@x+1){
+						set sharingan1,3;
+						set shaquest,1;
+						completequest 3502;
+						setquest 3503;
+						skill "SHARINGAN",3,4;
+						//getitem .ipm[@x],.qpm[@x];
+						//equip .ipm[@x];
+					end;
+				}
+			}
+		}
+	}
+	}
+
+OnInit:
+	set .clvl, 150;                  // Level em que o personagem ganha o premio
+	setarray .cid[0], 4002,4061;     // Id das classes que ganham o premio
+	setarray .ipm[0], 3070,501;      // Id dos premios ganhos
+	setarray .qpm[0], 1,1;          // Quantidade de premios ganhos
+
+end;
+}
+
+

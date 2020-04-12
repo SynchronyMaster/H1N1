@@ -1,0 +1,51 @@
+-	Script	DieEventWON	-1,{
+
+	OnPCDieEvent:
+		
+		if (@shaskill == 1){
+			bonus_script_clear;
+			dispbottom "Sharingan (Nv. 1) Desativado.";
+			set @shaskill,0;
+			changelook 5,@atual;
+			deltimer "sharingan1::OnSha1";
+		}
+
+		if (@shaskill == 2){
+			bonus_script_clear;
+			dispbottom "Sharingan (Nv. 2) Desativado.";
+			set @shaskill,0;
+			changelook 5,@atual;
+			deltimer "sharingan2::OnSha2";
+		}
+
+		if (@shaskill == 3){
+			bonus_script_clear;
+			dispbottom "Sharingan (Nv. 3) Desativado.";
+			set @shaskill,0;
+			changelook 5,@atual;
+			deltimer "sharingan3::OnSha3";
+		}
+		
+		if (@shaskill == 6){
+			bonus_script_clear;
+			dispbottom "Mangekyou Sharingan Desativado!";
+			set @shaskill,0;
+			changelook 5,@atual;
+			deltimer "sharingan3::OnSha3";
+		}
+
+		if(@shaskill == 9){
+			dispbottom "Susano'o Inativo!";
+			dispbottom "Sharingan Inativo!";
+			set @shaskill,0;
+			bonus_script_clear;
+			changelook 5,@atual;
+			changelook 3,@atuals;
+		}
+		
+		if(strcharinfo(0) == $LBPVP1$ || strcharinfo(0) == $LBPVP2$){
+			deltimer "Kyo#02::PVP1END";
+			announce "Você perdeu",bc_self;
+		}
+
+}

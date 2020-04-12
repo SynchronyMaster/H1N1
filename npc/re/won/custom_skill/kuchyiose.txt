@@ -1,0 +1,15 @@
+-	Script	kuchyiose1	-1,{
+	summon "Teste",1034,60000;
+	showscript "Kuchyiose no Jutsu";
+	end;
+}
+-	Script	kuchyiose12	-1,{
+	summon "Teste",1034,1200000;
+	showscript "Kuchyiose no Jutsu";
+	end;
+}
+-	Script	kuchyiose13	-1,{
+	summon "Teste",1034,1800000;
+	showscript "Kuchyiose no Jutsu";
+	end;
+}

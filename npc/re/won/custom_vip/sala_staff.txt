@@ -1,0 +1,185 @@
+itemmall,195,74,5	script	Registros	757,{
+	mes "Digite o ID do item o qual você quer saber a quantidade existente no servidor no momento.";
+	mes "Exemplo: ^0b85f8Rondel [1] (id: 13017).^000000";
+	mes "^0b85f8Chifres Místicos de Bafomé (id: 5518).^000000";
+	input .@item_id;
+	if( getitemname( .@item_id ) != "null" ){
+		for( set .@i,0; .@i < .sql_size; set .@i,.@i + 1 ){
+			query_sql( "SELECT SUM(`amount`) FROM `"+.sql_table$[.@i]+"` WHERE `nameid`='"+.@item_id+"'",.@amount );
+			query_sql( "SELECT COUNT(`card0`) FROM `"+.sql_table$[.@i]+"` WHERE `card0`='"+.@item_id+"'",.@card0 );
+			query_sql( "SELECT COUNT(`card1`) FROM `"+.sql_table$[.@i]+"` WHERE `card1`='"+.@item_id+"'",.@card1 );
+			query_sql( "SELECT COUNT(`card2`) FROM `"+.sql_table$[.@i]+"` WHERE `card2`='"+.@item_id+"'",.@card2 );
+			query_sql( "SELECT COUNT(`card3`) FROM `"+.sql_table$[.@i]+"` WHERE `card3`='"+.@item_id+"'",.@card3 );
+			set .@total,.@total + ( .@amount + .@card0 + .@card1 + .@card2 + .@card3 );
+		}
+		mes "Encontrado "+.@total+" x "+getitemname( .@item_id );
+		if ( getgmlevel() >= 99 && .@total ) {
+			next;
+			if ( select( "Sair", "Deletar item" ) == 2 ) {
+				for( set .@i,0; .@i < .sql_size; set .@i,.@i + 1 ) {
+					query_sql "delete from `"+.sql_table$[.@i]+"` WHERE ( `nameid`='"+.@item_id+"' or `card0`='"+.@item_id+"' or "+
+							"`card1`='"+.@item_id+"' or `card2`='"+.@item_id+"' or `card3`='"+.@item_id+"' )";
+				}
+				set .@count, query_sql( "select `account_id` from `char` where `online` = 1", .@account_id );
+				set .@origin, getcharid(3);
+				for( set .@i,0; .@i < .@count; set .@i,.@i + 1 ){
+					attachrid .@account_id;
+					set .@amount, countitem( .@item_id );
+					delitem .@item_id, .@amount;
+				}
+				attachrid .@origin;
+				mes "Pronto.";
+			}
+		}
+	}else{
+		mes "ID Item inválido";
+	}
+	close;
+OnInit:
+	setarray .sql_table$[0],"inventory","cart_inventory","guild_storage","storage","mail";
+	set .sql_size,getarraysize( .sql_table$ );
+	end;
+}
+
+itemmall,195,68,5	script	Ban-ip	81,{
+if(getgroupid()<99){
+mes "Só  ^FF0000ADM's^000000 tem acesso a esse NPC!!";
+close;
+end;
+}
+mes "Olá ^339966"+strcharinfo(0)+"^000000 gostaria de banir alguém??";
+switch(select("Sim:Não")){
+	case 1:
+	next;
+	mes "Digite o nome do personagem que você quer banir:";
+	input .@char$;
+	query_sql("select `account_id` from `char` where `name`='"+.@char$+"' limit 1",.@acc);
+	query_sql ("select last_ip from login where account_id='"+getcharid(3)+"'",.@ip$);
+	next;
+		if(!.@acc){
+		mes "^FF0000Personagem ^000000^0000FF"+.@char$+" ^000000 ^FF0000NÃO EXISTE!!^000000";
+		close;
+		end;
+		}		
+	mes "Agora digite o motivo por você estar banindo ele:";
+	input .@motivo$;
+	next;
+	mes "Você quer banir ele permante ou por algum tempo??";
+		switch(select("Temporariamente:Permanentemente")){
+		case 1:
+		next;
+		mes "Vou te perguntar o tempo, na seguinte ordem:";
+		mes "Ano(s),Mes(es),Dia(s),Hora(s)";
+		next;
+		mes "Caso seja apenas por algumas horas, por exemplo";
+		mes "basta você colocar ^FF00000 (zero)^000000 nos que não sejam horas!!";
+		next;
+		mes "Digite a quantidade de ^0000FFAnos^000000 :";
+		input .@anos;
+		next;
+		mes "Digite a quantidade de ^C0C0C0Meses^000000 :";
+		input .@meses;
+		next;
+		mes "Digite a quantidade de ^0000FFDias^000000 :";
+		input .@dias;
+		next;
+		mes "Digite a quantidade de ^C0C0C0Horas^000000 :";
+		input .@horas;
+		next;
+		set .@total,.@anos*8766+.@meses*730+.@dias*24+.@horas;
+		mes "Então pra confirmar você vai banir o ^339966"+.@char$+"^000000 por:";
+		mes "";
+		mes "^FF0000"+.@ano+"^000000 Ano(s),";
+		mes "^FF0000"+.@meses+"^000000Mes(es), ";
+		mes "^FF0000"+.@dias+"^000000Dia(s), ";
+		mes "^FF0000"+.@horas+"^000000Hora(s)";
+		mes "^FF0000Razão: ^000000"+.@motivo$;
+		next;
+		mes "Tem certeza??";
+			switch(select("Isso mesmo:Cancelar")){
+			case 1:
+			atcommand "@ban "+.@total+"h "+.@char$;
+			query_sql("insert into `banip` (account_id,ip,motivo,permanente) values ('"+.@acc+"',  '"+.@ip$+"', '"+.@motivo$+"', '0')");
+			next;
+			mes "Pronto deu tudo certo!!";
+			close;
+			end;
+			
+			case 2:
+			close;
+			end;
+			}
+		
+		case 2:
+		next;
+		mes "Tem certeza de banir o ^339966"+.@char$+"^000000^FF0000 pra sempre^000000??";
+			switch(select("Banir:Cancelar")){
+			case 1:
+			atcommand "@block "+.@char$;
+			query_sql ("insert into `banip` (account_id,ip,motivo,permanente) values ('"+.@acc+"',  '"+.@ip$+"', '"+.@motivo$+"', '1')");
+			next;
+			mes "Ok, ele foi banido pro ^FF0000resto da vida^000000!!";
+			close;
+			end;
+			}
+		}
+	case 2:
+	close;
+	end;
+	}
+}
+//AQUI PRA BAIXO O SCRIPT PARA CHECAR SE O USUARIO FOI BANIDO EM OUTRA CONTA!!
+-	script	checkban	-1,{
+OnPCLoginEvent:
+set .@contrasenha$,"GWON123"; //CONFIGURE AQUI A SENHA CONTRA BANIMENTOS PARA ADM'S
+query_sql ("select last_ip from login where account_id='"+getcharid(3)+"'",.@ip$);
+query_sql ("select ip from banip where ip='"+.@ip$+"' ORDER BY id DESC LIMIT 1 ",.@ip2$);
+
+	if (.@ip$==.@ip2$){
+	query_sql("select account_id from banip where ip='"+.@ip$+"' ORDER BY id DESC LIMIT 1 ",.@accban);
+	query_sql("select unban_time from login where account_id='"+.@accban+"'",.@restante);
+	query_sql ("select permanente from banip where account_id='"+.@accban+"' ORDER BY id DESC LIMIT 1 ",.@perm);
+	query_sql("select motivo from banip where account_id='"+.@accban+"' ORDER BY id DESC LIMIT 1 ",.@motivo$);
+		if(.@perm==1){
+			//AQUI EU FIZ UM SISTEMA CONTA ADM, PRA VC PODER TESTAR SEM SER BANIDO DA SUA CONTA ADM
+			if(getgroupid()==99){
+			mes "Você é um ADM, mas está na lista negra para ser banido 4EVER, digite a ^FF0000senha contra ban^000000 e prove sua liberdade:";
+			input .@senha$;
+				if(.@senha$== .@contrasenha$){
+					next;
+					mes "Parabéns, provou Administrar saporra aqui!!";
+					close;
+					end;
+					}
+					next;
+					mes "SENHA ERRADA, SINTO MUITO!!";
+					close2;
+					}	
+		query_sql("insert into `banip` (account_id,ip,motivo,permanente) values ('"+getcharid(3)+"',  '"+.@ip$+"', '"+.@motivo$+"', '1')");
+		atcommand "@block "+strcharinfo(0);
+		end;
+		}		
+		if(.@restante>0 && .@perm==0){
+			//AQUI EU FIZ UM SISTEMA CONTA ADM, PRA VC PODER TESTAR SEM SER BANIDO DA SUA CONTA ADM
+			if(getgroupid()==99){
+			mes "Você é um ADM, mas está na lista negra para ser banido temporariamente, digite a ^FF0000senha contra ban^000000 e prove sua liberdade:";
+			input .@senha$;
+				if(.@senha$== .@contrasenha$){
+					next;
+					mes "Parabéns, provou Administrar saporra aqui!!";
+					close;
+					end;
+					}
+					next;
+					mes "SENHA ERRADA, SINTO MUITO!!";
+					close2;
+					}						
+		query_sql ("insert into `banip` (account_id,ip,motivo,permanente) values ('"+getcharid(3)+"',  '"+.@ip$+"', '"+.@motivo$+"', '0')");
+		set .@tempo,.@restante - gettimetick(2);
+		atcommand "@ban "+.@tempo+"s "+strcharinfo(0);
+		end;
+		}
+	end;
+	}
+end;
+}

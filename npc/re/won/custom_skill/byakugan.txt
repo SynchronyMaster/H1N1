@@ -1,0 +1,27 @@
+-	Script	byakugan	-1,{
+	set @bkn,1;
+	dispbottom "Byakugan Ativo.";
+	addtimer 5000,"byakugan::Onnd";
+	While((@bkn == 1)){
+		getmapxy(.@N$,.@B,.@C,0);
+		while((playerattached()?.@V<($PlayerNumber<=0?.@V+1:$PlayerNumber):0)){
+			set .@V,.@V+1; 
+			if(isloggedin(getd("$RecordAID"+.@V))) getmapxy(.@map$,.@x[.@V],.@y[.@V],0,rid2name(getd("$RecordAID"+.@V)));
+			if( .@N$ == .@map$ && getd("$RecordAID"+.@V) != getcharid(3) && isloggedin(getd("$RecordAID"+.@V))){
+				viewpoint 1,.@x[.@V],.@y[.@V],.@V,0xFF0000;
+			}
+			if(.@V>=$PlayerNumber){
+				sleep2 1+.delay;
+				for(set .@i,1;.@i<=$PlayerNumber;set .@i,.@i+1) viewpoint 2,.@x[.@i],.@y[.@i],.@i,0xFF0000;
+			}
+		}
+		if(playerattached()){ set .@V,0; } else { end; }
+	}
+	end;
+	
+	
+	Onnd:
+	set @bkn,0;
+	dispbottom "Efeito do Byakugan terminou.";
+	end;
+	}

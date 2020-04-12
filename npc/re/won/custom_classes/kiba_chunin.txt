@@ -1,0 +1,29 @@
+payon,146,230,5	script	Inuzuka Chunin	46,{
+
+mes "Ola, você gostaria de virar Inuzuka?";
+mes "voce precisara esta no level 10! já esta nesse lv?";
+menu "Sim",sim,"Não",nao;
+next;
+sim:
+next;
+mes "Então vamos la";
+next;
+if(baselevel < 10) goto neh2;
+if(Class != JOB_BABY_RANGER) goto neh;
+jobchange 4062; 
+getitem 19008,1;
+mes "Parabens você é um Inuzuka";
+close;
+neh:
+next;
+mes "Parece que você não é um Inuzuka";
+close;
+neh2:
+next;
+mes "Você Nao tem level suficiente";
+close;
+nao:
+next;
+mes "Adeus Mais se quiser meu serviços Volte";
+close;
+}

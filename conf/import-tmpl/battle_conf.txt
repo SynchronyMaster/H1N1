@@ -1,0 +1,104 @@
+min_chat_delay: 500
+max_hair_style: 100
+max_hair_color: 253
+max_cloth_color: 253
+max_body_style: 10
+save_body_style: yes
+
+area_size: 120
+max_walk_path: 32
+max_lv: 400
+aura_lv: 200
+
+flooritem_lifetime: 130000
+item_first_get_time: 8000
+item_second_get_time: 5000
+item_third_get_time: 2000
+rare_drop_announce: 20
+
+base_exp_rate: 100
+job_exp_rate: 100
+death_penalty_type: 1
+
+feature.atcommand_suggestions: on
+feature.warp_suggestions: on
+
+atcommand_slave_clone_limit: 40
+ban_hack_trade: 10
+atcommand_levelup_events: yes
+
+
+guild_exp_limit: 5
+guild_notice_changemap: 0
+
+guild_leaderchange_delay: 1440
+guild_leaderchange_woe: no
+guild_alliance_onlygm: yes
+
+
+vending_max_value: 2000000000
+vending_over_max: no
+vending_tax: 0
+allow_equip_restricted_item: no
+
+
+
+manner_system: 11
+day_duration: 3600000
+night_duration: 3600000
+at_monsterignore: yes
+cashshop_show_points: yes
+mail_show_status: 2
+hide_fav_sell: yes
+
+
+show_mob_info: 2
+party_item_share_type: 3
+display_party_name: yes
+
+
+
+pet_catch_rate: 90
+pet_rename: yes
+pet_lv_rate: 50
+
+
+hp_rate: 1000
+sp_rate: 80
+restart_hp_rate: 20
+restart_sp_rate: 20
+player_skillfree: yes
+quest_skill_learn: yes
+player_invincible_time: 4000
+natural_healhp_interval: 7000
+natural_healsp_interval: 7000
+natural_heal_weight_rate: 70
+max_aspd: 198
+max_third_aspd: 198
+max_extended_aspd: 198
+max_hp: 50000000
+max_sp: 15000000
+
+max_parameter: 500
+max_trans_parameter: 500
+max_third_parameter: 500
+max_third_trans_parameter: 500
+max_baby_parameter: 500
+max_baby_third_parameter: 500
+max_extended_parameter: 500
+max_summoner_parameter: 500
+transcendent_status_points: 1
+max_def: 150
+max_cart_weight: 50000
+show_hp_sp_gain: no
+invite_request_check: no
+idle_no_autoloot: 300
+vip_base_exp_increase: 100
+vip_job_exp_increase: 100
+vip_gemstone: 2
+
+
+
+traps_setting: 2
+skill_wall_check: no
+

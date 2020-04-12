@@ -1,0 +1,98 @@
+
+-	Script	ALL_BURACONEGRO	-1,{
+
+	query_sql("SELECT  pe.cid "+"  FROM `all_buraconegro` pe "+" WHERE pe.cid = '"+getcharid(0)+"'",.@cid);
+		
+	if(.@cid==0)			
+		query_sql "insert into `all_buraconegro` (`npc_name`, `cid`,`mapa`,`x`,`y`) values ('null','"+getcharid(0)+"','null','0','0')";
+
+	sleep2 200;
+	specialeffect2 670;
+
+	if(@NPC_MY_BN$!="")
+		duplicateremove(@NPC_MY_BN$);
+		
+	@NPC_MY_BN$ = .@rand+getcharid(0);
+	
+	duplicatecreate("ALL_BN_NPC", "Kamui",@NPC_MY_BN$+"", strcharinfo(3), ALL_BN_X, ALL_BN_Y, rand(1,7), 723, 10, 10);
+//DuplicateCreate("sourcename", "targetnameshown", "targetnamehidden", "targetmap", targetx, targety, targetdir{, targetspriteid{, targetxs, targetys}});
+
+	@NPC_MY_BN$ = "Buraco Negro"+"#"+@NPC_MY_BN$;
+	
+	.@NPC_MY_BN$ = @NPC_MY_BN$;
+	.@GID = getcharid(0);
+	.@ALL_BN_X = ALL_BN_X;
+	.@ALL_BN_Y = ALL_BN_Y;
+	.@DURA = 20000;
+	.@CID = getcharid(0);
+	.@map$ = strcharinfo(3);
+
+	detachrid();
+
+	sleep 200;
+	query_sql( "UPDATE `all_buraconegro` SET `npc_name`='"+.@NPC_MY_BN$+"', `mapa` = '"+.@map$+"', `x` = '"+.@ALL_BN_X+"', `y` = '"+.@ALL_BN_Y+"' "+"WHERE `cid`='"+.@CID+"'");
+				
+	sleep .@DURA;
+
+//	specialeffect3(129,.@ALL_BN_X,.@ALL_BN_Y,2,500);
+	
+	duplicateremove(.@NPC_MY_BN$);
+	query_sql( "DELETE FROM `all_buraconegro` WHERE `cid`='"+.@CID+"' ");
+
+	set @NPC_MY_BN$,"",.@cid;
+
+	.@w = query_sql("SELECT  pe.gid, pe.mapa, pe.x, pe.y "+"  FROM `all_buraconegro_warp` pe "+" WHERE pe.cid = '"+.@CID+"'",.@mGID,.@mMAPA$,.@mX,.@mY);
+					
+	
+	sleep 2500;
+
+	for(.@i = 0; .@i < .@w; .@i++)
+	{
+		.@npc_name$ = .@CID + "" + .@mX[.@i] + "" + .@mY[.@i] + "" + rand(1,9999);
+		
+		duplicatecreate("speffect3", "",.@npc_name$, .@mMAPA$[.@i], .@mX[.@i], .@mY[.@i], 6, 139, 1, 1);
+		specialeffect 98,"none","#"+.@npc_name$;
+		sleep 450;
+
+		duplicateremove("#"+.@npc_name$);
+		
+		unitwarp .@mGID[.@i],.@mMAPA$[.@i],.@mX[.@i],.@mY[.@i];
+		unittalk .@mGID[.@i],"EU VOLTEI COROI!!";
+	}
+
+	query_sql( "DELETE FROM `all_buraconegro_warp` WHERE `cid`='"+.@CID+"' ");
+	end;
+
+	OnInit:
+		query_sql( "DELETE FROM `all_buraconegro` ");
+		query_sql( "DELETE FROM `all_buraconegro_warp` ");
+		end;
+}
+
+-	Script	ALL_BN_NPC	-1,10,10,{
+
+	end;
+
+	OnTouchNPC:
+		if(getnpcid(0)==0)
+			end;
+			
+		getunitdata getattachedrid(),.@mobAr;
+		unitwalkto getattachedrid(),getnpcid(0);
+		
+		getmapxy(.@m$,.@x,.@y,1,strnpcinfo(0));
+		
+		while(.@mobAr[6]!=.@x && .@mobAr[7]!=.@y)
+		{
+			if(getnpcid(0)==0) end;
+			getunitdata getattachedrid(),.@mobAr;
+			sleep2 150;
+		}
+		
+		specialeffect 30;
+		specialeffect 621;
+		
+		query_sql "insert into `all_buraconegro_warp` (`cid`, `gid`,`mapa`,`x`,`y`) values ('"+strnpcinfo(2)+"','"+getattachedrid()+"','"+strnpcinfo(4)+"','"+.@x+"','"+.@y+"')";
+		unitwarp getattachedrid(),"pvp_y_1-1",150,150;
+		end;
+}

@@ -1,0 +1,635 @@
+//===== World Of Naruto Script ======================================= 
+//= Quest
+//===== By: ================================================== 
+//= SyncMaster
+//===== Current Version: ===================================== 
+//= 1.2
+//============================================================ 
+// Rank D 5 mil ~ 50 mil
+// Rank C 30 mil ~ 100 mil
+// Rank B 150 mil ~ 200 mil
+// Rank A 150 mil ~ 1.000 mil
+// Rank S > 1.000 Mil
+
+konoha,157,212,4	script	teste#K	10149,{
+	mes "Gustavo, vai Dormir!!";
+//	query_sql("UPDATE `wonplayerinfo` SET `missao1` = '1' WHERE `account_id` = '"+getcharid(3)+"'");
+	close;
+}
+
+konoha,158,210,4	script	Missões#K	10150,{
+	query_sql ("select vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@vila);
+	query_sql ("select cargo from wonplayerinfo where account_id='"+getcharid(3)+"'",.@cargo);
+	query_sql ("select time from wonplayerinfo where account_id='"+getcharid(3)+"'",.@time);
+	query_sql ("select missao1 from wonplayerinfo where account_id='"+getcharid(3)+"'",.@missao1);
+	query_sql ("select missao2 from wonplayerinfo where account_id='"+getcharid(3)+"'",.@missao2);
+	query_sql ("select missaop from wonplayerinfo where account_id='"+getcharid(3)+"'",.@missaop);
+		
+		if (.@missao1 == 100001 || .@missao2 == 100001) {
+			mes "Você completou uma missão.";
+			mes "Sua recompensa será de 6.000 Ryous, 25.000 Zenys e o aluguel de um chapeu de gato.";
+			set Zeny,Zeny+25000;
+			query_sql "UPDATE `wonplayerinfo` SET `ryou` = `ryou`+6000 WHERE `account_id` = '"+getcharid(3)+"'";
+			rentitem 13867,604800,"+getcharid(3)+";
+			completequest 3505;
+			if (.@missao1 == 100001){
+				query_sql("UPDATE `wonplayerinfo` SET `missao1` = '0' WHERE `account_id` = '"+getcharid(3)+"'");	
+				close;
+			}
+			if (.@missao2 == 100001){
+				query_sql("UPDATE `wonplayerinfo` SET `missao2` = '0' WHERE `account_id` = '"+getcharid(3)+"'");	
+				close;
+			}	
+		}
+			
+		if (.@missao1 == 100002 || .@missao2 == 100002) {
+			mes "Você completou sua missão.";
+			mes "Sua recompensa será de 5.000 Ryous, 20,000 Zenys e um chapéu de planta.";
+			rentitem 5186,604800,"+getcharid(3)+";
+			set Zeny,Zeny+20000;
+			query_sql "UPDATE `wonplayerinfo` SET `ryou` = `ryou`+5000 WHERE `account_id` = '"+getcharid(3)+"'";
+			completequest 3506;
+			if (.@missao1 == 100002){
+				query_sql("UPDATE `wonplayerinfo` SET `missao1` = '0' WHERE `account_id` = '"+getcharid(3)+"'");	
+				close;
+			}
+			if (.@missao2 == 100002){
+				query_sql("UPDATE `wonplayerinfo` SET `missao2` = '0' WHERE `account_id` = '"+getcharid(3)+"'");	
+				close;
+			}
+			close;
+			end;
+			}			
+		
+		
+		
+		
+		
+			if (.@vila == 2) {
+			mes "Olá, Deseja escolher uma missão?";	
+	} else {
+			goto misserro;
+	}
+	
+		if (.@missao1 == 0) {
+			set .@missao1name$, "[Slot 1] Vazio";
+		}
+		if (.@missao1 == 1) {
+			set .@missao1name$, "[Slot 1] Procure do Gato Tora";
+		}	
+		if (.@missao1 == 2) {
+			set .@missao1name$, "[Slot 1] Remova ervas daninhas";
+		}	
+					
+					if( getgroupid() > 1 ) {
+						
+						if (.@missao2 == 0) {
+							set .@missao2name$, "[Slot 2] Vazio";
+						}
+						if (.@missao2 == 1) {
+							set .@missao2name$, "[Slot 2] Procure do Gato Tora";
+						}
+						if (.@missao2 == 2) {
+							set .@missao2name$, "[Slot 2] Remova ervas daninhas";
+						}
+						
+					} else {
+							set .@missao2name, "";	
+					}
+	
+	menu "Não, obrigado",negativo,.@missao1name$,L_M1M,.@missao2name$,L_M2M;
+
+	negativo:
+		mes "Tudo bem, pode voltar quando estiver pronto para pegar uma missão.";
+		close;
+		end;
+	
+	L_M1M:
+	set .@MSlot,1;
+	goto Getmissao;
+	
+	L_M2M:
+	set .@MSlot,2;
+	goto Getmissao;
+	
+	
+	Getmissao:
+	
+		if (.@MSlot == 1) && (.@missao1 == 1) || (.@MSlot == 2) && (.@missao2 == 1) {
+		mes "A sua missão é localizar o gato perdido da senhora feudal, ele foi visto há alguns minutos ainda dentro da vila, segundo alguns moradores.";
+		close;
+		end;
+		}
+	
+	
+	
+	
+	
+	if (rankcopen == 1) {
+			set .@op2$, "[Rank C]";
+	} else {
+			set .@op2$, "";
+	}
+	if (rankbopen == 1) {
+			set .@op3$, "[Rank B]";
+	} else {
+			set .@op3$, "";
+	}
+	if (rankaopen == 1) {
+			set .@op4$, "[Rank A]";
+	} else {
+			set .@op4$, "";
+	}
+	if (ranksopen == 1) {
+			set .@op5$, "[Rank S]";
+	} else {
+			set .@op5$, "";
+	}
+	if (especialopen == 1) {
+			set .@op6$, "[Missão Especial]";
+	} else {
+			set .@op6$, "";
+	}
+	
+menu "Não, obrigado",negativo,"[Rank D]",L_rankD,.@op2$,L_rankC,.@op3$,L_rankB,.@op4$,L_rankA,.@op5$,L_rankS,.@op6$,L_esp,"Desistir da Missão",L_giveup;
+	
+	L_rankD:
+									// if VIP escolher missão
+									
+									switch(rand(1,1)) {
+									case 1: 
+										mes "A sua missão será identificar a localização do gato perdido da Senhora Feudal.";
+										mes "Ele está em algum lugar na vila. Após encontra-lo, volte imediatamente.";
+										setquest 3504;
+										set cattora,1;
+											if (.@MSlot == 1){
+												query_sql("UPDATE `wonplayerinfo` SET `missao1` = '1' WHERE `account_id` = '"+getcharid(3)+"'");
+											}
+												
+											if (.@MSlot == 2){
+												query_sql("UPDATE `wonplayerinfo` SET `missao2` = '1' WHERE `account_id` = '"+getcharid(3)+"'");
+											}
+											
+										break;
+										
+									case 2: 
+										mes "A sua missão será remover 100 das ervas daninhas que estão crescendo na porta de uma casa de uma senhora";
+										navigateto "konoha",232,243,NAV_ALL,1;
+										setquest 3506;
+											if (.@MSlot == 1){
+												query_sql("UPDATE `wonplayerinfo` SET `missao1` = '2' WHERE `account_id` = '"+getcharid(3)+"'");
+											}
+											
+											if (.@MSlot == 2){
+												query_sql("UPDATE `wonplayerinfo` SET `missao2` = '2' WHERE `account_id` = '"+getcharid(3)+"'");
+											}
+	
+										set erva,1;
+										break;
+										end;
+									case 3: 
+										mes "A sua missão será remover 60 algas que estão crescendo no pequeno lago a sudeste de Konoha.";
+										navigateto "konoha",225,156,NAV_ALL,1;
+										setquest 3507;
+											if (.@MSlot == 1){
+												query_sql("UPDATE `wonplayerinfo` SET `missao1` = '3' WHERE `account_id` = '"+getcharid(3)+"'");
+											}
+											
+											if (.@MSlot == 2){
+												query_sql("UPDATE `wonplayerinfo` SET `missao2` = '3' WHERE `account_id` = '"+getcharid(3)+"'");
+											}
+											
+										set alga,1;
+										break;
+										end;
+										
+									case 4: 
+										mes "A sua missão será ajudar um senhor a cortar lenha.";
+										navigateto "konoha",225,156,NAV_ALL,1;
+										setquest 3508;
+											if (MSlot == 1){
+												query_sql("UPDATE `wonplayerinfo` SET `missao1` = '4' WHERE `account_id` = '"+getcharid(3)+"'");
+											}
+											
+											if (MSlot == 2){
+												query_sql("UPDATE `wonplayerinfo` SET `missao2` = '4' WHERE `account_id` = '"+getcharid(3)+"'");
+											}
+											
+										set lenha,1;
+										break;
+										end;
+										
+									case 5: 
+										break;
+										end;
+									}
+			end;
+	L_rankC:
+			mes "Rank C!";
+			close2;
+			end;
+	L_rankB:
+			mes "Rank B!";
+			close2;
+			end;	
+	L_rankA:
+			mes "Rank A!";
+			close2;
+			end;	
+	L_rankS:
+			mes "Rank S!";
+			close2;
+			end;	
+	L_esp:
+			mes "Missão Especial!";
+			close2;
+			end;
+			
+			
+	L_giveup:
+			mes "Tem certeza que deseja desistir da sua missão?";
+			switch(select("Não, mudei de ideia:Sim, eu quero desistir da minha missão")){
+				case 1:
+					mes "Tudo bem, até logo";
+					close;
+					end;
+				
+				case 2:
+					mes "Você desistiu da sua missão";
+					
+					if (.@MSlot == 1){
+						if (.@missao1 == 1){
+							erasequest 3504;
+							set cattora,0;
+						}					
+						query_sql("UPDATE `wonplayerinfo` SET `missao1` = '0' WHERE `account_id` = '"+getcharid(3)+"'");
+						
+						
+					}
+					if (.@MSlot == 2){
+						query_sql("UPDATE `wonplayerinfo` SET `missao2` = '0' WHERE `account_id` = '"+getcharid(3)+"'");
+					}
+					if (.@MSlot == 3){
+						query_sql("UPDATE `wonplayerinfo` SET `missao3` = '0' WHERE `account_id` = '"+getcharid(3)+"'");
+					}
+					if (.@MSlot == 4){
+						query_sql("UPDATE `wonplayerinfo` SET `missao4` = '0' WHERE `account_id` = '"+getcharid(3)+"'");
+					}
+					close2;
+					end;
+					}
+	
+	misserro:
+		mes "Você não tem permissão para pegar missões nessa vila.";
+		close;
+		end;
+
+}
+
+//=====================NPC IN QUEST===================================================
+//=====================#1===================================================
+konoha,72,249,4	script	Tora#K	876,{
+	mes "Miau....miau....";
+			if (cattora == 1){
+		dispbottom "Você encontrou o gato Tora, retorne para a Central de Missões.";
+		completequest 3504;
+		setquest 3505;
+		set cattora,0;
+		set missn,10000;
+			switch(rand(1,23)) {
+		case 1: moveNPC "Tora#K",206,19;	break;
+		case 2: moveNPC "Tora#K",284,22;	break;
+		case 3: moveNPC "Tora#K",292,23;	break;
+		case 4: moveNPC "Tora#K",315,22;	break;
+		case 5: moveNPC "Tora#K",277,16;	break;
+		case 6: moveNPC "Tora#K",237,14;	break;
+		case 7: moveNPC "Tora#K",217,13;	break;
+		case 8: moveNPC "Tora#K",215,16;	break;
+		case 9: moveNPC "Tora#K",176,19;	break;
+		case 10: moveNPC "Tora#K",150,22;	break;
+		case 11: moveNPC "Tora#K",110,21;	break;
+		case 12: moveNPC "Tora#K",80,227;	break;
+		case 13: moveNPC "Tora#K",120,172;	break;
+		case 14: moveNPC "Tora#K",93,159;	break;
+		case 15: moveNPC "Tora#K",130,113;	break;
+		case 16: moveNPC "Tora#K",166,84;	break;
+		case 17: moveNPC "Tora#K",182,85;	break;
+		case 18: moveNPC "Tora#K",196,83;	break;
+		case 19: moveNPC "Tora#K",227,91;	break;
+		case 20: moveNPC "Tora#K",257,121;	break;
+		case 21: moveNPC "Tora#K",236,188;	break;
+		case 22: moveNPC "Tora#K",233,253;	break;
+		case 23: moveNPC "Tora#K",228,245;	break;
+	}
+	}
+	close;
+	end;
+}
+
+//=====================#2=============================================
+konoha,228,244,4	script	Erva#K1	1081,{
+	hideonnpc "Erva#K1";
+	addtimer 10000, "Erva#K1::OnErv1";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv1:
+	hideoffnpc "Erva#K1";
+	end;
+}
+	konoha,227,246,4	script	Erva#K2	1082,{
+	hideonnpc "Erva#K2";
+	addtimer 10000, "Erva#K2::OnErv2";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv2:
+	hideoffnpc "Erva#K2";
+	end;
+}
+konoha,229,247,4	script	Erva#K3	1082,{
+	hideonnpc "Erva#K3";
+	addtimer 10000, "Erva#K3::OnErv3";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv3:
+	hideoffnpc "Erva#K3";
+	end;
+}
+konoha,228,248,4	script	Erva#K4	1080,{
+	hideonnpc "Erva#K4";
+	addtimer 10000, "Erva#K4::OnErv4";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv4:
+	hideoffnpc "Erva#K4";
+	end;
+}
+konoha,229,251,4	script	Erva#K5	1079,{
+	hideonnpc "Erva#K5";
+	addtimer 10000, "Erva#K5::OnErv5";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv5:
+	hideoffnpc "Erva#K5";
+	end;
+}
+konoha,227,250,4	script	Erva#K6	1078,{
+	hideonnpc "Erva#K6";
+	addtimer 10000, "Erva#K6::OnErv6";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv6:
+	hideoffnpc "Erva#K6";
+	end;
+}
+konoha,229,252,4	script	Erva#K7	1083,{
+	hideonnpc "Erva#K7";
+	addtimer 10000, "Erva#K7::OnErv7";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv7:
+	hideoffnpc "Erva#K7";
+	end;
+}
+konoha,230,245,4	script	Erva#K8	1083,{
+	hideonnpc "Erva#K8";
+	addtimer 10000, "Erva#K8::OnErv8";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv8:
+	hideoffnpc "Erva#K8";
+	end;
+}
+konoha,232,245,4	script	Erva#K9	1083,{
+	hideonnpc "Erva#K9";
+	addtimer 10000, "Erva#K9::OnErv9";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv9:
+	hideoffnpc "Erva#K9";
+	end;
+}
+konoha,234,247,4	script	Erva#K10	1083,{
+	hideonnpc "Erva#K10";
+	addtimer 10000, "Erva#K10::OnErv10";
+	if (erva == 1){
+	set ervad,ervad+1;
+	dispbottom "Você retirou ("+ervad+"/100) ervas.";
+	if (ervad == 100){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10001;
+	set erva,0;
+	completequest 3506;
+	}
+	end;
+	}
+	end;
+	OnErv10:
+	hideoffnpc "Erva#K10";
+	end;
+}
+//=====================#3=============================================
+
+konoha,223,157,4	script	Alga#K1	2191,{
+	hideonnpc "Alga#K1";
+	addtimer 6000, "Alga#K1::OnAlg1";
+	if (alga == 1){
+	set algan,algan+1;
+	dispbottom "Você retirou ("+algan+"/60) algas.";
+	if (algan == 60){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10002;
+	set alga,0;
+	completequest 3507;
+	}
+	end;
+	}
+	end;
+	OnAlg1:
+	hideoffnpc "Alga#K1";
+	end;
+}
+konoha,222,157,4	script	Alga#K2	2191,{
+	hideonnpc "Alga#K2";
+	addtimer 5000, "Alga#K2::OnAlg2";
+	if (alga == 1){
+	set algan,algan+1;
+	dispbottom "Você retirou ("+algan+"/60) algas.";
+	if (algan == 60){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10002;
+	set alga,0;
+	completequest 3507;
+	}
+	end;
+	}
+	end;
+	OnAlg2:
+	hideoffnpc "Alga#K2";
+	end;
+}
+konoha,224,157,4	script	Alga#K3	2191,{
+	hideonnpc "Alga#K3";
+	addtimer 6000, "Alga#K3::OnAlg3";
+	if (alga == 1){
+	set algan,algan+1;
+	dispbottom "Você retirou ("+algan+"/60) algas.";
+	if (algan == 60){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10002;
+	set alga,0;
+	completequest 3507;
+	}
+	end;
+	}
+	end;
+	OnAlg3:
+	hideoffnpc "Alga#K3";
+	end;
+}
+konoha,223,156,4	script	Alga#K4	2191,{
+	hideonnpc "Alga#K4";
+	addtimer 7000, "Alga#K4::OnAlg4";
+	if (alga == 1){
+	set algan,algan+1;
+	dispbottom "Você retirou ("+algan+"/60) algas.";
+	if (algan == 60){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10002;
+	set alga,0;
+	completequest 3507;
+	}
+	end;
+	}
+	end;
+	OnAlg4:
+	hideoffnpc "Alga#K4";
+	end;
+}
+konoha,224,156,4	script	Alga#K5	2191,{
+	hideonnpc "Alga#K5";
+	addtimer 8000, "Alga#K5::OnAlg5";
+	if (alga == 1){
+	set algan,algan+1;
+	dispbottom "Você retirou ("+algan+"/60) algas.";
+	if (algan == 60){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10002;
+	set alga,0;
+	completequest 3507;
+	}
+	end;
+	}
+	end;
+	OnAlg5:
+	hideoffnpc "Alga#K5";
+	end;
+}
+konoha,222,156,4	script	Alga#K6	2191,{
+	hideonnpc "Alga#K6";
+	addtimer 7000, "Alga#K6::OnAlg6";
+	if (alga == 1){
+	set algan,algan+1;
+	dispbottom "Você retirou ("+algan+"/60) algas.";
+	if (algan == 60){
+	dispbottom "Você já pode voltar para a Central de Missões";
+	set missn,10002;
+	set alga,0;
+	completequest 3507;
+	}
+	end;
+	}
+	end;
+	OnAlg6:
+	hideoffnpc "Alga#K6";
+	end;
+}

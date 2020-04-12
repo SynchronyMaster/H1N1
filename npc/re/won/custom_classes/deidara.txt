@@ -1,0 +1,47 @@
+new_1-2,115,88,5	script	Deidara	10215,{
+cutin "deidara",2;
+mes "[Deidara]";
+mes "Você quer escolher a classe Deidara?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class != 0) goto neh;
+if(countitem(3818) != 0){
+delitem 3818,1;
+goto job;
+}
+if(countitem(3804) != 0){
+delitem 3804,1;
+goto job;
+} else {goto nah;}
+
+close;
+
+job:
+jobchange 24; 
+mes "^FF9900[Deidara]^000000";
+mes "Parabéns, agora você é da classe Deidara!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Deidara",0;
+cutin "",255;
+close;
+
+neh:
+next;
+mes "^FF9900[Deidara]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+cutin "",255;
+close;
+
+nah:
+mes "Você não tem nenhum item necessário para escolher essa classe...";
+cutin "",255;
+close;
+
+nao:
+next;
+mes "^FF9900[Deidara]^000000";
+mes "Estarei esperando caso mude de ideia.";
+cutin "",255;
+close;
+}

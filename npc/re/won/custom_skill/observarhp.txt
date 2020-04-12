@@ -1,0 +1,12 @@
+
+-	Script	AL_OBSERVADOR	-1,{
+
+	.@id = AL_OBSERVADOR;
+	AL_OBSERVADOR = 0;
+	specialeffect2 646;
+	
+	set(@AL_OBSERVADOR,Hp,.@id);
+	attachrid(getcharid(3,strcharinfo(0,.@id)));
+	announce "[Observador]: Hp - "+@AL_OBSERVADOR,bc_self;
+	end;
+}

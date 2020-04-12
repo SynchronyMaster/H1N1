@@ -1,0 +1,51 @@
+prt_fild07,207,383,4	script	Portões de Konoha#in	45,2,2,{
+	if (konohain == 0){
+	mes "Você não tem autorização para entrar na Vila.";
+	close;
+	end;
+	}
+	if (konohain == 1){
+	warp "konohaf",195,67;
+	end;
+	}
+}
+konohaf,195,25,4	script	Portões de Konoha#out	45,2,2,{
+	if (konohaout == 0){
+	mes "Você não tem autorização para sair da Vila.";
+	close;
+	end;
+	}
+	if (konohaout == 1){
+	warp "prt_fild07",207,379;
+	if (getcharid(2) != 2){
+//	changebase 35;
+	}
+	end;
+	}
+}
+konoha,194,234,0	warp	hokage#in	3,3,knh_in,19,26
+knh_in,19,18,0	warp	hokage#out	3,3,konoha,194,226
+knh_in,65,85,0	warp	hokage#a	3,3,knh_in,159,31
+knh_in,159,25,0	warp	hokage#b	3,3,knh_in,61,85
+knh_in,158,101,0	warp	hokage#c	3,3,knh_in,248,66
+knh_in,248,59,0	warp	hokage#d	3,3,knh_in,158,94
+
+//Academia Ninja
+konohal,236,271,0	warp	knhacad#1	3,3,knh_acad1,484,153
+knh_acad1,489,153,0	warp	knhacad#2	3,3,konohal,240,271
+	//inside
+knh_acad1,381,423,0	warp	knhacad#3	3,3,knh_acad1,375,322
+knh_acad1,375,326,0	warp	knhacad#4	3,3,knh_acad1,381,427
+
+knh_acad1,43,398,0	warp	knhacad#5	3,3,knh_acad1,260,160
+knh_acad1,260,164,0	warp	knhacad#6	3,3,knh_acad1,43,402
+
+knh_acad1,421,211,0	warp	knhacad#7	3,3,knh_acad1,72,230
+knh_acad1,76,230,0	warp	knhacad#8	3,3,knh_acad1,425,211
+
+knh_acad1,468,315,0	warp	knhacad#up	3,3,knh_acad2,484,315
+knh_acad2,488,315,0	warp	knhacad#down	3,3,knh_acad1,464,315
+//CASAS
+//1
+konohaf,183,72,0	warp	knh#1in	3,3,knh_in3,32,369
+knh_in3,37,369,0	warp	knh#1out	3,3,konohaf,188,73

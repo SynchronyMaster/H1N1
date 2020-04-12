@@ -1,0 +1,110 @@
+-	Script	rashomon1	-1,{
+		query_sql("SELECT  account_id  FROM `char` WHERE `char_id` = '"+charid+"'",.@acc_idsql);
+		getmapxy(.mapname$,.@mapx,.@mapy,0);
+		set .@skillv,skillv;
+		set .@skillx,skillx;
+		set .@skilly,skilly;
+		set .@dirJogador,dirJogador;
+		set	.@rachshid,getcharid(0);
+		
+		if (.@skillv == 1){
+			showscript "Rashomon: Kai";
+			set .@nb, query_sql("SELECT  charskill_id, SkillSave1, SkillSave2, SkillSave3  FROM `skill_w` WHERE (`charskill_id`,`SkillSave10`) = ('"+.@rachshid+"','RASH')",.@acc_id,.@rashid2,.@w1$,.@w2$);
+				.@size = getarraysize( .@acc_id );
+				for( .@i = 0; .@i < .@size; .@i++ ){
+					attachrid .@acc_idsql;
+					unitkill .@rashid2;
+					delwall ""+.@w1$+"";
+					delwall ""+.@w2$+"";
+					soundeffectall "rashomon.wav", 0;
+					query_sql( "DELETE FROM `skill_w` WHERE (`charskill_id`, `SkillSave1`,`SkillSave10`) = ('"+.@rachshid+"','"+.@rashid2+"','RASH')");
+				}
+			end;
+			}
+			
+		
+		
+		
+		if (.@skillv == 2){
+			set .@nb, query_sql("SELECT  charskill_id, SkillSave1, SkillSave2, SkillSave3  FROM `skill_w` WHERE (`charskill_id`,`SkillID`) = ('"+.@rachshid+"','RASHF')",.@acc_id,.@rashid2,.@w1$,.@w2$);
+				.@size = getarraysize( .@acc_id );
+				for( .@i = 0; .@i < .@size; .@i++ ){
+					attachrid .@acc_idsql;
+					unitkill .@rashid2;
+					delwall ""+.@w1$+"";
+					delwall ""+.@w2$+"";
+					soundeffectall "rashomon.wav", 0;
+					query_sql( "DELETE FROM `skill_w` WHERE (`charskill_id`, `SkillID`, `SkillSave1`) = ('"+.@rachshid+"','RASHF','"+.@rashid2+"')");
+				}
+			
+		}if (.@skillv == 3){
+		
+		}if (.@skillv == 4){
+		
+		}				
+		
+		
+		
+		//attachrid(getcharid(3,strcharinfo(0,user)));
+		//monster  .@mapname$,skillx,skilly,"Rashomon",3584,1,"",2,3;
+		if (.@skillv == 2){set .@rashid,30013;
+					monster2  .mapname$,skillx,skilly,dirJogador,"Rashomon",.@rashid,1,"",2,3;
+		}if (.@skillv == 3){set .@rashid,30015;
+					monster2  .mapname$,skillx,skilly,dirJogador,"Rashomon",.@rashid,1,"",2,3;
+		}if (.@skillv == 4){set .@rashid,30017;
+					monster2  .mapname$,skillx,skilly,dirJogador,"Rashomon",.@rashid,1,"",2,3;
+		}	
+			if (dirJogador == 0){
+		setwall .mapname$,.@skillx,.@skilly,8,6,0,"1"+.@skillv1$+""+.@rachshid+"";
+		setwall .mapname$,.@skillx-1,.@skilly,8,2,0,"2"+.@skillv1$+""+.@rachshid+"";
+		}
+			if (dirJogador == 7){
+		setwall .mapname$,.@skillx,.@skilly,6,5,0,"1"+.@skillv1$+""+.@rachshid+"";
+		setwall .mapname$,.@skillx-1,.@skilly+1,6,1,0,"2"+.@skillv1$+""+.@rachshid+"";
+		}
+			if (dirJogador == 6){
+		setwall .mapname$,.@skillx,.@skilly,8,4,0,"1"+.@skillv1$+""+.@rachshid+"";
+		setwall .mapname$,.@skillx,.@skilly+1,8,0,0,"2"+.@skillv1$+""+.@rachshid+"";
+		}
+			if (dirJogador == 5){
+		setwall .mapname$,.@skillx,.@skilly,6,3,0,"1"+.@skillv1$+""+.@rachshid+"";
+		setwall .mapname$,.@skillx-1,.@skilly+1,6,7,0,"2"+.@skillv1$+""+.@rachshid+"";
+		}
+			if (dirJogador == 4){
+		setwall .mapname$,.@skillx,.@skilly,8,2,0,"1"+.@skillv1$+""+.@rachshid+"";
+		setwall .mapname$,.@skillx+1,.@skilly,8,6,0,"2"+.@skillv1$+""+.@rachshid+"";
+		}
+			if (dirJogador == 3){
+		setwall .mapname$,.@skillx,.@skilly,6,1,0,"1"+.@skillv1$+""+.@rachshid+"";
+		setwall .mapname$,.@skillx+1,.@skilly-1,6,5,0,"2"+.@skillv1$+""+.@rachshid+"";
+		}
+			if (dirJogador == 2){
+		setwall .mapname$,.@skillx,.@skilly,8,0,0,"1"+.@skillv1$+""+.@rachshid+"";
+		setwall .mapname$,.@skillx-1,.@skilly,8,4,0,"2"+.@skillv1$+""+.@rachshid+"";
+		}
+			if (dirJogador == 1){
+		setwall .mapname$,.@skillx,.@skilly,6,7,0,"1"+.@skillv1$+""+.@rachshid+"";
+		setwall .mapname$,.@skillx-1,.@skilly+1,6,3,0,"2"+.@skillv1$+""+.@rachshid+"";
+		}
+		soundeffectall "rashomon.wav", 0;
+		sleep2 200;
+		unitkill $@mobid;
+
+		sleep 6300;
+		monster2  .mapname$,.@skillx,.@skilly,.@dirJogador,"Rashomon",30021,1,"rashomon1::OnTup",2,3;
+		set .@rashid2,$@mobid;
+		query_sql ("INSERT INTO `skill_w` (`charskill_id`, `SkillID`, `SkillSave1`, `SkillSave2`, `SkillSave3`, `SkillSave10`) VALUES ('"+.@rachshid+"', 'RASHF', '"+.@rashid2+"', '1"+.@skillv1$+""+.@rachshid+"', '2"+.@skillv1$+""+.@rachshid+"', 'RASH')");
+		announce "Valor1 "+.@rashid2+" ",bc_yellow;
+		end;
+		
+		OnTup:
+		announce "Valor2 "+killedgid+" ",bc_yellow;
+		set .@rashid3,killedgid;
+		announce "Valor3 "+.@rashid3+" ",bc_yellow;
+		query_sql("SELECT  SkillSave2, SkillSave3  FROM `skill_w` WHERE (`SkillID`,`SkillSave1`) = ('RASHF','"+.@rashid3+"')",.@w1$,.@w2$);
+		announce "Direção "+.@w1$+" ",bc_yellow;
+		delwall ""+.@w1$+"";
+		delwall ""+.@w2$+"";
+		query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@rashid3+"','RASHF')");
+		end;
+}

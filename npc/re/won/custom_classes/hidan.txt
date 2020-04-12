@@ -1,0 +1,33 @@
+new_1-2,115,92,5,5	script	Hidan	10218,{
+cutin "hidan",2;
+mes "[Hidan]";
+mes "Você quer escolher a classe Hidan?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class > 0) goto neh;
+jobchange 4015; 
+getitem 19008,1;
+next;
+
+mes "^FF9900[Hidan]^000000";
+mes "Parabéns, agora você é da classe Hidan!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Hidan",0;
+cutin "",255;
+close;
+
+neh:
+next;
+mes "^FF9900[Hidan]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+cutin "",255;
+close;
+
+nao:
+next;
+mes "^FF9900[Hidan]^000000";
+mes "Estarei esperando caso mude de ideia.";
+cutin "",255;
+close;
+}

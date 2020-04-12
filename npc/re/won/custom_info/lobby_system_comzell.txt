@@ -1,0 +1,653 @@
+//============================// Sistema de Vilas//========================
+
+// Responsável pelo texto e set da variavel de lobby.
+// Argumento 0 = Mapa do Lobby
+
+function	script	flobby	{
+
+	cutin "aca_ninja_k",2;
+	
+	.@mapa$ = getarg(0);
+	.@x     = getarg(1);
+	.@y     = getarg(2);
+	
+	mes "Olá, "+strcharinfo(0)+"!";
+	mes "Deseja ir para o Lobby?";
+	
+	if(select("Sim, eu quero:Não, talvez mais tarde")==1)
+	{
+		mes "Até mais!";
+		close2;
+		lobby = getarg(0);
+		warp "que_qaru05",251,335;
+		end;
+	}	
+		
+	mes "Entendo...";
+	close2;
+	cutin "",255;
+	end;
+}
+
+-	Script	Lobby_Main	637,{
+	
+	flobby(strnpcinfo(2));
+	end;
+}
+
+prontera,164,169,4	duplicate(Lobby_Main)	Lobby#1	637
+konoha,177,236,4	duplicate(Lobby_Main)	Lobby#2	637
+suna,207,196,4	duplicate(Lobby_Main)	Lobby#3	637
+kirigakure,168,228,4	duplicate(Lobby_Main)	Lobby#4	637
+
+lobby_b,242,282,4	script	Rashomon	3581,2,2,{
+showscript "Kuchiyose: Rashomon";
+}
+
+lobby_b,250,238,4	script	Tenso no Jutsu	111,2,2,{
+	
+	query_sql ("select vila from dayslogin where account_id='"+getcharid(3)+"'",.@minhavila);
+	
+	mes "Utilizando o Tenso no Jutsu podemos te levar para qualquer lugar, mas cuidado, o jutsu é instável e pode te causar danos dependendo da distância.";
+	
+	setarray .@op1$[1],"Voltar para Prontera",
+	                   "Ir para a Vila da Folha",
+					   "Ir para a Vila da Areia",
+					   "Ir para a Vila da Névoa";
+					   
+	setarray .@m$[1],"prontera","konoha","suna","kirigakure","kirigakure";
+	setarray .@x[1],172,172,199,178,178;
+	setarray .@y[1],236,236,188,219,219;
+	
+	if(@iatsudelay && getskilllv("IATSU"))
+		.@opf$ = "^FF0000[Iatsu] (Delay) Entrar na sala VIP^000000";
+	else if(getskilllv("IATSU"))
+				.@opf$ = "^FF0000[Iatsu] Entrar na sala VIP^000000";
+	
+	switch(select(.@op1$ + ":" + .@opf$))
+	{
+		case 1:
+			mes "Tenso no Jutsu!";
+			warp .@m$[lobby],.@x[lobby],.@y[lobby];
+			lobby = 0;
+			npctalk "Tenso no Jutsu!!","Rias#02";
+			end;
+			
+		case 2:
+			break;
+	}
+
+	if(!@iatsudelay)
+	{
+		.@random = rand(1,100);
+		
+		setarray .@chance[1],10,20,40;
+		setarray .@time[1],600000,300000,30000;
+		setarray .@texto$[1],"10 minutos","5 minutos","30 segundos";
+		
+		if(.@random <= .@chance[getskilllv("IATSU")])
+			goto sucess;
+		
+		npctalk "Tens...?!!!";
+		npctalk "Como você ousa usar um genjutsu em mim, "+strcharinfo(0)+"!!!!","Rias#02";
+		emotion 7;
+		specialeffect 220,AREA,"Rias#02";
+		specialeffect2 231;
+		HP -= 70000;
+		npcskill 2201,5,500,400;
+		
+		dispbottom "O genjutsu fracassou, você não pode reutiliza-lo por " + .@texto$[getskilllv("IATSU")],0xff0000;
+		@iatsudelay = 1;
+		addtimer .@time[getskilllv("IATSU")],"Tenso no Jutsu::OnDIEND";
+		close;
+	}
+	else
+	{
+		dispbottom "Você não pode utilizar o genjutsu até o delay acabar.",0xff0000;
+		end;
+	}
+		
+	sucess:
+		mes "Tenso no Justsu!";
+		close2;
+		npctalk "???..Ten-so... no Jutsu!?","Rias#02";
+		dispbottom "O genjutsu foi um sucesso, você não pode reutiliza-lo por " + .@texto$[getskilllv("IATSU")],0xff0000;
+		@iatsudelay = 1;
+		addtimer .@time[getskilllv("IATSU")],"Tenso no Jutsu::OnDIEND";
+		end;
+		
+	OnDIEND:
+		dispbottom "Você já pode utilizar um genjutsu novamente",0xff0000;
+		@iatsudelay = 0;
+		end;
+			
+}
+
+
+//=====================// Avisos //==================================
+que_qaru05,262,371,4	script	Quadro de Avisos#svl	837,{
+	mes "[Sala VIP]";
+	mes "Somente jogadores VIP podem ter acesso a essa sala.";
+
+	close;
+}
+
+que_qaru05,247,343,5	script	Quadro de Avisos#avl	837,{
+	mes "Seja bem-vindo ao Lobby do Word Of Naruto.";
+	close;
+}
+
+
+//====================// Monstros //=====================================
+que_qaru05,116,313,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,120,285,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,117,236,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,103,223,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,85,204,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,79,186,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,73,167,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,68,150,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,71,128,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,69,118,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,117,78,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,110,79,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,141,80,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,158,84,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,193,104,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,119,269,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,155,77,0,0	monster	Protetor do Lobby	1932,1,180000,0,0
+que_qaru05,110,317,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,115,295,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,116,256,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,113,242,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,99,223,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,94,216,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,77,198,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,70,174,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,72,147,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,64,134,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,77,107,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,84,88,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,98,82,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,129,79,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,91,124,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,173,95,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,179,127,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,195,120,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,178,159,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,88,145,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,94,157,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,95,177,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,129,196,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,154,196,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,170,187,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,194,180,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+que_qaru05,214,181,0,0	monster	Vigia do Lobby	1933,1,600000,0,0
+que_qaru05,243,199,0,0	monster	Vigia do Lobby	1933,1,1200000,0,0
+
+
+//==================================// Sala de Suporte //============================================
+
+//que_qaru05,243,297,6	duplicate(enq)	Enquete#Lobby	469
+
+que_qaru05,242,345,5	script	Sala de Suporte	475,{
+set .@npc$,"[^FF0000 Sala de Suporte ^000000]";	//Nome do Npc.
+set $np,30;	//Número maximo de players na sala.
+set $gm,2;	//Nível de GM para abrir a sala.
+
+	if(getgmlevel() >= $gm){
+	mes .@npc$;
+	mes "Olá Senhor(a)^0000CD "+strcharinfo(0)+"^000000!";
+	mes "o que gostaria de fazer?";
+	menu "- Abrir Sala de Suporte",case1,"- Fechar Sala de Suporte",case2,"- Entrar na Sala de Suporte",case3;
+	case1:
+	if($@switch == 1){
+		next;
+		mes .@npc$;
+		mes "A sala já estava aberta deseja mante-la assim?";
+		menu "- Sim",-,"- Não",N1;
+		next;
+		mes .@npc$;
+		mes "Certo!";
+		mes "A sala continua aberta!";
+		close;
+		N1:
+		next;
+		set $@switch,0;
+		mes .@npc$;
+		mes "A sala está fechada!";
+		close;
+		}
+		next;
+		set $@switch,1;
+		mes .@npc$;
+		mes "A sala está aberta!";
+		announce "[ Suporte Online ]: Suporte inicíado na Sala de Suporte. Abram chat's 1/2!",bc_yellow;
+		close;
+	case2:
+	if($@switch == 0){
+		next;
+		mes .@npc$;
+		mes "A sala já estava fechada deseja mante-la assim?";
+		menu "- Sim",-,"- Não",N2;
+		next;
+		mes .@npc$;
+		mes "Muito bem!";
+		mes "A sala continua fechada!";
+		close;
+		N2:
+		next;
+		set $@switch,1;
+		mes .@npc$;
+		mes "A sala está aberta!";
+		announce "[ Suporte Online ]: Suporte inicíado na Sala de Suporte. Abram chat's 1/2!",bc_yellow;
+		close;
+		}
+		next;
+		set $@switch,0;
+		mes .@npc$;
+		mes "A sala está fechada no momento!";
+		announce "[ Suporte Offline ]: Suporte Encerrado ! Bom jogo.",bc_yellow;
+		close;
+	case3:
+		warp "jupe_area1",120,158;
+		end;
+		}
+	if($@switch == 0){
+	mes .@npc$;
+	mes "^FF0000- A Sala de Suporte está fechada!^000000";
+	close;
+	}
+	mes .@npc$;
+	mes "Gostaria de ir para Sala de Suporte? ";
+	menu "- Entrar na Sala [" + getmapusers("jupe_area1") + " / "+$np+"]",Entrar,"- Cancelar",Cancel;
+
+Entrar:
+if (getmapusers("jupe_area1")>$np){
+	mes .@npc$;
+	mes "A sala agora esta lotada";
+	mes "O limite maximo é de^FF0000 "+$np;
+	mes "pessoas lá dentro!";
+	close;
+
+}
+warp "jupe_area1",120,158;
+end;
+
+Cancel:
+end;
+}
+
+jupe_area1,115,160,3	script	Retornar	475,{
+
+set .@npc$,"[^FF0000 Sala de Suporte ^000000]";	//Nome do Npc.
+set $np,30;	//Número maximo de players na sala.
+set $gm,20;	//Nível de GM para abrir a sala.
+
+	if(getgmlevel() >= $gm){
+	mes .@npc$;
+	mes "Olá Senhor(a)^0000CD "+strcharinfo(0)+"^000000!";
+	mes "o que gostaria de fazer?";
+	menu "- Abrir Sala de Suporte",case1,"- Fechar Sala de Suporte",case2,"- Sair da Sala de Suporte",case3;
+	case1:
+	if($@switch == 1){
+		next;
+		mes .@npc$;
+		mes "A sala já estava aberta deseja mante-la assim?";
+		menu "- Sim",-,"- Não",N1;
+		next;
+		mes .@npc$;
+		mes "Certo!";
+		mes "A sala continua aberta!";
+		close;
+		N1:
+		next;
+		set $@switch,0;
+		mes .@npc$;
+		mes "A sala está fechada!";
+		close;
+		}
+		next;
+		set $@switch,1;
+		mes .@npc$;
+		mes "A sala está aberta!";
+		announce "[ Suporte Online ]: Suporte inicíado na Sala de Suporte. Abram chat's 1/2!",bc_yellow;
+		close;
+	case2:
+	if($@switch == 0){
+		next;
+		mes .@npc$;
+		mes "A sala já estava fechada deseja mante-la assim?";
+		menu "- Sim",-,"- Não",N2;
+		next;
+		mes .@npc$;
+		mes "Muito bem!";
+		mes "A sala continua fechada!";
+		close;
+		N2:
+		next;
+		set $@switch,1;
+		mes .@npc$;
+		mes "A sala está aberta!";
+		announce "[ Suporte Online ]: Suporte inicíado na Sala de Suporte. Abram chat's 1/2!",bc_yellow;
+		close;
+		}
+		next;
+		set $@switch,0;
+		mes .@npc$;
+		mes "A sala está fechada no momento!";
+		announce "[ Suporte Offline ]: Suporte Encerrado ! Bom jogo.",bc_yellow;
+		close;
+	case3:
+		warp "que_qaru05",251,333;
+		end;
+		}
+	if($@switch == 0){
+	warp "que_qaru05",150,150;
+	close;
+	}
+	mes .@npc$;
+	mes "Gostaria de ir para Sala de Suporte?";
+	menu "- Sair da Sala",Entrar,"- Cancelar",Cancel;
+
+Entrar:
+warp "que_qaru05",251,333;
+end;
+Cancel:
+end;
+}
+
+jupe_area1	mapflag	nomemo
+jupe_area1	mapflag	nowarp
+jupe_area1	mapflag	nowarpto
+jupe_area1	mapflag	noicewall
+jupe_area1	mapflag	noreturn
+jupe_area1	mapflag	noskill
+jupe_area1	mapflag	nosave	SavePoint
+
+
+
+//============================================ Salas de Classes (Avisos) =========================//
+new_1-2,104,79,4	script	Classes Primárias#01	857,{
+	mes "[Classes Primárias]";
+	mes "As classes primárias são classes liberadas no momento em que você cria a conta do jogo. Não há necessidade de nenhum item para obtê-las";
+	next;
+	switch(select("As classes primárias são....:Parar de ler.")){
+		case 1:
+			mes "As classes primárias são Uzumaki Naruto, Haruno Sakura, Uchiha Sasuke, Rock Lee, Hyuuga Hinata, Nara Shikamaru, Sai, Hyuuga Neji e Inuzuka Kiba!";
+			close2;
+			end;
+		case 2:
+			end;
+
+	}
+	close;
+}
+new_1-2,97,105,5	script	Classes Secundárias#01	857,{
+	mes "[Classes secundárias]";
+	mes "As classes sécundárias podem ser obtidas pelo cartão de classe, um cartão de classe secundária, ou um cartão geral.";
+	switch(select("As classes secundárias são....:Parar de ler.")){
+		case 1:
+			mes "As classes secundárias são Momochi Zabuza, Yuki Haku, Sabaku no Gaara, Kankuro, Hatake Kakashi, Chiyo, Maito Gai, Temari.";
+			close2;
+			end;
+		case 2:
+			end;
+	}
+	close;
+}
+
+new_1-2,83,98,5	script	Classes Cash#01	857,{
+	mes "[Classes Cash]";
+	mes "As classes cash podem ser obtidas pelo cartão da classe, cartão de classe cash (disponível na loja) ou pelo cartão geral  .";
+	switch(select("As classes cash são....:Parar de ler.")){
+		case 1:
+			mes "As classes cash são Tobi, Zetsu, Uchiha Madara, Senju Hashirama, Senju Tobirama, Sarutobi Hiruzen, Namikazze Minato, Senju Tsunade.";
+			close2;
+			end;
+		case 2:
+			end;
+	}
+	close;
+}
+
+new_1-2,119,99,4	script	Classes Quest#01	857,{
+	mes "[Classes Quest]";
+	mes "As classes quest podem ser obtida pelo cartão da classe, cartão de classe quest ou pelo cartão geral.";
+	switch(select("As classes quest são....:Parar de ler.")){
+		case 1:
+			mes "As classes quest são a Akatsuki(Uzumaki Nagato, Konan, Kakuzu, Hidan, Akasuna no Sasori, Deidara, Uchiha Itachi e Hoshigaki Kisame.).";
+			close2;
+			end;
+		case 2:
+			end;
+	}
+	close;
+}
+
+new_1-2,107,115,5	script	Classes Evento#01	857,{
+	mes "[Classes Evento]";
+	mes "As classes evento podem ser obtida pelo cartão da classe, cartão de classe evento ou pelo cartão geral  .";
+	switch(select("As classes cash são....:Parar de ler.")){
+		case 1:
+			mes "As classes cash são Tobi, Zetsu, Uchiha Madara, Senju Hashirama, Senju Tobirama, Sarutobi Hiruzen, Namikazze Minato, Senju Tsunade.";
+			close2;
+			end;
+		case 2:
+			end;
+	}
+	close;
+}
+
+
+
+
+que_qaru05,232,297,5	script	Sala de Quests#01	857,{
+	mes "[Sala de Quest]";
+	mes "Sala onde ficam as quests do jogo.";
+			end;
+	close;
+}
+
+
+//=================================Inicial - Ajuda ====================//
+function	script	funcwons	{
+		next;
+			mes "Clique em [Próximo] ou precione [Enter] para continuar.";
+			next;
+			mes "Todas as ações básicas como ^4d4dffmover, selecionar itens e atacar^000000 são controladas com ^4d4dff o botão esquerdo do mouse^000000.";
+			mes "Clique no chão para mover seu personagem.";
+			mes "Para ^4d4dffmover^000000 você precisa clicar onde quer ir.";
+			mes "Para ^4d4dffatacar^000000 você deve clicar no monstro ou personagem que deseja atacar.";
+		cutin "tutorial01",3;
+			next;
+			mes "Na janela de Quest, como o nome já diz, você encontra informaçõe sobre as quest que o seu personagem está envolvido!";
+			mes "Você pode abrir a ^4d4dffJanela de Quest^000000 precionando as teclas ^4d4dffAlt + U^000000 ao mesmo tempo.";
+		cutin "tutorial02",3;
+			next;
+			mes "Item são ^4d4dffequipados e usados^000000 ao ^4d4dffclicar^000000 duas vezes. O mesmo é feito para remove-los";
+			mes "O atalho para o Inventário é  ^4d4dffALT + E^000000.";
+		cutin "tutorial03",3;
+			next;
+			mes "Para conferir os ^4d4dffitens que estão equipados^000000, o atalho é ^4d4dffAlt+Q^000000.";
+			mes "Você também pode arrastar o item para o local em que deseja equipá-lo.";
+		cutin "tutorial03",3;
+			next;
+			mes "Para mostrar ^4d4dffinformações sobre o item^000000 basta clicar com o ^4d4dffbotão direito do Mouse^000000.";
+			mes "A mesma ação em outros personagens mostra um menu que permite ^4d4dffconvidar para um grupo, trocar itens, etc^000000.";
+		cutin "tutorial04",3;
+			next;
+			mes "^4d4dffPara adicionar itens, jutsus ou equipamentos^000000 na Hotkey você só precisa clicar e arrastar até o slot desejado. Isso lhe permitirá usa-los com o teclado.";
+			mes "Jutsus registrados ou itens podem ser usados/equipados precionando a tecla correspondente.";
+		cutin "tutorial05",3;
+			next;	
+			mes "Você pode personalizar sua Hot Key para usar qualquer tecla que desejar indo em ^4d4dffConfigurações de Atalho^000000 nas opções do menu.";
+		cutin "tutorial05",3;
+			next;
+			mes "Você já pode seguir para o Lobby, a <NAVI>Saída<INFO>iz_ng01,101,41,0,000,0</INFO></NAVI> fica na esquerda em baixo desse mapa.";
+		cutin "jpn_cynthia05",1;
+			next;
+			mes "Você pode ver mais dicas digitando \"/tip\".";
+		cutin "jpn_cynthia05",1;
+			close2;
+		cutin "jpn_cynthia05",255;
+			end;
+}
+
+// Inicio do Personagem
+iz_ng01,137,65,4	script	Rias#01	601,{
+	mes "Olá, "+strcharinfo(0)+"!";
+	mes "Bem-vindo(a) ao Golden World Of Naruto!";
+	mes "Meu nome é Rias, e estou aqui para te ensinar a jogar. Irei te acompanhar ao longo do jogo";
+	mes "Você quer que eu lhe mostre os comandos básicos do jogo??";
+	cutin "jpn_cynthia02",1;
+	next;
+	switch(select("Sim, Por favor.:Não precisa, obrigado.")){
+		case 1:
+			callfunc "funcwons";
+		case 2:
+			end;
+}
+}
+
+
+
+lobby_b,255,237,4	script	Rias#02	601,{
+	mes "Olá, "+strcharinfo(0)+"!";
+	mes "Está precisando de alguma coisa?";
+	cutin "jpn_cynthia02",1;
+	
+	
+	switch(select("O que é isso do seu lado?:Que lugar é esse?:Pode repetir os comandos básicos do jogo?")){
+	
+	case 1:
+	mes "É o meu Tenso no Jutsu, com ele eu sou capaz de transportar objetos e pessoas para	qualquer lugar na velocidade da luz. Originalmente a técnica causaria muitos danos em quem é teleportado, mas eu posso te curar e evitar que isso aconteça. Não adianta pedir que eu não vou te mandar para nenhum lugar muito perigoso para você!!";
+	cutin "jpn_cynthia03",1;
+	close2;
+	cutin "jpn_cynthia05",255;
+	end;
+	
+	case 2:
+	mes "Esse é o ^4d4dffLobby^000000 do World Of Naruto!";
+	mes "Aqui você pode se encontrar com todos os personagens do jogo, mesmo com pessoas de vilas diferentes da sua, nukenins e até membros da Akatsuki.";
+	cutin "jpn_cynthia01",1;
+	next;
+	mes "Quer saber mais sobre o Lobby???";
+	cutin "jpn_cynthia01",1;
+	next;
+	switch(select("Sim, quero saber mais.:Não, já sei o suficiente")){
+		case 1:
+			mes "O Lobby é o local onde você irá montar seu personagem, nele você pode <NAVI>Escolher Sua Vila<INFO>que_qaru05,262,282,0,000,0</INFO></NAVI>. Você só terá permissão para sair do Lobby após escolher a sua vila.";
+			mes "Você precisará <NAVI>Escolher Sua Classe<INFO>que_qaru05,260,332,0,000,0</INFO></NAVI>, mas escolha com cuidado, não é possível mudar de classe facilmente.";
+		cutin "jpn_cynthia02",1;
+			mes "O Lobby também te da acesso à <NAVI>Arquibancada da Sala de Shiken<INFO>que_qaru05,277,298,0,000,0</INFO></NAVI>, onde você poderá ir assistir alguns eventos como o ^4d4dffChunnin Shiken^000000.";
+			cutin "jpn_cynthia01",1;
+		next;
+			mes "Você também pode visitar a ^4d4dffSala de Eventos^000000 no fim do labirinto.";
+			mes "mas para isso terá que chegar até o fim do lobby, passando pelos guardas"; 
+			mes "Existem alguns pequenos ^4d4dffatalhos^000000 que poderão ajudar nessa travessia, você só precisa encontrá-los";
+		cutin "jpn_cynthia02",1;
+			next;
+			mes "Se você for um Jogador VIP, você poderá entrar na <NAVI>Sala VIP<INFO>que_qaru05,259,377,0,000,0</INFO></NAVI> cuja entrada fica aqui do lado, nela você encontrará muitos NPC's úteis que podem te ajudar.";
+		cutin "jpn_cynthia01",1;
+			close2;
+		cutin "jpn_cynthia01",255;
+			end;
+		case 2:
+			mes "Então até logo!";
+			cutin "jpn_cynthia05",1;
+			close2;
+			cutin "tutorial05",255;
+			end;
+			}
+			
+	case 3:
+	callfunc "funcwons";
+	end;
+			
+			
+			
+}
+}
+
+que_qaru05,243,333,6	script	Funcionária Kafra#custom	861,{
+	cutin "kafra_09",2;
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo ao World Of Naruto!";
+	mes "Os serviços Kafra estarão sempre ao seu lado.";
+	mes "Como posso ajudá-lo?";
+	callfunc "F_Kafra",5,4,1,50,800;
+	savepoint "que_qaru05",252,339;
+	callfunc "F_KafEnd",0,1,"na Lobby do World Of Naruto";
+}
+
+
+prontera,150,182,6	script	Funcionária Kafra#prt	861,{
+	cutin "kafra_09",2;
+	mes "[Funcionária Kafra]";
+	mes "Bem-vindo ao World Of Naruto!";
+	mes "Os serviços Kafra estarão sempre ao seu lado.";
+	mes "Como posso ajudá-lo?";
+	callfunc "F_Kafra",5,4,1,50,800;
+	savepoint "prontera",156,191;
+	callfunc "F_KafEnd",0,1,"em prontera";
+}
+
+//================ Menu do Lobby =========================//
+lobby_b,243,237,6	script	Hiroshi#01	459,{
+	cutin "ep13_captin_edq",2;
+	mes "Olá "+strcharinfo(0)+"!";
+	mes "Estou aqui para te ajudar a ficar mais forte.";
+	mes "O que você está procurando?";
+	next;
+	switch(select("Onde me junto a uma vila:Onde escolho a minha classe:Mercado Negro:Escolher Classe")){
+		case 1:
+			mes "Até mais!";
+			close2;
+			end;
+		case 2:
+			mes "Até mais!";
+			close2;
+			warp "que_qaru05",116,156;
+			end;
+		case 3:
+			mes "Até mais!";
+			close2;
+			warp "force_3-1",100,91;
+			end;
+		case 4:
+			mes "Até mais!";
+			close2;
+			warp "new_1-2",100,100;
+			end;
+	}
+	cutin "",255;
+}
+
+new_1-2,94,102,4	script	Teleportador#02	468,{
+	mes "Olá "+strcharinfo(0)+"!";
+	mes "Deseja ir para algum dos lugares abaixo?";
+	next;
+	switch(select("Prontera:Sala de Eventos:Mercado Negro:Lobby")){
+		case 1:
+			mes "Até mais!";
+			close2;
+			warp "prontera",156,191;
+			end;
+		case 2:
+			mes "Até mais!";
+			close2;
+			warp "que_qaru05",116,156;
+			end;
+		case 3:
+			mes "Até mais!";
+			close2;
+			warp "force_3-1",100,91;
+			end;
+		case 4:
+			mes "Até mais!";
+			close2;
+			warp "que_qaru05",251,339;
+			end;
+	}
+}

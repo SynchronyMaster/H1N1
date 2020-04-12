@@ -1,0 +1,47 @@
+new_1-2,111,88,5	script	Akasuna No Sasori	10239,{
+cutin "sasori",2;
+mes "[Sasori]";
+mes "Você quer escolher a classe Sasori?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class != 0) goto neh;
+if(countitem(3817) != 0){
+delitem 3817,1;
+goto job;
+}
+if(countitem(3804) != 0){
+delitem 3804,1;
+goto job;
+} else {goto nah;}
+
+close;
+
+job:
+jobchange 4065; 
+mes "^FF9900[Sasori]^000000";
+mes "Parabéns, agora você é da classe Sasori!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Sasori",0;
+cutin "",255;
+close;
+
+neh:
+next;
+mes "^FF9900[Sasori]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+cutin "",255;
+close;
+
+nah:
+mes "Você não tem nenhum item necessário para escolher essa classe...";
+cutin "",255;
+close;
+
+nao:
+next;
+mes "^FF9900[Sasori]^000000";
+mes "Estarei esperando caso mude de ideia.";
+cutin "",255;
+close;
+}

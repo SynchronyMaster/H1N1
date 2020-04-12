@@ -1051,3 +1051,32 @@ star_in
 //======================================================================================
 // - Other/Extra maps -
 //======================================================================================
+
+
+konoha	1500
+konoha_a	1501
+suna	1502
+suna_p	1503
+nevoa	1504
+akatsuki	1505
+iwagakure	1506
+kirigakure	1507
+chunnin	1508
+kage_r	1509
+itachir	1510
+valedofim	1511
+chunnin01	1512
+knh_in	1513
+lobby_b	1514
+konohal	1515
+konohaf	1516
+knh_in2	1517
+knh_in3	1518
+knh_acad1	1519
+kiri2	1520
+kumogakure	1521
+konohabr	1522
+gef_aka		1523
+sunaf		1524
+knh_acad2	1525
+konohall	1526

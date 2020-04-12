@@ -1,0 +1,995 @@
+que_qaru05,256,283,4	script	Announce Colours#Lobby	90,{
+
+			announce "This will be shown to everyone at all in green.",bc_all,0x00FF00;
+			announce "This will be shown to everyone at all in Pink.",bc_all,FF8C00;
+			announce "This will be shown to everyone at all in Pink.",bc_all,8C00FF;
+			announce "This will be shown to everyone at all in Red.",bc_all,0xff0000;
+			announce "This will be shown to everyone at all in Blue.",bc_all,0x83cfe9;
+			announce "This will be shown to everyone at all in Orange.",bc_all,0xe57c00;
+			announce "This will be shown to everyone at all in Cyan.",bc_all,0x00b89d;
+			announce "This will be shown to everyone at all in Yellow.",bc_all,0xffff90;
+			announce "This will be shown to everyone at all in Green.",bc_all,0x28bf0;
+			skill 1210,1,3;
+
+
+		}
+//Red: 0xff0000
+//Blue: 0x83cfe9
+//Orange: 0xe57c00
+//Cyan: 0x00b89d
+//Yellow: 0xffff90
+//Green: 0x28bf00
+//Normal: 0x00ff00
+
+
+
+//=================== Village System
+// 1 - 
+// 2 - Folha
+// 3 - Areia
+// 4 - Névoa
+// 5 - Núvem
+// 6 - Pedra
+// 7 - 
+// 8 - Nukenin
+//
+//=================== Cargo
+// 0 - Estudante
+// 1 - Genin
+// 2 - Chunnin
+// 3 - Jounin
+// 4 - Anbu
+// 5 - Líder Anbu
+// 6 - Jinchuuriki
+// 7 - Hokage
+// 8 - Akatsuki
+// 9 - Líder Akatsuki
+
+
+
+		
+-	script	onlogin#all	-1,{
+
+		OnPCLoginEvent:
+		
+	//CREATE TABLES
+		if(#firstloginaccount == 1){
+			query_sql ("select account_id from login where account_id='"+getcharid(3)+"'",.@accountid$);
+			query_sql ("insert into `wonplayerinfo` (account_id) values ('"+.@accountid$+"')");
+			set #firstloginaccount,1;
+		}
+
+		if(firstloginchar == 1){
+			query_sql ("select char_id from login where account_id='"+getcharid(3)+"'",.@charid$);
+			query_sql ("insert into `woncharinfo` (account_id) values ('"+.@charid$+"')");
+			set firstloginchar,1;
+		}	
+	
+		
+		// CHECK REAL VILLAGE WHEN LOGIN
+		if( getgroupid() < 100 ) {
+			query_sql ("select vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@minhavila);
+				if (.@minhavila != 0){
+					if (.@minhavila == 2){
+							if (getcharid(2) != 2){
+								dispbottom "Você está na Vila Oculta da Folha, essa escolha será aplicada em todos os personagens.";
+									if (getcharid(2) != 0){
+											guild_delmember getcharid(0);
+									}
+								guild_addmember(2,getcharid(0));
+								set lobby,2;
+							}
+						}
+					
+					if (.@minhavila == 3){
+						if (getcharid(2) != 3){
+							dispbottom "Você está na Vila Oculta da Areia, essa escolha será aplicada em todos os personagens.";
+							mes "Você está na Vila Oculta da Areia, essa escolha será aplicada em todos os personagens.";
+							next;
+								if (getcharid(2) != 0){
+										guild_delmember getcharid(0);
+								}
+							guild_addmember(3,getcharid(0));
+							set lobby,3;
+							cutin "gc_mayssel03",1;
+							close2;
+							cutin "gc_mayssel03",255;
+						}
+					}
+					
+					if (.@minhavila == 4){
+						if (getcharid(2) != 4){
+						dispbottom "Você está na Vila Oculta da Névoa, essa escolha será aplicada em todos os personagens.";
+						mes "Você está na Vila Oculta da Névoa, essa escolha será aplicada em todos os personagens.";
+							if (getcharid(2) != 0){
+									guild_delmember getcharid(0);
+							}
+						guild_addmember(4,getcharid(0));
+						set lobby,4;
+						cutin "gc_mayssel03",1;
+						close2;
+						cutin "gc_mayssel03",255;
+						}
+					}
+
+					if (.@minhavila == 6){
+						if (getcharid(2) != 0 && getcharid(2) != 8){
+								guild_delmember getcharid(0);
+						mes "Você é um Nukenin, essa escolha será aplicada em todos os personagens.";
+						dispbottom "Você é um Nukenin, essa escolha será aplicada em todos os personagens.";
+						cutin "gc_mayssel03",1;
+						}
+					close2;
+					cutin "gc_mayssel03",255;
+					set lobby,6;
+					}
+				}
+	
+	}
+		
+		// DAILY LOGIN
+			query_sql "UPDATE `wonplayerinfo` SET `entrou_hoje` = '1' WHERE `account_id` = '"+getcharid(3)+"'";
+			query_sql "UPDATE `wonplayerinfo` SET `dias_offline` = '0' WHERE `account_id` = '"+getcharid(3)+"'";
+				
+		
+		// VILLAGE'S CLOTHES WHEN LOGIN
+			query_sql ("select cargo from woncharinfo where account_id='"+getcharid(3)+"'",.@meucargo);
+				if (getcharid(2) == 2){ // KONOHA
+					if (strcharinfo(3) == "konoha" || strcharinfo(3) == "konohaf" || strcharinfo(3) == "konohal" || strcharinfo(3) == "knh_in" || strcharinfo(3) == "knh_in2"){
+
+					} else {
+						if (.@meucargo == 1){
+							dispbottom "Você deve usar colete de genin enquanto estiver fora de Konoha.";
+							changebase 35;
+						}
+						if (.@meucargo == 2){
+							dispbottom "Você deve usar colete de chunnin enquanto estiver fora de Konoha.";
+							changebase 35;
+						} 
+					    if (.@meucargo == 3){
+							dispbottom "Você  deve usar colete de jounin enquanto estiver fora de Konoha.";
+							changebase 35;
+						}
+					}
+				}
+		end;
+	
+		//CHECK CLOTHES WHEN CHANGING MAP
+		OnPCLoadMapEvent:
+	query_sql ("select vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@minhavila);
+	query_sql ("select cargo from woncharinfo where account_id='"+getcharid(3)+"'",.@meucargo);
+		if (.@minhavila == 2){ // KONOHA
+			if (strcharinfo(3) == "konoha" || strcharinfo(3) == "konohaf" || strcharinfo(3) == "konohal" || strcharinfo(3) == "knh_in" || strcharinfo(3) == "knh_in2"){
+
+			} else {
+						if (.@meucargo == 1){
+							dispbottom "Você deve usar colete de genin enquanto estiver fora de Konoha.";
+							changebase 35;
+						}
+						if (.@meucargo == 2){
+							dispbottom "Você deve usar colete de chunnin enquanto estiver fora de Konoha.";
+							changebase 35;
+						} 
+					    if (.@meucargo == 3){
+							dispbottom "Você  deve usar colete de jounin enquanto estiver fora de Konoha.";
+							changebase 35;
+						}
+			}
+		}
+		
+	}
+	
+
+konohal,235,230,4	script	Iruka Umino#out	640,{
+	if (cargo == 1){
+		mes "Parabéns por ter se tornado um Gennin.";
+		mes "Tenho certeza de que você se tornará um ótimo ninja.";
+		close;
+	}
+	if (cargo == 2){
+		mes "Parabéns por ter se tornado um Chunnin.";
+		mes "Você está no caminho certo.";
+		close;
+	}
+	if (cargo == 3){
+		mes "Nossa, você já é um Jounnin.";
+		mes "Como o tempo passa rápido.";
+		close;
+	}
+	if (cargo == 7){
+		mes "Olá, Sr. Hokage.";
+		mes "Precisa de algo?.";
+		close;
+	}
+	If (insfirst == 0){
+		mes "Olá, meu nome é Iruka Umino, sou o Instrutor da Academia.";
+		mes "Para se tornar um ninja você deve primeiramente graduar-se como Gennin.";
+		next;
+		mes "Você será aprovado na academia se passar por duas provas, uma prática e uma teórica.";
+		mes "A matéria está nos livros espalhados pela sala. Assim que estiver pronto, sente-se na primeira cadeira e pegue a prova.";
+		
+	}
+	If (insfirst == 1){
+		mes "Você será aprovado na academia se passar por duas provas, uma prática e uma teórica.";
+		mes "A matéria está nos livros espalhados pela sala. Assim que estiver pronto, sente-se na primeira cadeira e pegue a prova.";
+	}
+		close;
+	}
+
+konohal,242,230,4	script	Geopolítica Ninja#book	640,{
+	mes "Países operam como entidades políticas separadas e são, presumivelmente, todas monarquias, governado pelo daimyo, que estão na mesma classificação do Kage das aldeias ocultas. Esses países mantêm o equilíbrio entre si através de nada além de poder. Tratados são periodicamente assinados, mas eles geralmente não vale muito mais do que o papel em que estão escritas";
+	next;
+	mes "O  País do Fogo (Hi no Kuni) é um dos maiores e mais poderosos países. Seu líder governamental é o Daimyo do Fogo. O País do Fogo foi o primeiro país a adotar uma aldeia ninja, Konohagakure, um costume que em breve outros países vieram a adotar. O País do Fogo é apropriadamente orientado para a Liberação de Fogo, normalmente tendo um clima muito brilhante e quente. Embora não seja o maior país fisicamente, tem a maior aldeia oculta.";
+	next;
+	mes "O País da Água (Mizu no Kuni) é composto por muitas ilhas, com cada uma tendo suas próprias tradições únicas. O clima do país é tipicamente frio e as ilhas são geralmente cobertos pela névoa, quando o vulcão de uma das ilhas é ativado, a temperatura aumenta consideravelmente. As ilhas em si também têm muitos lagos. Em alguns lugares ele é muito frio e neva um pouco. A nação é orientada para a Liberação de Água.";
+	next;
+	mes "O País da Terra (Tsuchi no Kuni) está localizado a noroeste do País do Fogo. Seu líder governamental é o Daimyo da Terra. O país é maioritariamente composto por áreas rochosas, desoladas. A fronteira do País da Terra é executada ao longo de uma cadeia de montanhas rochosas, bloqueando a comunicação com outros países. O vento sopra do norte e passa sobre estas montanhas, carregando pequenas pedras do País da Terra para os países vizinhos. Este famoso fenômeno natural é chamado de 'Chuva de Rocha' (Gan'u).";
+	next;
+	mes "O País do Relâmpago (Kaminari no Kuni) está localizado em uma península a noroeste do País do Fogo e é um dos Cinco Grandes Países Shinobi. Seu líder governamental é o Daimyo do Relâmpago. No centro do país estão grandes cadeias de montanhas, cujas muitas tempestades são ditas dar o nome ao país. A partir dessas cadeias de montanhas, muitos rios correm para o mar, criando um litoral muito torto que exibe uma impressionante beleza oceânica. Existem muitas fontes termais localizadas dentro do país.";
+	next;
+	mes "O País do Vento (Kaze no Kuni) é um dos países proeminentes. Ele está localizado a sudoeste do País do Fogo e faz fronteira com o País dos Rios e Amegakure. Seu líder governamental é o Daimyo doVento. O país abrange uma vasta área, mas esse reino é composto em grande parte por desertos. Porque há muito pouca chuva durante todo o ano, os habitantes do país vivem em aldeias construídas sobre um dos muitos oásis do deserto. Apesar das condições ambientais do país serem extremamente duras, ele tem uma grande população. Embora tenham guerreado um com o outro no passado, o País do Vento está em boas relações com o País do Fogo, com um grande acordo comercial acontecendo entre os dois países.";
+	next;
+	mes "Esses 5 são os principais, além deles existem países menores como Som, Ondas, Ferro, Neve, Céu.";
+	next;
+	mes "Aldeias Ocultas são as partes dos países em que os ninja do país residem. Seus líderes estão em igualdade com os senhores que governam os países do qual elas fazem parte. Uma Aldeia Oculta mantém a sua economia treinando seus cidadãos para serem ninja desde jovens e usando-os como mão de obra em várias missões que outros estariam dispostos a pagar, desde capinar um jardim para um pagamento único e receber um orçamento constante do país no qual ele reside, à ser soldados no caso de o país estar envolvido em uma guerra.";
+	next;
+	mes "As Aldeias Ocultas dos países principais são Konoha (Folha), Kirigakure (Névoa), Iwagakure (Pedra), Kumogakure (Nuvem) e Sunagakure (Areia).";
+	next;
+	mes "Konohagakure (Konohagakure no Sato; Literalmente significa 'Vila Oculta da Folha') é a vila oculta do País do Fogo. Como uma das Cinco Grandes Vilas Shinobi, Konohagakure tem um Kage como seu líder conhecido como Hokage. Em uma montanha com vista para a aldeia do norte existe o Monumento Hokage. Apesar de Konoha, muito parecido com o país em que reside, tem sido relativamente pacífica desde o fim da Terceira Guerra Mundial Ninja, continua a ser uma das aldeias mais potentes que existem, e tem grande poder militar e influência.";
+	next;
+	mes "Kirigakure (Kirigakure no Sato; literalmente significa 'Vila Oculta da Névoa') é a vila ninja do País da Água. Como um dos cinco grandes países ninjas, Kirigakure tem um Kage como seu líder, conhecido como Mizukage. Um número invulgarmente elevado de Nukenin parecem originar-se a partir deste país e possui como tal uma classificação única de Anbu conhecidos como Oinin, especificamente encarregados de eliminar esses desertores.";
+	next;
+	mes "Iwagakure (Iwagakure no Sato; Literalmente significa 'Vila Oculta da Pedra') é a vila oculta do País da Terra. Como um dos cinco grandes países ninja, Iwagakure tem um Kage como seu líder, conhecido como o Tsuchikage. Iwagakure é bem conhecida pela personalidade de seus shinobi, assim que o Tsuchikage dá uma ordem, os ninjas de Iwa fazem sem hesitar, mesmo que isso signifique a morte.";
+	next;
+	mes "Kumogakure (Kumogakure no Sato; Literalmente significa 'Vila Oculta da Nuvem') é a vila oculta do País do Relâmpago. Como uma das Cinco Grandes Vilas Shinobi, Kumogakure tem um Kage como o seu líder, conhecido como Raikage. A aldeia está localizada em uma cadeia de montanhas altas, e é, literalmente escondida nas nuvens. O Raikage trabalha em uma grande estrutura azul incorporada na montanha mais alta.";
+	next;
+	mes "Sunagakure (Sunagakure no Sato; Literalmente significa 'Vila Oculta da Areia') é a vila oculta do País do Vento. Como um dos Cinco Grandes Países Shinobi, Sunagakure tem um Kage como seu líder conhecido como Kazekage, que reside numa estrutura esférica no centro da vila. A Técnica de Marionetes e a Técnica da Ligação de Pano parecem ser uma das técnicas mais comuns da vila. Shinobis dessa vila acreditam que o cumprimento de uma missão prevalece sobre as vidas dos ninjas tentando cumpri-la. E como tal, eles são conhecidos por serem impiedosos na batalha, significando para eles que a falha não é uma opção. Caso a falha parecer inevitável, um Suna-nin tentaria quase certamente obter algum sucesso de uma maneira ou outra.";
+	close;
+	} 
+	
+konohal,245,232,4	script	História Ninja#Book	640,{
+	mes "Era dos Estados Combatentes";
+	mes "Durante esta era, os conflitos perpetuamente surgiram entre as várias nações com cada cruzada por mais direitos e de terras. A fim de travar estas guerras, cada clã individual shinobi alugou seu poderio militar para o maior lance. Devido à violência implacável, o tempo de vida médio de um shinobi era de apenas 30 anos, embora a maior razão para a queda contínua da expectativa de vida era o abate de inúmeras crianças recrutadas. Com a perda contínua de seus parentes, um ciclo interminável de morte e vingança nasceu, que fez com que os shinobi tivessem de esconder seus sobrenomes por medo de retaliação.";
+	next;
+	mes "Entre os clãs rivais, apenas dois chegaram a ser temidos como os mais fortes: o Clã Senju e o Clã Uchiha, que desenvolveu uma inimizade profunda como muitas vezes eles foram contratados para se opor um ao outro devido à sua força rival. Eventualmente, tanto Hashirama Senju e Madara Uchiha cresceram para se tornar os respectivos líderes desses clãs rivais, mas apesar de sua amizade de infância, os dois foram inevitavelmente colocados uns contra os outros. Durante este tempo, Madara e seu irmão descobriram o segredo do Sharingan, tornando-se os primeiros a despertar o Mangekyou Sharingan. Embora com as constantes batalhas, a visão de Madara se degradou mais e mais, até reaparecer com um novo sharingan.";
+	next;
+	mes "No entanto, depois de décadas de conflito, a maioria dos clãs sob as bandeiras Uchiha e Senju formaram a primeira trégua duradoura após o longo derramamento de sangue. A única pessoa que se opôs a esta paz foi Madara, que argumentou com o Clã Uchiha para continuar a luta, mas acabou sendo convencido a participar de uma aliança permanente com o Clã Senju. Logo depois, um pacto foi formado com o País do Fogo e, assim, Konohagakure foi formada. Este criou uma precedência os outros logo em seguida, criando os Cinco Grandes Países Shinobi, bem como alguns menores, vilas periféricas e assentamentos";
+	next;
+	mes "A Primeira Grande Guerra Ninja";
+	mes "A guerra iniciou não muito depois do sistema de cada vila shinobi de cada país ter sido estabelecido pela fundação de Konohagakure após a Era dos Estados Combatentes. Para tentar manter a balança de poder, o Primeiro Hokage dividiu os bijuus entre as outras cinco vilas quando ele começou suas discussões de paz com elas. Porém isso não foi o suficiente para impedir a guerra, e pode na verdade ter aumentado as hostilidades";
+	next;
+	mes "O Segundo Hokage morreu durante essa guerra, enquanto lutava contra a Força de Kinkaku de Kumogakure, sacrificando-se como uma distração para que seus subordinados escapassem. Antes de fazer isso, ele selecionou Hiruzen Sarutobi para o cargo de Terceiro Hokage.";
+	next;
+	mes "A Segunda Guerra Mundial Ninja";
+	mes "(Dainiji Ninkai Taisen) Foi a segunda grandes guerras envolvendo a maioria dos países e vilas shinobi. Não se conhece muito sobre as políticas dessa era, mas houve conflitos entre Konohagakure, liderada pelo Terceiro Hokage, Sunagakure, liderada pelo Terceiro Kazekage, Amegakure, liderada por Sanshouo no Hanzou, e Iwagakure, liderada pelo Terceiro Tsuchikage. A maior parte da luta ocorreu em países menores como Amegakure (Vila da Chuva) , deixando-os devastados. O desfecho eventual da guerra foi a favor de Konoha.";
+	next;
+	mes "Primeira Guerra Mundial Shinobi terminou com um tratado de trégua, mas também deixou os Cinco Grandes Países Shinobi seriamente prejudicados. O tratado causou um período de paz, mas cerca de vinte anos depois, a desigualdade econômica entre os países tornou-se um sério problema. As nações começaram a formar facções, e sob o pretexto de expansão de direitos justos, os países começaram a usar força militar para expandir seus territórios. Assim, a terrível Segunda Guerra Mundial Shinobi começou.";
+	next;
+	mes "Assim como em todas as guerras, Segunda Guerra Mundial Shinobi trouxe muitos heróis e acabou com muito mais vidas. Foi durante essa guerra que os lendários 'Sannin' (Densetsu no Sannin; Literalmente significa 'Três Ninjas Lendários') ficaram famosos e receberam esse apelido de Hanzou durante um conflito em Amegakure. Tsunade em particular tornou-se famosa como a maior Iryou-nin do mundo enquanto combatia com sucesso todos os venenos de Chiyo. Foi nessa guerra onde Sakumo Hatake ganhou o nome de 'Presa Branca da Folha' (Konoha no Shiroi Kiba).";
+	next;
+	mes "A Terceira Grande Guerra Ninja";
+	mes "Por causa de uma decadência no poder nacional, o reinado dos Cinco Grandes Países estava acabando. Pelas suas fronteiras, conflitos com nações menores ocorreram todo o tempo. A guerra prolongada espalhou-se gradualmente a grandes distâncias e extensões, até que isso no fim desenvolveu-se na Terceira Guerra Mundial Shinobi. Essa guerra tornou-se numa guerra sem precedentes de atrito, atormentando todas as nações com uma diminuição no potencial bélico. Não excluindo nem mesmo a poderosa Konoha, muitas crianças jovens foram lançadas ao campo de batalha, perdendo suas curtas vidas. ";
+	next;
+	mes "Konohagakure e Iwagakure lutaram através de Kusagakure após a última ter se infiltrado nela para cercar a fronteira do País do Fogo. A guerra começou a tornar-se a favor de Konoha após a destruição da Ponte Kannabi. Sunagakure também participou da guerra, já que foi durante essa guerra que Sasori, cujo atual paradeiro é desconhecido, ganhou a fama de Akasuna no Sasori (Sasori da Areia Vermelha), devido a suas engenhosas marionetes tingirem a areia de vermelho com o sangue de seus inimigos.";
+	next;
+	mes "Minato Namikaze tornou-se um herói durante a guerra e recebeu seu apelido, Konoha no Kiiroi Senkou (Lampejo Amarelo de Konoha). Kakashi Hatake, que foi promovido a jounin e recebeu o Sharingan durante uma missão para destruir a Ponte Kannabi, também ganhou fama como Kopi Ninja no Kakashi (Kakashi Ninja Copiador). ";
+	close;
+} 
+
+konohal,250,234,4	script	Armas Ninja#Book	640,{
+	mes "Kunai";
+	mes "Uma das armas mais comuns usadas pelos ninjas. É como uma adaga, pode ser usada em combate corpo a corpo, ou cortar algo, como uma corda. Também pode ser lançada. São feitas de aço. Na ponta, possui um tipo de arco, não se sabe porque, mas alguns shinobis usam para amarrar um selo explosivo para lançá-lo com a kunai. Possui outras variações. ";
+	next;
+	mes "Kunai Gigante";
+	mes "Uma versão maior da normal, é usada praticamente como uma espada. A desvantágem é que precisa segurá-la com duas mãos para ser usada com mais êxito. Aparenta ter a ponta um pouco torta.";
+	next;
+	mes "Kunai Curvada";
+	mes "Usada geralmente por shinobis médicos, tem a ponta muito achatada, o que facilita numa operação, e não serve para lançá-la, mas sendo uma ótima arma contra um combate corpo-a-corpo, além de ser um pouco maior.";
+	next;
+	mes "Kunai de Três Pontas";
+	mes "Kunai que possui 3 pontas, sendo uma normal no centro, e duas um pouco menores nos lados. É um pouco mais pesada. É muito boa para defesas, e as 2 pontas menores podem servir como auxílio para os dedos, na hora que for segurá-la.";
+	next;
+	mes "Shuriken";
+	mes "Essa arma, também chamada de estrela ninja,  foi feita especialmente para ser lançada, já que tem o formato de um disco, só que com pontas, para ferir o oponente.";
+	mes "Ao contrário da shuriken comum, essa é segurada pelo orifício do centro, sendo girada antes de lançar.";
+	next;
+	mes "Fumma Shurikens";
+	mes "Quase a mesma coisa que a Shuriken gigante, só que as pontas são um pouco curvadas, e pode ser aberto ou fechado.";
+	next;
+	mes "Senbon";
+	mes "São agulhas de metal, e pode ser tanto lançada como usada em combates corpo-a-corpo. Pode ser uma arma mortal, já que se atingir um órgão vital, a pessoa morre, pois são muito compridas. Também pode carregar veneno, o que muitos shinobis que usam marionetes para lutar usam.";
+	next;
+	mes "Selos Explosivos";
+	mes "Também conhecido como papel bomba, eles explodem. Existem vários tipos, mas, parecem todos iguais. Tem alguns que explodem quando se retira.";
+	next;
+	mes "Nuchaku";
+	mes "Uma arma bem conhecida,trata-se de dois bastões ligados por uma corrente, usada para fazer o inimigo se afastar, ou para atingi-lo se ele tentar atacar. Também existe uma variação, o Tri-nuchaku, que se trata de 3 bastões ligados por correntes.";
+	next;
+	mes "Makishibi";
+	mes "Parece uma shuriken, só que com uma ponta apontada para cima, enquanto as outras três servem de suporte, ferindo os pés. É muito usada em armadilhas.";
+	next;
+	mes "Aian Nakkuru";
+	mes "Semelhante a um soco inglês. Usando a natureza do seu chakra (vento), aparece um chakra em volta da lâmina.";
+	close;
+} 
+
+konohal,250,236,4	script	Transformação da Natureza#Book	640,{
+	mes "[Transformação da Natureza]";
+	mes "Transformação da Natureza (Seishitsu Henka) é uma forma avançada de controle do chakra. Isso implica na moldagem e definição de seu chakra em um tipo de inato de natureza de chakra, alterando suas propriedades e caracterúticas. A transformação da natureza é uma das duas técnicas necessárias para a criação de um jutsu, sendo o seu homólogo a transformação da forma do chakra. Poucos shinobi podem usar tanto a manipulação da forma e a manipulação da natureza, muito poucos conseguem mais de uma transformação. Existem raros relatos de shinobis exepcionais que conseguem unir dois elementos diferentes em um novo elemento.";
+	next;
+	mes "Os cinco tipos básicos na qual a natureza do chakra pode ser transformada, chamados de Transformações da Natureza dos Cinco Elementos. Esses tipos também são chamados de elementos e não são só a origem dos nomes das Cinco Grandes Nações Shinobi, mas também os fundadores de todo ninjutsu elementar. As cinco naturezas básicas estão todas conectadas em um círculo, onde cada uma é mais fraca que alguma e mais forte que outra. As cinco naturezas básicas do chakra são:";
+	cutin "won_elem1",2;
+	next;
+	mes "Fogo (Hi), cuja natureza cria ninjutsu de Liberação de Fogo (Katon), que é forte contra Vento, mas fraco contra Água.";
+	cutin "won_elemfire",2;
+	next;
+	mes "Vento (Kaze), cuja natureza cria ninjutsu de Liberação de Vento (Futon), que é forte contra Trovão, mas fraco contra Fogo.";
+	cutin "won_elemwind",2;
+	next;
+	mes "Trovão (Kaminari), cuja natureza cria ninjutsu de Liberação de Relâmpago (Raiton), que é forte contra Terra, mas fraco contra Vento.";
+	cutin "won_elemlight",2;
+	next;
+	mes "Terra (Tsuchi), cuja natureza cria ninjutsu de Liberação de Terra (Doton), que é forte contra Água, mas fraco contra Trovão.";
+	cutin "won_elemearth",2;
+	next;
+	mes "Água (Mizu), cuja natureza cria ninjutsu de Liberação de Água (Suiton), que é forte contra Fogo, mas fraco contra Terra.";
+	cutin "won_elemwater",2;
+	next;
+	mes "Em geral, toda pessoa tem um chakra que possui afinidade com uma ou mais dessas naturezas básicas, fato que parece ser genético, pois existem clãs que possuem a mesma afinidade elemental. A maioria dos membros do Clã Uchiha, por exemplo, possui afinidade com o Fogo";
+	next;
+	mes "Devido a dificuldade de dominar a natureza e o tempo necessário para aprender, Equase impossível para qualquer pessoa dominar todas as cinco naturezas através de métodos naturais. No entanto, Hiruzen Sarutobi, o Terceiro Hokage, foi capaz de dominar todas as cinco naturezas.";
+	next;
+	mes "[Tipos Avançados]";
+	mes "Além dos tipos básicos de natureza, há muitos tipos avançados. Esses elementos são formados com a combinação simultânea de mais de uma natureza básica de chakra, onde uma natureza completamente nova é criada com propriedades únicas. Essa habilidade de combinar elementos é única dos Kekkei Genkai ou Kekkei Tota.";
+	next;
+	mes "O Gelo (Kori),";
+	
+	next;
+	
+	
+	close;
+	
+	} 
+
+
+konohal,250,238,4	script	Hokages#Book	640,{
+} 
+
+
+
+konohal,261,234,4	script	Prova#out	640,{
+	//T1Q1
+	switch(rand(4)){
+		case 1:
+		mes "Usando a Vila Oculta da Folha como exemplo, outros países também criaram suas vilas ninja. As 5 grandes vilas criadas são Folha, Areia, Nuvem, Névoa e...?";
+		switch(select("a) Terra:b) Grama:c) Pedra:d) Rio:e) Lago")){
+			case 3:
+			.@right, .@right+1;
+			end;
+		} 
+		case 2:
+		mes "Usando a Vila Oculta da Folha como exemplo, outros países também criaram suas vilas ninja. As 5 grandes vilas criadas são Folha, Areia, Pedra, Névoa e...?";
+		switch(select("a) Nuvem:b) Céu :c) Sol:d) Estrela:e) Redemoinho")){
+			case 1:
+			.@right, .@right+1;
+			end;
+		} 
+		case 3:
+		mes "Usando a Vila Oculta da Folha como exemplo, outros países também criaram suas vilas ninja. As 5 grandes vilas criadas são Folha, Areia, Pedra, Nuvem e...?";
+		switch(select("a) Neve:b) Granizo :c) Granito:d) Névoa:e) Sereno")){
+			case 4:
+			.@right, .@right+1;
+			end;
+		} 
+		case 4:
+		mes "Usando a Vila Oculta da Folha como exemplo, outros países também criaram suas vilas ninja. As 5 grandes vilas criadas são Folha, Areia, Pedra, Nuvem e...?";
+		switch(select("a) Deserto:b) Granizo :c) Granito:d) Areia:e) Dunas")){
+			case 4:
+			.@right, .@right+1;
+			end;
+		} 
+		} 
+		//T1Q2
+		switch(rand(4)){
+		case 1:
+		mes "Os cinco paises mais influentes, onde habitam as cinco Grandes Vilas Ocultas são Fogo, Água, Terra, Vento e...?";
+		switch(select("a) Trovão:b) Relâmpago :c) Tempestade:d) Furacão:e) Tornado")){
+			case 2:
+			.@right, .@right+1;
+			end;
+		} 
+		case 2:
+		mes "Os cinco paises mais influentes, onde habitam as cinco Grandes Vilas Ocultas são Fogo, Água, Terra, Relâmpago e...?";
+		switch(select("a) Ar :b) Furacão :c) Redemoinho:d) Vento :e) Tornado")){
+			case 4:
+			.@right, .@right+1;
+			end;
+		} 
+		case 3:
+		mes "Os cinco paises mais influentes, onde habitam as cinco Grandes Vilas Ocultas são Fogo, Vento, Terra, Relâmpago e...?";
+		switch(select("a) Lago :b) Nuvem :c) Névoa:d) Água :e) Ondas")){
+			case 4:
+			.@right, .@right+1;
+			end;
+		} 
+		case 4:
+		mes "Os cinco paises mais influentes, onde habitam as cinco Grandes Vilas Ocultas são Água, Terra, Vento, Relâmpago e...?";
+		switch(select("a) Folha :b) Chama :c) Fogo:d) Brasa :e) Floresta")){
+			case 3:
+			.@right, .@right+1;
+			end;
+		} 
+		} 
+		//T1Q3
+		switch(rand(5)){
+		case 1:
+		mes "A Vila Oculta da Folha é liderada pelo seguinte kage:";
+		switch(select("a) Hokage:b) Mizukage :c) Kazekage:d) Tsuchikage:e) Raikage")){
+			case 1;
+			.@right, .@right+1;
+			end;
+		} 
+		case 2:
+		mes "A Vila Oculta da Areia é liderada pelo seguinte kage:";
+		switch(select("a) Hokage:b) Mizukage :c) Kazekage:d) Tsuchikage:e) Raikage")){
+			case 3:
+			.@right, .@right+1;
+			end;
+		} 
+		case 3:
+		mes "A Vila Oculta da Névoa é liderada pelo seguinte kage:";
+		switch(select("a) Hokage:b) Mizukage :c) Kazekage:d) Tsuchikage:e) Raikage")){
+			case 2:
+			.@right, .@right+1;
+			end;
+		} 
+		case 4:
+		mes "A Vila Oculta da Nuvem é liderada pelo seguinte kage:";
+		switch(select("a) Hokage:b) Mizukage :c) Kazekage:d) Tsuchikage:e) Raikage")){
+			case 5:
+			.@right, .@right+1;
+			end;
+		} 
+		case 5:
+		mes "A Vila Oculta da Pedra é liderada pelo seguinte kage:";
+		switch(select("a) Hokage:b) Mizukage :c) Kazekage:d) Tsuchikage:e) Raikage")){
+			case 4:
+			.@right, .@right+1;
+			end;
+		} 
+		}
+		//T1Q4
+		switch(rand(2)){
+		case 1:
+		mes "As vilas são governadas por ninjas, que são chamados de :";
+		switch(select("a) Kages:b) Daimyo: c) Shodaime:d) Iwagakure:e) Tsuchikage")){
+			case 1:
+			.@right, .@right+1;
+			end;
+		}
+		case 2:
+		mes "Os paises são governados pelos senhores feudais, que são chamados de :";
+		switch(select("a) Kages:b) Daimyo: c) Shodaime:d) Iwagakure:e) Tsuchikage")){
+			case 2:
+			.@right, .@right+2;
+			end;
+		}
+	}
+	//T1Q5
+		switch(rand(4)){
+		case 1:
+			mes "A Era dos Estados Combatentes foi um período de:";
+			switch(select("a) Paz, também chamado de período 'Entre Guerras' . :b) Guerra entre as 5 Grandes Vilas: c) Guerra, entre vilas pequenas que tentaram invadir as Vilas Ocultas:d) Guerra entre clãs, que eram contratados para defender o interesse privado:e) Período de luta entre clãs para determinar qual seria o líder da Vila Oculta")){
+				case 4:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		case 2
+			mes "Durante a Era dos Estados Combatentes, os clãs rivais que mais se destacaram foram:";
+			switch(select("a) Hatake e Aburame:b) Akimichi e Nara: c) Senjuu e Uchiha:d) Sarutobi e Uzumaki:e) Tsuchikage")){
+				case 3:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		case 3:
+			mes "A primeira vila a ser formada através da unificação e aliança entre diferentes clãs foi o/a:";
+			switch(select("a) Pedra (Iwagakure) :b) País da Água: c) Névoa (Kirigakure) :d) País do Vento:e) Folha (Konohagakure)")){
+				case 5:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		case 4:
+			mes "O evento que mais penalizou pequenas vilas como a Vila da Chuva (Amegakure) foi:";
+			switch(select("a) A Era dos Estados Combatentes:b) A Primeira Grande Guerra Ninja: c) A Segunda e Terceira Grande Guerra Ninja:d) O ataque da Kyuubi a Konoha :e) A fundação das grandes vilas ocultas")){
+				case 3:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		}
+	//T1Q6
+		switch(rand(6)){
+		
+		case 1:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Senbon: c) Makishibi:d) Nuchaku :e) Shuriken")){
+				case 1:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		case 2:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Senbon: c) Makishibi:d) Nuchaku :e) Shuriken")){
+				case 2:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+			
+		case 3:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Senbon: c) Makishibi:d) Nuchaku :e) Shuriken")){
+				case 3:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		case 4:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Senbon: c) Makishibi:d) Nuchaku :e) Shuriken")){
+				case 4:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		case 5:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Senbon: c) Makishibi:d) Nuchaku :e) Shuriken")){
+				case 5:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		case 6:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Senbon: c) Makishibi:d) Nuchaku :e) Aian Nakkuru")){
+				case 5:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		//T1Q7
+		switch(rand(5)){
+		
+		case 1:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Kunai Gigante: c) Kunai de Três Pontas:d) Kunai Curvada:e) Fumma Shuriken")){
+				case 1:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		case 2:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Kunai Gigante: c) Kunai de Três Pontas:d) Kunai Curvada:e) Fumma Shuriken")){
+				case 2:
+				}
+				next;
+				break;
+		
+		case 3:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Kunai Gigante: c) Kunai de Três Pontas:d) Kunai Curvada:e) Fumma Shuriken")){
+				case 3:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		case 4:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Kunai Gigante: c) Kunai de Três Pontas:d) Kunai Curvada:e) Fumma Shuriken")){
+				case 4:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		case 5:
+			mes "Qual é o nome da arma mostrada abaixo?";
+			switch(select("a) Kunai:b) Kunai Gigante: c) Kunai de Três Pontas:d) Kunai Curvada:e) Fumma Shuriken")){
+				case 5:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		}
+		
+		//T1Q8
+		switch(rand(4)){
+		case 1:
+			mes "O Elemento Raio (Raiton) tem vantagem sobre qual elemento?";
+			switch(select("a) Fogo (Katon) :b) Água (Suiton) : c) Vento (Fuuton) :d) Terra (Doton) :e) Hyouton (Gelo) ")){
+				case 4:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		case 2:
+			mes "O Elemento Água (Suiton) tem vantagem sobre qual elemento?";
+			switch(select("a) Fogo (Katon) :b) Raio (Raton) : c) Vento (Fuuton) :d) Terra (Doton) :e) (Lava) ")){
+				case 1:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		case 3:
+			mes "O Elemento Fogo (Katon) tem vantagem sobre qual elemento?";
+			switch(select("a) Água (Suiton) :b) Raio (Raton) : c) Vento (Fuuton) :d) Terra (Doton) :e) (Magnetismo) ")){
+				case 3:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		case 4:
+			mes "O Elemento Vento (Fuuton) tem vantagem sobre qual elemento?";
+			switch(select("a) Fogo (Katon) :b) Raio (Raton) : c) Água (Suiton) :d) Terra (Doton) :e) (Explosão) ")){
+				case 2:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		}
+		
+		//T1Q9
+		switch(rand(4)){
+		case 1:
+			mes "O fusão dos elementos água e vento cria a liberação de?";
+			switch(select("a) Gelo (Hyouton) :b) Magnetismo () : c) Lava () :d) Cristal () :e) Explosão() ")){
+				case 2:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		case 2:
+			mes "O fusão dos elementos fogo e terra cria a liberação de?";
+			switch(select("a) Gelo (Hyouton) :b) Magnetismo () : c) Lava () :d) Cristal () :e) Explosão() ")){
+				case 2:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		case 1:
+			mes "O fusão dos elementos água e vento cria a liberação de?";
+			switch(select("a) Gelo (Hyouton) :b) Magnetismo () : c) Lava () :d) Cristal () :e) Explosão() ")){
+				case 2:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		} 
+		//T1Q10
+		switch(rand(4)){
+		case 1:
+			mes "Qual o nome do Primeiro Hokage, fundador da Vila Oculta da Folha?";
+			switch(select("a) Uchiha Madara:b) Tobirama Senjuu : c) Sotomo? Hatake:d) Algum Uchiha:e) Hashirama Senjuu")){
+				case 5:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		case 2:
+			mes "Qual o nome do Segundo Hokage?";
+			switch(select("a) Uchiha Madara:b) Tobirama Senjuu : c) Sotomo? Hatake:d) Algum Uchiha:e) Hashirama Senjuu")){
+				case 2:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		case 3:
+			mes "Qual o nome do Terceiro Hokage?";
+			switch(select("a) Hiruzen Sarutobi:b) Namikaze Minato : c) Algum Uzumaki:d) Algum Uchiha:e) Asuma Sarutobi")){
+				case 1: 
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		case 4:
+			mes "Qual o nome do Quarto Hokage?";
+			switch(select("a) Hiruzen Sarutobi:b) Namikaze Minato : c) Algum Uzumaki:d) Algum Uchiha:e) Asuma Sarutobi")){
+				case 2:
+				.@right, .@right+1;
+				}
+				next;
+				break;
+		
+		
+		
+		} 
+		
+		announce "A sua pontuação foi "+.@right+" ";
+}
+	
+
+lobby_b,261,244,4	script	Masako#Lobby	640,{
+
+query_sql ("select account_id from login where account_id='"+getcharid(3)+"'",.@meuid$);
+query_sql ("select vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@minhavila);
+query_sql ("select dias_vila from wonplayerinfo where account_id='"+getcharid(3)+"'",.@vilatempo);
+query_sql ("select cargo from woncharinfo where account_id='"+getcharid(3)+"'",.@meucargo);
+	
+// Primeira vez escolhendo
+	if (.@minhavila == 0){
+			mes "Olá, pelo visto "+(Sex?"o senhor":"a senhora")+" nunca esteve em uma vila, deseja entrar em uma vila?";
+			cutin "gc_mayssel01",2;
+			menu "Sim, por favor",-,"Não, obrigado",Cancel,"Quero saber mais sobre as vilas",sabermais;
+			next;
+			mes "Escolha sua vila com cuidado, você só poderá troca-la após 10 dias e a escolha é válida para todos os seus personagens.";
+			menu "Vila Oculta da Folha",konoha,"Vila Oculta da Areia",suna,"Vila Oculta da Névoa",kiri,"sair",Cancel;
+		}
+		
+// Deixar a vila
+	if (.@minhavila == 2 || .@minhavila == 3 || .@minhavila == 4 || .@minhavila == 5 || .@minhavila == 6 || .@minhavila == 7 ){
+			
+			mes ""+(Sex?"O senhor":"A senhora")+" já está em uma vila, deseja se tornar um nukenin?";
+			cutin "gc_mayssel01",2;
+			switch(select("Não, talvez mais tarde:Quero ver há quanto tempo estou na vila:Sim, eu quero:Quero saber mais sobre as vilas")){
+		case 1:
+				mes "Tudo bem, até logo.";
+				cutin "gc_mayssel03",2;
+				close2;
+				cutin "gc_mayssel03",255;
+			end;
+		
+		case 2:
+				mes "Você está na sua vila há "+.@vilatempo+" Dia(s)";
+				mes "Os dias são contados com a passagem da meia-noite";
+				cutin "gc_mayssel03",2;
+				close2;
+				cutin "gc_mayssel03",255;
+			end;
+		case 3:
+			if(.@vilatempo >= 10) goto checknukejob;
+				mes ""+(Sex?"O senhor":"A senhora")+" não pode abandonar sua vila porque não possui tempo o suficiente nela, você precisa de 10 dias na vila e você tem "+.@vilatempo+" Dia(s)";
+				cutin "gc_mayssel03",2;
+				close2;
+				cutin "gc_mayssel03",255;
+			end;
+		case 4:
+			goto sabermais;
+			}
+		}
+		
+// Deixar de ser Nukenin
+	if (.@minhavila == 8){	
+				mes "Olá, pelo visto "+(Sex?"o senhor":"a senhora")+" é "+(Sex?"um":"uma")+" Nukenin. Deseja ingressar em uma vila?";
+				cutin "gc_mayssel01",1;
+				menu "Sim",-,"Não, obrigado",Cancel,"Quero saber mais sobre as vilas",sabermais;
+			if(.@vilatempo <= 10) goto nukenotleave;
+				mes "Escolha sua vila com cuidado, você só poderá sair dela após 10 dias e a escolha é válida para todos os seus personagens.";
+				menu "Vila Oculta da Folha",konoha,"Vila Oculta da Areia",suna,"Vila Oculta da Névoa",kiri,"Sair",Cancel;
+	}	
+		
+		
+	sabermais:
+		next;
+			mes "O nosso mundo é dividido em vilas.";
+			mes "Ao escolher uma vila ela se torna seu lar, você será levado até ela sempre que for derrotado.";
+			mes "Nela você pode completar missões, passar de cargo seus personagens (genin, chunin, jounin) e, quem sabe, se tornar kage um dia.";
+			cutin "gc_mayssel01",1;
+			next;
+			mes "Existem outros cargos na vila como Anbu, Líder Anbu e Jinchuuriki, que são definidos em eventos chamados Shikens e que podem ser substituidos a qualquer momento.";
+			cutin "gc_mayssel01",1;
+			next;
+			mes "A partir do momento que você escolhe uma vila você deve permanecer por pelo menos 10 dias. Caso você já tenha se tornado um jounin, você poderá optar por abandonar vila e se tornar um Nukenin.";
+			cutin "gc_mayssel01",1;
+			next;
+			mes "Os nukenins completam missões para mercenários. Apesar do nome comum, eles não são uma unidade e podem se atacar em áreas de PvP.";
+			mes "Para voltar à sua vila antiga ou ingressar em uma nova você deve aguardar 10 dias após ter se tornado um Nukenin. Para tentar ser um membro da Akatsuki você precisa estar como Nukenin por pelo menos 15 dias.";
+			cutin "gc_mayssel01",1;
+			next;
+			mes "Deseja saber mais sobre as vilas e seus cargos?";
+			cutin "gc_mayssel01",1;
+			menu "Não, Obrigado",Cancel,"Sim, quero saber mais",sabermuitomais;
+			next;
+			cutin "gc_mayssel01",255;
+			end;
+			
+	sabermuitomais:
+			next;
+			mes "Sobre o que quer saber?";
+			menu "Qual a vantagem de ter um cargo?",cargoinfo,"O que são Shikens?", shikinfo,"As vilas possuem diferenças?",vilainfo,"sair",Cancel;
+			end;
+						cargoinfo:
+					next;
+					mes "Um cargo te da vantagens de status, deixando o seu personagem mais forte em status e te dando jutsus especiais.","O líder akatsuki, por exemplo, pode invocar a estátua Gedou Mazo para tomar o biju de um jinchuuriki fora do esconderijo akatsuki.","Os outros akatsukis, por outro lado, possuem habilidades para prender e levar o jinchuuriki até o esconderijo akatsuki";
+					next;
+					mes "Os Anbus possuem jutsus que identificam a localização de pessoas dentro da vila e nos arredores.";
+					next;
+					mes "O jinchuuriki possui habilidades especiais, boatos dizem que, com treinamento, alguns podem se tornar o próprio bijuu no campo de batalha.";
+					next;
+					mes "Os kages também possuem jutsus especiais dependendo da vila. É possivel que algum até consiga selar um bijuu sozinho";
+					next;
+					mes "Infelizmente isso é tudo que eu sei por enquanto... Lamento... Mas continue voltando, quem sabe eu descubro mais alguma coisa.";
+					close2;
+					cutin "gc_mayssel03",255;
+					end;
+
+						shikinfo:
+					next;
+					mes "Os shikens são eventos que podem ser somente PvP ou envolver algum tipo de estratégia diferente, nele ocorrem as premiações de cargos";
+					close2;
+					cutin "gc_mayssel03",255;
+					end;
+						vilainfo:
+					next;
+					mes "Sim, cada vila possui uma habilidade especial. A folha, por exemplo, tem mais Anbus devido à Anbu Ne. A Núvem possui inicialmente 2 Jinchuurikis e por aí vai...";
+					next;
+					mes "Infelizmente isso é tudo que eu sei por enquanto... Lamento... Mas continue voltando, quem sabe eu descubro mais alguma coisa.";
+					close2;
+					cutin "gc_mayssel03",255;
+					end;
+					
+	konoha:
+					next;
+				mes "Seja bem vindo(a) à Vila Oculta da Folha.";
+				mes "Agora "+(Sex?"o senhor":"a senhora")+" pode ir para a sua vila usando a saída do lobby.";
+					guild_addmember(2,getcharid(0));
+				set lobby,2;
+				cutin "",255;
+				dispbottom "Você está na Vila Oculta da Folha, essa escolha será aplicada em todos os personagens.";
+				query_sql("UPDATE `wonplayerinfo` SET `vila` = '2' WHERE `account_id` = '"+getcharid(3)+"'");
+				announce "O Jogador "+strcharinfo(0)+" entrou para a Vila Ocuta da Folha",bc_all,0xe57c00;
+				cutin "gc_mayssel03",1;
+				close2;
+				cutin "gc_mayssel03",255;
+			end;
+	suna:
+					next;
+				mes "Seja "+(Sex?"bem vindo":"bem vinda")+" à Vila Oculta da Areia.";
+				mes "Agora "+(Sex?"o senhor":"a senhora")+" pode ir para a sua vila usando a saída do lobby.";
+				guild_addmember(3,getcharid(0));
+				set lobby,3;
+				cutin "",255;
+				query_sql("UPDATE `wonplayerinfo` SET `vila` = '3' WHERE `account_id` = '"+getcharid(3)+"'");
+				announce "O Jogador "+strcharinfo(0)+" entrou para a Vila Ocuta da Areia",bc_all,0xe57c00;
+				cutin "gc_mayssel03",1;
+				close2;
+				cutin "gc_mayssel03",255;
+			end;
+	kiri:
+					next;
+				mes "Seja "+(Sex?"bem vindo":"bem vinda")+" à Vila Oculta da Névoa.";
+				mes "Agora "+(Sex?"o senhor":"a senhora")+" pode ir para a sua vila usando a saída do lobby.";
+				guild_addmember(4,getcharid(0));
+				set lobby,4;
+				cutin "",255;
+				query_sql("UPDATE `wonplayerinfo` SET `vila` = '4' WHERE `account_id` = '"+getcharid(3)+"'");
+				announce "O Jogador "+strcharinfo(0)+" entrou para a Vila Ocuta da Névoa",bc_all,0xe57c00;
+				cutin "gc_mayssel03",1;
+				close2;
+				cutin "gc_mayssel03",255;
+			end;
+				checknukejob:
+				if(.@meucargo > 1) goto nukenin;
+					next;
+				mes ""+(Sex?"O senhor":"A senhora")+" não pode se tornar "+(Sex?"um":"uma")+" Nukenin.";
+				mes "Você precisa ao menos ter se tornado um Chunnin.";
+				cutin "gc_mayssel03",1;
+				close2;
+				cutin "gc_mayssel03",255;
+			end;
+
+			nukenotleave:
+			next;
+			mes ""+(Sex?"O senhor":"A senhora")+" não pode entrar em uma vila porque não foi Nukenin tempo o suficiente, você pelo menos 10 dias como nukenin e você tem "+.@vilatempo+" Dia(s)";		
+				close2;
+			cutin "gc_mayssel03",255;
+			end;
+			
+	Cancel:
+			next;
+			mes "Caso precise de algo é só me procurar...";
+			cutin "gc_mayssel03",1;
+			close2;
+			cutin "gc_mayssel03",255;
+		end;
+	
+	
+	nukenin:
+
+		dispbottom "Você se tornou um nukenin";
+		if (.@minhavila == 2){
+			announce "O Jogador "+strcharinfo(0)+" saiu da Vila da Folha e se tornou um Nukenin",bc_all,0xe57c00;
+		}
+		if (.@minhavila == 3){
+			announce "O Jogador "+strcharinfo(0)+" saiu da Vila da Areia e se tornou um Nukenin",bc_all,0xe57c00;
+		}
+		if (.@minhavila == 4){
+			announce "O Jogador "+strcharinfo(0)+" saiu da Vila da Névoa e se tornou um Nukenin",bc_all,0xe57c00;
+		}
+		guild_delmember getcharid(0);
+		query_sql("UPDATE `wonplayerinfo` SET `vila` = '8' WHERE `account_id` = '"+getcharid(3)+"'");
+		cutin "gc_mayssel03",255;
+		close;
+		end;
+		
+}
+
+
+
+
+
+
+
+
+-	script	Conferir#Dias	-1,{
+OnClock2400: 
+query_sql "UPDATE `wonplayerinfo` SET `dias_online` = `dias_online`+1 WHERE `entrou_hoje` = '1'";
+sleep2 1;
+query_sql "UPDATE `wonplayerinfo` SET `dias_offline` = `dias_offline`+1 WHERE `entrou_hoje` = '0'";
+sleep2 1;
+query_sql "UPDATE `wonplayerinfo` SET `dias_online` = '0' WHERE `entrou_hoje`='0'";
+sleep2 1;
+query_sql "UPDATE `wonplayerinfo` SET `entrou_hoje` = '0' WHERE `entrou_hoje`='1'";
+sleep2 1;
+query_sql "UPDATE `wonplayerinfo` SET `dias_vila` = `dias_vila`+1";
+
+sleep2 1;
+query_sql("SELECT `account_id` FROM `wonplayerinfo` WHERE `dias_offline`>='10'",.@accid);
+if(.@accid[1]){
+	for(.@r=0; .@r<getarraysize(.@accid); .@r++){
+	   query_sql("DELETE FROM `guild_member` WHERE `account_id` = '"+.@accid[.@r]+"'");
+//	   query_sql("UPDATE `char` SET `guild_id` = '0' WHERE `account_id` = '"+.@accid[.@r]+"'");
+	}
+}
+else {
+//	query_sql("UPDATE `guild_member` SET `guild_id` = '0' WHERE `account_id` = '"+.@accid[.@r]+"'");
+//	query_sql("UPDATE `char` SET `guild_id` = '0' WHERE `account_id` = '"+.@accid+"'");
+} 
+end;
+}
+
+
+
+
+	
+		
+//query_sql("SELECT timeoffline FROM `wonplayerinfo` WHERE `account_id`='"+getcharid(3)+"'",.@check);
+//if(.@check==0)
+//query_sql "insert into `wonplayerinfo` (`account_id`, `timeoffline`) values ('"+getcharid(3)+"', '0')";
+//else
+//query_sql( "UPDATE `wonplayerinfo` SET `timeoffline`='0'  WHERE `account_id`='"+getcharid(3)+"'");
+//end;
+//
+//OnClock1449:
+//.@contas = query_sql("SELECT account_id,timeoffline FROM `wonplayerinfo`",.@account_id,.@timeoffline);
+//for(.@z = 0; .@z<.@contas; .@z++){
+//query_sql( "UPDATE `wonplayerinfo` SET `timeoffline`='timeoffline'+1  WHERE `account_id`='"+.@account_id[.@z]+"'");
+//query_sql( "UPDATE `wonplayerinfo` SET `timeoffline`='10'  WHERE `account_id`='"+.@account_id[.@z]+"'");
+//
+//if(.@timeoffline[.@z]>=10){
+//query_sql( "UPDATE `char` SET `guild_id`='0'  WHERE `account_id`='"+.@account_id[.@z]+"'");
+//	.@chars = query_sql("SELECT char_id FROM `char` WHERE `account_id`='"+.@account_id[.@z]+"'",.@char_id);
+//		for(.@i = 0; .@i<.@chars; .@i++){
+//			query_sql ("DELETE FROM `guild_member` WHERE `char_id`='"+.@char_id[.@i]+"'");
+//			.@char_id[.@i] = 0;
+//		}
+//	query_sql ("DELETE FROM `wonplayerinfo` WHERE `account_id`='"+.@account_id[.@z]+"'");
+//	}
+//}
+//end;
+//}

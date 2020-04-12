@@ -1,0 +1,30 @@
+-	Script	bijuu_shu1	-1,{
+	atcommand "@effect 6";
+	atcommand "@effect 12";
+	showscript "Shukaku Chakura Modo";
+	addtimer 500,"bijuu_shu1::OnTF";
+	OnTF:
+	disguise 3574;
+	atcommand "@effect 79";
+	showscript "Shukaku Chakura Modo";
+	end;
+
+}
+
+-	script	bijuu_seal	-1,{
+
+		if (.mobname$ != "Poporing"){
+			Announce "OMFG, Isso não é um poporing",0;
+		}
+		getunitdata @bijuu_gid,@bij_arr;
+		set .percent, @bij_arr[2]*100/@bij_arr[3];
+		Announce "O BIJUU TEM "+.percent+"% de vida",0;
+		progressbar "00FF00",1;
+
+		set .mobname$,getunitname (@bijuu_gid);
+		Announce "GID: "+@bijuu_gid+", Name "+getunitname (@bijuu_gid)+" Tipo: "+getunittype (@bijuu_gid)+" INFO	"+@bij_arr[1]+"  HP "+@bij_arr[2]+"/"+@bij_arr[3]+"  ",0;
+		unittalk @bijuu_gid,"texto",bc_area;
+
+
+	end;
+}

@@ -1,0 +1,408 @@
+prontera,155,185,5	script	ksjfdhsk	1_F_MARIA,{
+//	input faction;
+//	Announce "Faction = "+faction+" ",0;
+	input walktion;
+	Announce "input = "+walktion+" ",0;
+}
+prontera,155,175,5	script	walk	1_F_MARIA,{
+	getmapxy(.@mapname$,.@mapx,.@mapy,0);
+	set .@user,getcharid(3);
+	sleep2 500;
+	set walktion,0;
+	unitwalk getcharid(3),.@mapx,.@mapy-30,"walk::OnWalkdone";
+	sleep2 500;
+	set walktion,1;
+	Announce " X "+.@mapx+", Y "+.@mapy+",  STOPED ",0;
+	end;
+
+
+		OnWalkdone:
+	pcblockmove getcharid(3),0;
+	Announce " Walk Again ",0;
+	}
+	
+	
+-	script	adam_seal	-1,{
+OnUssk:
+
+		query_sql("SELECT  seal  FROM `woncharinfo` WHERE `char_id` = '"+charid+"'",.@Jin);
+			if (.@jin != 0){
+				dispbottom "Você já possui um selo.";
+				end;
+		}
+		query_sql("SELECT  account_id  FROM `char` WHERE `char_id` = '"+charid+"'",.@acc_idsql);		
+		getmapxy(.@mapname$,.@mapx,.@mapy,0);
+		set .@mobname$,getunitname (@target_gid);
+		set .@target_gid, @target_gid;
+		set .@skx, @skx;
+		set .@skv, @skv;
+		set .@sky, @sky;
+		set .@dirj, @dirj;
+		set .@Aper, HP*100/MaxHP;	
+//USER
+							sit;
+							stand;
+							pcblockmove getcharid(3),1;
+							if (.@dirj == 0){
+								monster2  .@mapname$,.@mapx+1,.@mapy+1,.@dirj,"Corrente Adamantina",3587,1,,2,3;
+								set .@adamchainid,$@mobid;
+							if (.@skv > 1){
+								monster2  .@mapname$,.@mapx+1,.@mapy+1,.@dirj,"Corrente Adamantina",3593,1,,2,3;
+								set .@adamchainid2,$@mobid;
+							}
+							if (.@skv > 2){
+								monster2  .@mapname$,.@mapx+1,.@mapy+1,.@dirj,"Corrente Adamantina",3594,1,,2,3;
+								set .@adamchainid3,$@mobid;
+							}
+							if (.@skv > 3){
+								monster2  .@mapname$,.@mapx+1,.@mapy+1,.@dirj,"Corrente Adamantina",3595,1,,2,3;
+								set .@adamchainid4,$@mobid;
+							}
+							if (.@skv > 4){
+								mo nster2  .@mapname$,.@mapx+1,.@mapy+1,.@dirj,"Corrente Adamantina",3596,1,,2,3;
+								set .@adamchainid5,$@mobid;
+							}
+							if (.@skv > 5){
+								monster2  .@mapname$,.@mapx+1,.@mapy+1,.@dirj,"Corrente Adamantina",3597,1,,2,3;
+								set .@adamchainid6,$@mobid;
+							}
+							if (.@skv > 6){
+								monster2  .@mapname$,.@mapx+1,.@mapy+1,.@dirj,"Corrente Adamantina",3598,1,,2,3;
+								set .@adamchainid7,$@mobid;
+							}								
+							}
+							if (.@dirj == 1){	
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3587,1,,2,3;
+								set .@adamchainid,$@mobid;
+							if (.@skv > 1){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3593,1,,2,3;
+								set .@adamchainid2,$@mobid;
+							}
+							if (.@skv > 2){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3594,1,,2,3;
+								set .@adamchainid3,$@mobid;
+							}
+							if (.@skv > 3){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3595,1,,2,3;
+								set .@adamchainid4,$@mobid;
+							}
+							if (.@skv > 4){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3596,1,,2,3;
+								set .@adamchainid5,$@mobid;
+							}
+							if (.@skv > 5){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3597,1,,2,3;
+								set .@adamchainid6,$@mobid;
+							}
+							if (.@skv > 6){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3598,1,,2,3;
+								set .@adamchainid7,$@mobid;
+							}
+							}
+							if (.@dirj == 2){				
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3587,1,,2,3;
+								set .@adamchainid,$@mobid;
+							if (.@skv > 1){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3593,1,,2,3;
+								set .@adamchainid2,$@mobid;
+							}
+							if (.@skv > 2){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3594,1,,2,3;
+								set .@adamchainid3,$@mobid;
+							}
+							if (.@skv > 3){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3595,1,,2,3;
+								set .@adamchainid4,$@mobid;
+							}
+							if (.@skv > 4){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3596,1,,2,3;
+								set .@adamchainid5,$@mobid;
+							}
+							if (.@skv > 5){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3597,1,,2,3;
+								set .@adamchainid6,$@mobid;
+							}
+							if (.@skv > 6){
+								monster2  .@mapname$,.@mapx,.@mapy+1,.@dirj,"Corrente Adamantina",3598,1,,2,3;
+								set .@adamchainid7,$@mobid;
+							}
+							}
+							if (.@dirj == 3){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3587,1,,2,3;
+								set .@adamchainid,$@mobid;
+							if (.@skv > 1){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3593,1,,2,3;
+								set .@adamchainid2,$@mobid;
+							}
+							if (.@skv > 2){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3594,1,,2,3;
+								set .@adamchainid3,$@mobid;
+							}
+							if (.@skv > 3){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3595,1,,2,3;
+								set .@adamchainid4,$@mobid;
+							}
+							if (.@skv > 4){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3596,1,,2,3;
+								set .@adamchainid5,$@mobid;
+							}
+							if (.@skv > 5){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3597,1,,2,3;
+								set .@adamchainid6,$@mobid;
+							}
+							if (.@skv > 6){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3598,1,,2,3;
+								set .@adamchainid7,$@mobid;
+							}
+							}
+							if (.@dirj == 4){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3587,1,,2,3;
+								set .@adamchainid,$@mobid;
+							if (.@skv > 1){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3593,1,,2,3;
+								set .@adamchainid2,$@mobid;
+							}
+							if (.@skv > 2){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3594,1,,2,3;
+								set .@adamchainid3,$@mobid;
+							}
+							if (.@skv > 3){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3595,1,,2,3;
+								set .@adamchainid4,$@mobid;
+							}
+							if (.@skv > 4){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3596,1,,2,3;
+								set .@adamchainid5,$@mobid;
+							}
+							if (.@skv > 5){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3597,1,,2,3;
+								set .@adamchainid6,$@mobid;
+							}
+							if (.@skv > 6){
+								monster2  .@mapname$,.@mapx,.@mapy,.@dirj,"Corrente Adamantina",3598,1,,2,3;
+								set .@adamchainid7,$@mobid;
+							}
+								}
+							if (.@dirj == 5){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3587,1,,2,3;
+								set .@adamchainid,$@mobid;
+							if (.@skv > 1){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3593,1,,2,3;
+								set .@adamchainid2,$@mobid;
+							}
+							if (.@skv > 2){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3594,1,,2,3;
+								set .@adamchainid3,$@mobid;
+							}
+							if (.@skv > 3){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3595,1,,2,3;
+								set .@adamchainid4,$@mobid;
+							}
+							if (.@skv > 4){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3596,1,,2,3;
+								set .@adamchainid5,$@mobid;
+							}
+							if (.@skv > 5){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3597,1,,2,3;
+								set .@adamchainid6,$@mobid;
+							}
+							if (.@skv > 6){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3598,1,,2,3;
+								set .@adamchainid7,$@mobid;
+							}
+								}
+							if (.@dirj == 6){	
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3587,1,,2,3;
+								set .@adamchainid,$@mobid;
+							if (.@skv > 1){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3593,1,,2,3;
+								set .@adamchainid2,$@mobid;
+							}
+							if (.@skv > 2){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3594,1,,2,3;
+								set .@adamchainid3,$@mobid;
+							}
+							if (.@skv > 3){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3595,1,,2,3;
+								set .@adamchainid4,$@mobid;
+							}
+							if (.@skv > 4){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3596,1,,2,3;
+								set .@adamchainid5,$@mobid;
+							}
+							if (.@skv > 5){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3597,1,,2,3;
+								set .@adamchainid6,$@mobid;
+							}
+							if (.@skv > 6){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3598,1,,2,3;
+								set .@adamchainid7,$@mobid;
+							}
+								}
+							if (.@dirj == 7){	
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3587,1,,2,3;
+								set .@adamchainid,$@mobid;
+							if (.@skv > 1){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3593,1,,2,3;
+								set .@adamchainid2,$@mobid;
+							}
+							if (.@skv > 2){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3594,1,,2,3;
+								set .@adamchainid3,$@mobid;
+							}
+							if (.@skv > 3){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3595,1,,2,3;
+								set .@adamchainid4,$@mobid;
+							}
+							if (.@skv > 4){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3596,1,,2,3;
+								set .@adamchainid5,$@mobid;
+							}
+							if (.@skv > 5){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3597,1,,2,3;
+								set .@adamchainid6,$@mobid;
+							}
+							if (.@skv > 6){
+								monster2  .@mapname$,.@mapx+1,.@mapy,.@dirj,"Corrente Adamantina",3598,1,,2,3;
+								set .@adamchainid7,$@mobid;
+							}
+								}
+							query_sql ("INSERT INTO `skill_w` (`charskill_id`, `SkillID`, `SkillSave1`, `SkillSave2`, `SkillSave3`) VALUES ('"+.@acc_idsql+"', 'ADAMONE', '"+.@adamchainid+"', '"+.@target_gid+"', '1')");
+							if(.@skilv > 1){
+							query_sql ("INSERT INTO `skill_w` (`charskill_id`, `SkillID`, `SkillSave1`, `SkillSave2`, `SkillSave3`) VALUES ('"+.@acc_idsql+"', 'ADAMONE', '"+.@adamchainid2+"', '"+.@target_gid+"', '1')");						
+							}
+							if(.@skilv > 2){
+							query_sql ("INSERT INTO `skill_w` (`charskill_id`, `SkillID`, `SkillSave1`, `SkillSave2`, `SkillSave3`) VALUES ('"+.@acc_idsql+"', 'ADAMONE', '"+.@adamchainid3+"', '"+.@target_gid+"', '1')");						
+							}
+							if(.@skilv > 3){
+							query_sql ("INSERT INTO `skill_w` (`charskill_id`, `SkillID`, `SkillSave1`, `SkillSave2`, `SkillSave3`) VALUES ('"+.@acc_idsql+"', 'ADAMONE', '"+.@adamchainid4+"', '"+.@target_gid+"', '1')");						
+							}
+							if(.@skilv > 4){
+							query_sql ("INSERT INTO `skill_w` (`charskill_id`, `SkillID`, `SkillSave1`, `SkillSave2`, `SkillSave3`) VALUES ('"+.@acc_idsql+"', 'ADAMONE', '"+.@adamchainid5+"', '"+.@target_gid+"', '1')");						
+							}
+							if(.@skilv > 5){
+							query_sql ("INSERT INTO `skill_w` (`charskill_id`, `SkillID`, `SkillSave1`, `SkillSave2`, `SkillSave3`) VALUES ('"+.@acc_idsql+"', 'ADAMONE', '"+.@adamchainid6+"', '"+.@target_gid+"', '1')");						
+							}
+							if(.@skilv > 6){
+							query_sql ("INSERT INTO `skill_w` (`charskill_id`, `SkillID`, `SkillSave1`, `SkillSave2`, `SkillSave3`) VALUES ('"+.@acc_idsql+"', 'ADAMONE', '"+.@adamchainid7+"', '"+.@target_gid+"', '1')");						
+							}
+		
+		
+//MOB_T		
+			if (getunittype(.@target_gid) == 3){   //MOB
+				getunitdata .@target_gid,.@taradam_arr;
+				set .@AMper, .@taradam_arr[2]*100/.@taradam_arr[3];
+	//			Announce "O "+.@mobname$+" TEM "+.@AMper+"% de vida e você tem "+.@Aper+"%",0;			
+	//			Announce "GID: "+.@target_gid+", MOB "+getunitname (.@target_gid)+" Tipo: "+getunittype (.@target_gid)+" LVL	"+.@taradam_arr[1]+"  HP "+.@taradam_arr[2]+"/"+.@taradam_arr[3]+"  ",0;
+					unittalk .@target_gid,"ALVO",bc_area;
+								if (.@dirj == 0){
+								monster2  .@mapname$,.@taradam_arr[6]+1,.@taradam_arr[7]+1,.@dirj,"Corrente Adamantina",3599,1,,2,3;
+								}
+								if (.@dirj == 1){
+								monster2  .@mapname$,.@taradam_arr[6],.@taradam_arr[7]+1,.@dirj,"Corrente Adamantina",3599,1,,2,3;
+								}
+								if (.@dirj == 2){
+								monster2  .@mapname$,.@taradam_arr[6],.@taradam_arr[7]+1,.@dirj,"Corrente Adamantina",3599,1,,2,3;
+								}
+								if (.@dirj == 3){
+								monster2  .@mapname$,.@taradam_arr[6],.@taradam_arr[7],.@dirj,"Corrente Adamantina",3599,1,,2,3;
+								}
+								if (.@dirj == 4){
+								monster2  .@mapname$,.@taradam_arr[6],.@taradam_arr[7],.@dirj,"Corrente Adamantina",3599,1,,2,3;
+								}
+								if (.@dirj == 5){
+								monster2  .@mapname$,.@taradam_arr[6],.@taradam_arr[7],.@dirj,"Corrente Adamantina",3599,1,,2,3;
+								}
+								if (.@dirj == 6){
+								monster2  .@mapname$,.@taradam_arr[6],.@taradam_arr[7],.@dirj,"Corrente Adamantina",3599,1,,2,3;
+								}	
+								if (.@dirj == 7){	
+								monster2  .@mapname$,.@taradam_arr[6],.@taradam_arr[7],.@dirj,"Corrente Adamantina",3599,1,,2,3;
+								}								
+								set .@adamchainalvid,$@mobid;
+								query_sql ("INSERT INTO `skill_w` (`charskill_id`, `SkillID`, `SkillSave1`, `SkillSave2`, `SkillSave3`) VALUES ('"+.@acc_idsql+"', 'ADAMAONE', '"+.@adamchainalvid+"', '"+.@target_gid+"', '2')");			
+								sleep2 90;
+								getunitdata .@target_gid,.@tarconfadam_arr;
+								if (.@tarconfadam_arr[6] == .@taradam_arr[6] && .@tarconfadam_arr[7] == .@taradam_arr[7]){
+								dispbottom "Você acertou o "+.@mobname$+"";
+								unitblockmove .@target_gid,1;
+								} else {
+								dispbottom "Você errou o "+.@mobname$+"";
+								}
+								
+								progressbar "00FF00",15;
+
+//FUIN
+						if (.@mobname$ == "Shukaku"){
+						}
+						if (.@mobname$ == "Matatabi"){
+						}
+						if (.@mobname$ == "Isobu"){
+						}
+						
+//PERCENT OF SUCESS
+					if (unitexists(.@adamchainid) == true{
+						set .@SEALC,.@SEALC+1;
+					}
+					if unitexists(.@adamchainid2) == true{
+						set .@SEALC,.@SEALC+1;
+					}
+					if unitexists(.@adamchainid3) == true{
+						set .@SEALC,.@SEALC+1;
+					}
+					if unitexists(.@adamchainid4) == true{
+						set .@SEALC,.@SEALC+1;
+					}
+					if unitexists(.@adamchainid5) == true{
+						set .@SEALC,.@SEALC+1;
+					}
+					if unitexists(.@adamchainid6) == true{
+						set .@SEALC,.@SEALC+1;
+					}
+					if unitexists(.@adamchainid7) == true){
+						set .@SEALC,.@SEALC+1;
+					}
+				
+//SUCESS
+
+							pcblockmove getcharid(3),0;
+							unitkill .@target_gid;
+					
+					if (unitexists(.@adamchainalvid) == true){			
+					unitkill .@adamchainalvid;
+					query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@adamchainalvid+"','ADAMAONE')");
+	
+
+					}
+					if (.@skv > 1){
+						if (unitexists(.@adamchainalvid2) == true){	
+							unitkill .@adamchainalvid2;
+							query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@adamchainalvid2+"','ADAMAONE')");
+						}
+					}
+					
+					query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@adamchainid+"','ADAMONE')");
+					query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@adamchainid2+"','ADAMONE')");
+					query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@adamchainid3+"','ADAMONE')");
+					query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@adamchainid4+"','ADAMONE')");
+					query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@adamchainid5+"','ADAMONE')");
+					query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@adamchainid6+"','ADAMONE')");
+					query_sql( "DELETE FROM `skill_w` WHERE (`SkillSave1`,`SkillID`) = ('"+.@adamchainid7+"','ADAMONE')");
+
+			end;
+			}
+
+			
+			if (getunittype(.@target_gid) == 0){   //PLAYER
+				attachrid .@target_gid;
+				set .@target_gid, getcharid(3);
+				set .@APper, HP*100/MaxHP;
+				Announce "O JOGADOR TEM "+.@APper+"% de vida",0;	
+
+				
+				Announce "GID: "+.@target_gid+", Name "+getunitname (.@target_gid)+" Tipo: "+getunittype (.@target_gid)+" LVL	"+JobLevel+"  HP "+HP+"/"+MaxHP+"",0;
+				unittalk .@target_gid,"ALVO",bc_area;
+			end;
+			}
+				
+}

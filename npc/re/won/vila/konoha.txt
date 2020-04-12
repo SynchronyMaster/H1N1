@@ -1,0 +1,62 @@
+konoha,164,169,4	script	Nadeshiko	637,{
+	mes "Olá, "+strcharinfo(0)+"!";
+	mes "Deseja ir para para algum lugar?";
+	next;
+	switch(select("Sim, eu quero:Não, talvez mais tarde")){
+		case 1:
+			mes "Por favor, escolha seu destino!";
+			next;
+		
+	switch(select("Hospital, Academia ninja, Sala do Hokage, Loja de equipamentos, Ichiraku Ramen, Biblioteca, Arena")){
+			
+		case 1:
+			navigateto "Hospital_01",666,666,NAV_ALL,1;
+			close;
+		
+		case 2:
+			navigateto "Academia ninja_01",666,666,NAV_ALL,1;
+			close;
+			
+		case 3:
+			navigateto "Sala do Hokage_01",666,666,NAV_ALL,1;
+			close;;
+			
+		case 4:
+			navigateto "Loja de equipamentos_01",666,666,NAV_ALL,1;
+			close;
+			
+		case 5:
+			navigateto "Ichiraku Ramen_01",666,666,NAV_ALL,1;
+			close;
+			
+		case 6:
+			navigateto "Biblioteca_01",666,666,NAV_ALL,1;
+			close;
+			
+		case 7:
+			navigateto "Arena_01",666,666,NAV_ALL,1;
+			close;
+				
+		}
+		
+		case 2:
+			mes "Tudo bem, avise-me se precissar de algo";
+			close;
+			end;
+		
+		}
+		}
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

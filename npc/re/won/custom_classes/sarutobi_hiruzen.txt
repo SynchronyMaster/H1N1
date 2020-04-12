@@ -1,0 +1,33 @@
+new_1-2,82,88,5	script	Sarutobi Hiruzen	10252,{
+cutin "sarutobi",2;
+mes "[Sarutobi Hiruzen]";
+mes "Você quer escolher a classe Sarutobi Hiruzen?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class > 0) goto neh;
+jobchange 4073; 
+getitem 19008,1;
+next;
+
+mes "^FF9900[Sarutobi Hiruzen]^000000";
+mes "Parabéns, agora você é da classe Sarutobi Hiruzen!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Sarutobi Hiruzen",0;
+cutin "",255;
+close;
+
+neh:
+next;
+mes "^FF9900[Sarutobi Hiruzen]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+cutin "",255;
+close;
+
+nao:
+next;
+mes "^FF9900[Sarutobi Hiruzen]^000000";
+mes "Estarei esperando caso mude de ideia.";
+cutin "",255;
+close;
+}

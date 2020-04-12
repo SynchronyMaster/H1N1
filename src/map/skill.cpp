@@ -1,4 +1,4 @@
-// Copyright (c) rAthena Dev Teams - Licensed under GNU GPL
+﻿// Copyright (c) rAthena Dev Teams - Licensed under GNU GPL
 // For more information, see LICENCE in the main folder
 
 #include "skill.hpp"
@@ -11567,6 +11567,267 @@ int skill_castend_nodamage_id (struct block_list *src, struct block_list *bl, ui
 		}
 		break;
 
+// WORLD OF NARUTO - CUSTOM
+	case SHARINGAN:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				if (skill_lv == 1) {
+					nd = npc_name2id("sharingan1");
+				}
+				if (skill_lv == 2) {
+					nd = npc_name2id("sharingan2");
+				}
+				if (skill_lv == 3) {
+					nd = npc_name2id("sharingan3");
+				}
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+	case SHARINGANMK:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("sharinganmk");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+	case SHARINGANMO:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("sharinganmo");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+	case SHARINGANMS:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("sharinganms");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+	case SHARINGANMI:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("sharinganmi");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+	case SHARINGANMM:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("sharinganmm");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+	case SUSANOS:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				if (skill_lv == 1) {
+					nd = npc_name2id("susanos1");
+				}
+				if (skill_lv == 2) {
+					nd = npc_name2id("susanos2");
+				}
+				if (skill_lv == 3) {
+					nd = npc_name2id("susanos3");
+				}
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+	case SUSANOI:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("susanoi");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+	case SUSANOM:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("susanom");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+
+	case IATSU:
+		break;
+
+	case MODENARUTO:
+		break;
+
+	case MODENAGATO:
+		break;
+
+	case MODEKARIN:
+		break;
+
+	case MODEKUSHINA:
+		break;
+
+	case KUCHYIOSEA:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("kuchyiose1");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+
+	case KAGEBUNSHIN:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				if (skill_lv == 1) {
+					nd = npc_name2id("kagebunshin1");
+				}
+				if (skill_lv == 2) {
+					nd = npc_name2id("kagebunshin2");
+				}
+				if (skill_lv == 3) {
+					nd = npc_name2id("kagebunshin3");
+				}
+				if (skill_lv == 4) {
+					nd = npc_name2id("kagebunshin4");
+				}
+				if (skill_lv == 5) {
+					nd = npc_name2id("kagebunshin5");
+				}
+				if (skill_lv == 6) {
+					nd = npc_name2id("kagebunshin6");
+				}
+				if (skill_lv == 7) {
+					nd = npc_name2id("kagebunshin7");
+				}
+				if (skill_lv == 8) {
+					nd = npc_name2id("kagebunshin8");
+				}
+				if (skill_lv == 9) {
+					nd = npc_name2id("kagebunshin9");
+				}
+				if (skill_lv == 10) {
+					nd = npc_name2id("kagebunshin10");
+				}
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+
+	case BYAKUGAN:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("byakugan");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+
+	case BIJUU_SHU1:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("bijuu_shu1");
+				if (nd == NULL) break;
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+
+	case BIJUU_NI1:
+		break;
+	case BIJUU_SAN1:
+		break;
+	case BIJUU_YON1:
+		break;
+	case BIJUU_GO1:
+		break;
+	case BIJUU_ROKU1:
+		break;
+	case BIJUU_NANA1:
+		break;
+	case BIJUU_HASHI1:
+		break;
+	case BIJUU_KYU1:
+		break;
+	case BIJUU_JU1:
+		break;
+
+
+
+	case SEAL_BIJUU:
+		//		if( sd == NULL )
+		//			return 1;
+		//		if( dstmd == NULL )
+		//		{
+		//			return 1;
+		//		}
+		//
+		//
+		//			struct npc_data *nd; 
+		//			nd = npc_name2id("bijuu_seal");
+		//			pc_setreg(sd,add_str("@bijuu_gid"),bl->id);
+		//			if( nd == NULL ) break;
+		//			run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+
+		break;
+
+
 	case AB_CONVENIO:
 		if (sd) {
 			party_data *p = party_search(sd->status.party_id);
@@ -12455,6 +12716,45 @@ int skill_castend_pos2(struct block_list* src, int x, int y, uint16 skill_id, ui
 		if(skill_unitsetting(src,skill_id,skill_lv,x,y,0))
 			clif_skill_poseffect(src,skill_id,skill_lv,x,y,tick);
 		break;
+
+	case RASHOMON:
+		if (sd) {
+			int dir;
+			int charid;
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("rashomon1");
+				if (nd == NULL) break;
+				pc_setglobalreg(sd, add_str("skillx"), x);
+				pc_setglobalreg(sd, add_str("skilly"), y);
+				pc_setglobalreg(sd, add_str("skillv"), skill_lv);
+				dir = (sd->bl.x == x && sd->bl.y == y) ? 6 : map_calc_dir(&sd->bl, x, y);
+				charid = sd->status.char_id;
+				pc_setglobalreg(sd, add_str("dirJogador"), dir);
+				pc_setglobalreg(sd, add_str("charid"), charid);
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+
+
+	case ALL_BURACONEGRO:
+		if (sd) {
+			if (sd->npc_id || sd->vender_id || sd->state.trading || sd->state.storage_flag)
+				break;
+			{
+				struct npc_data *nd;
+				nd = npc_name2id("ALL_BURACONEGRO");
+				if (nd == NULL) break;
+				pc_setglobalreg(sd, add_str("ALL_BN_X"), x);
+				pc_setglobalreg(sd, add_str("ALL_BN_Y"), y);
+				run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
+			}
+		}
+		break;
+
 	case RG_GRAFFITI:			/* Graffiti [Valaris] */
 		skill_unitsetting(src,skill_id,skill_lv,x,y,0);
 		flag|=1;

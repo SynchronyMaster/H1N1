@@ -1,0 +1,280 @@
+//========================================================  SHARINGAN 1 ====================================================/
+
+-	Script	sharingan1	-1,{
+
+		if(@shaskill == 2 || @shaskill == 3){
+			bonus_script_clear;
+			if(@shaskill == 2){
+				deltimer "sharingan2::OnSha2";
+			}
+			if(@shaskill == 3){
+				deltimer "sharingan1::OnSha3";
+			}
+			set @shaskill,0;
+			changelook 5,@atual;
+	}
+	
+		if(@shaskill == 0){
+			dispbottom "Sharingan (Nv. 1) Ativado.";
+			bonus_script "{ bonus bAllStats,5; bonus bAspdRate,2; bonus bFleeRate,2; bonus bCriticalRate,2; bonus bSpeedRate,2; bonus bIntravision,0;}",30,9,0,SC_SHARINGAN;
+			set @atual,getlook(5);
+			changelook 5,3067;
+			soundeffectall "sharingan.wav", 0;
+			pcblockmove getcharid(3),0;
+			showscript "Sharingan";
+			set @shaskill,1;
+			dispbottom "Cuidado com os danos ao utilizar o sharingan",0xff0000;
+			addtimer 30000,"sharingan1::OnSha1";
+			while (@shaskill == 1){
+				set hp,hp-50;
+				set sp,sp-2;
+				if (sp <= 10) {
+					deltimer "sharingan1::OnSha1";
+					goto OnSha1;
+				}
+				sleep2 200;
+			}
+		end;
+		}
+	
+		if(@shaskill == 1){
+			dispbottom "Sharingan (Nv. 1) Desativado.";
+			set @shaskill,0;
+			changelook 5,@atual;
+			deltimer "sharingan1::OnSha1";
+			bonus_script_clear;
+		end;
+		}
+	
+	dispbottom "Você não pode reduzir do Mangekyou Sharingan ou do Susano'o para um Sharingan Comum.";
+	end;
+	
+	OnSha1:
+		dispbottom "Sharingan (Nv. 1) Desativado.";
+		sc_end SC_SHARINGAN;
+		set @shaskill,0;
+		changelook 5,@atual;
+	end;
+		
+	
+}
+//========================================================  SHARINGAN 2 ====================================================//
+-	Script	sharingan2	-1,{
+
+	if(@shaskill == 1 || @shaskill == 3){
+		bonus_script_clear;
+		if(@shaskill == 1){
+		deltimer "sharingan1::OnSha1";
+		}
+		if(@shaskill == 3){
+		deltimer "sharingan1::OnSha3";
+		}
+		set @shaskill,0;
+		changelook 5,@atual;
+	}
+	
+	if(@shaskill == 0){
+		dispbottom "Sharingan (Nv. 2) Ativado.";
+		bonus_script "{ bonus bAllStats,10; bonus bAspdRate,10; bonus bFleeRate,10; bonus bCriticalRate,10; bonus bSpeedRate,10; bonus bIntravision,0;}",60,9,0,SC_SHARINGAN2;
+		set @atual,getlook(5);
+		changelook 5,3067;
+		soundeffectall "sharingan.wav", 0;
+		pcblockmove getcharid(3),0;
+		showscript "Sharingan";
+		set @shaskill, 2;
+		dispbottom "Você sofre danos ao utilizar o sharingan",0xff0000;
+		addtimer 60000,"sharingan2::OnSha2";
+	while (@shaskill == 2){
+		set hp,hp-100;
+		set sp,sp-20;
+		if (sp <= 10) {
+			deltimer "sharingan2::OnSha2";
+			goto OnSha2;
+		}
+		sleep2 100;
+	}
+	end;
+	}
+		
+	if(@shaskill == 2){
+		showscript "...";
+		dispbottom "Sharingan (Nv. 2) Desativado.";
+		bonus_script_clear;
+		set @shaskill,0;
+		changelook 5,@atual;
+		deltimer "sharingan2::OnSha2";
+	end;
+	}
+	dispbottom "Você não pode reduzir do Mangekyou Sharingan ou do Susano'o para um Sharingan Comum.";
+	end;
+	
+	OnSha2:
+		bonus_script_clear;
+		dispbottom "Sharingan (Nv. 2) Desativado.";
+		set @shaskill,0;
+		changelook 5,@atual;
+	end;
+	
+	
+}
+	
+//========================================================  SHARINGAN 3 ====================================================/
+	
+	
+-	Script	sharingan3	-1,{
+	if(@shaskill == 2 || @shaskill == 1){
+		bonus_script_clear;
+		if(@shaskill == 1){
+		deltimer "sharingan1::OnSha1";
+		}
+		if(@shaskill == 2){
+		deltimer "sharingan2::OnSha2";
+		}
+		set @shaskill,0;
+		changelook 5,@atual;
+	}
+	
+	if(@shaskill == 0){
+		dispbottom "Sharingan (Nv. 3) Ativado.";
+		bonus_script "{ bonus bAllStats,20; bonus bAspdRate,20; bonus bFleeRate,20; bonus bCriticalRate,20; bonus bSpeedRate,25; bonus bIntravision,0;}",180,9,0,SC_SHARINGAN3;
+		set @atual,getlook(5);
+		changelook 5,3067;
+		soundeffectall "sharingan.wav", 0;
+		sc_start SC_Bleeding, 3000,0;
+		specialeffect2 6;
+		pcblockmove getcharid(3),0;
+		showscript "Sharingan";
+		set @shaskill,3;
+		dispbottom "Você sofre danos ao utilizar o sharingan",0xff0000;
+		addtimer 180000,"sharingan3::OnSha3";
+	while (@shaskill == 3){
+		set hp,hp-300;
+		set sp,sp-100;
+		if (sp <= 10) {
+			deltimer "sharingan3::OnSha3";
+			goto OnSha3;
+		}
+		sleep2 100;
+	}
+	end;
+	}
+	if(@shaskill == 3){
+		dispbottom "Sharingan (Nv. 3) Desativado.";
+		showscript "...";
+		set @shaskill,0;
+		changelook 5,@atual;
+		bonus_script_clear;
+		deltimer "sharingan3::OnSha3";
+	end;
+	}
+	dispbottom "Você não pode reduzir do Mangekyou Sharingan ou do Susano'o para um Sharingan Comum.";
+	end;
+	
+	OnSha3:
+		bonus_script_clear;
+		dispbottom "Sharingan (Nv. 3) Desativado.";
+		set @shaskill,0;
+		changelook 5,@atual;
+	end;
+	
+}
+
+
+//========================================================  MANGEKYOU SHARINGAN KAKASHI  ====================================================/
+
+-	Script	sharinganmk	-1,{
+if(@shaskill == 3){
+	set @shaskill,4;
+	}
+}
+//========================================================  MANGEKYOU SHARINGAN OBITO ====================================================/
+
+-	Script	sharinganmo	-1,{
+if(@shaskill == 3){
+	set @shaskill,5;
+	}
+}
+
+//========================================================  MANGEYOU SHARINGAN SASUKE ====================================================/
+
+-	Script	sharinganms	-1,{
+	if(@shaskill <= 3){
+		deltimer "sharingan3::OnSha3";
+		deltimer "sharingan2::OnSha2";
+		deltimer "sharingan1::OnSha1";
+		deltimer "sharinganms::OnShams";
+		changelook 5,@atual;
+		bonus_script_clear;
+		
+		sc_start SC_Bleeding, 3000,0;
+		pcblockmove getcharid(3),0;
+		specialeffect2 9;		
+		bonus_script "{ bonus bAllStats,40; bonus bAspdRate,40; bonus bFleeRate,40; bonus bCriticalRate,40; bonus bSpeedRate,40; bonus bIntravision,0;}",300,9,0,SC_SHARINGANMS;
+		set @atual,getlook(5);
+		changelook 5,3067;
+		set @shaskill,6;
+		soundeffectall "sharingan.wav", 0;
+		if(@susanos) == 1{
+
+		}
+		showscript "Mangekyou Sharingan";
+		dispbottom "Você sofre danos ao utilizar o Mangekyou Sharingan",0xff0000;
+		addtimer 300000,"sharinganms::OnShams";
+		addtimer 120000,"sharinganms::OnColateralms";
+	while (@shaskill == 6){
+		set hp,hp-2000;
+		set sp,sp-120;
+		if (sp <= 10) {
+		goto OnShams;
+		}
+		sleep2 100;
+	}
+	end;
+}
+
+	if(@shaskill == 6){
+		dispbottom "Mangekyou Sharingan Desativado!";
+		set @shaskill,0;
+		changelook 5,@atual;
+		bonus_script_clear;
+		deltimer "sharinganms::OnShams";
+	end;
+	} else {
+	dispbottom "Você precisa ter ativado o Sharingan Nível 3 ou desativado o Susano'o para utilizar o Mangekyou Sharingan.";
+	end;
+	}
+	
+	
+	OnShams:
+		bonus_script_clear;
+		dispbottom "Mangekyou Sharingan Desativado!";
+		set @shaskill,0;
+		changelook 5,@atual;
+	end;
+	
+	OnColateralms:
+		dispbottom "Você está sofrendo os efeitos colaterais do sharingan!";
+		sc_start SC_BLIND,36000,0;
+		sc_start SC_Bleeding, 36000,0;
+	end;
+	
+
+	
+	
+	
+	
+}
+
+//========================================================  MANGEKYOU SHARINGAN ITACHI ====================================================/
+-	Script	sharinganmi	-1,{
+	if(@shaskill == 3){
+	set @shaskill,7;
+	}
+}
+//========================================================  MANGEKYOU SHARINGAN MADARA ====================================================/
+
+-	Script	sharinganmm	-1,{
+	if(@shaskill == 3){
+	set @shaskill,8;
+	}
+}

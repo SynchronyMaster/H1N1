@@ -1,0 +1,30 @@
+new_1-2,108,121,5	script	Tayuya	10214,{
+
+mes "[Tayuya]";
+mes "Você quer escolher a classe Tayuya?";
+menu "Sim",sim,"Não",nao;
+next;
+
+sim:
+if (Class > 0) goto neh;
+jobchange 4075; 
+getitem 19008,1;
+next;
+
+mes "^FF9900[Tayuya]^000000";
+mes "Parabéns, agora você é da classe Tayuya!";
+announce "O jogador "+strcharinfo(0)+" escolheu a classe Tayuya",0;
+close;
+
+neh:
+next;
+mes "^FF9900[Tayuya]^000000";
+mes "Você precisa ser um ^0000FFEstudante^000000 para poder mudar de classe.";
+close;
+
+nao:
+next;
+mes "^FF9900[Tayuya]^000000";
+mes "Estarei esperando caso mude de ideia.";
+close;
+}

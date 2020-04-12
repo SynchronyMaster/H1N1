@@ -1,4 +1,4 @@
-// Copyright (c) rAthena Dev Teams - Licensed under GNU GPL
+﻿// Copyright (c) rAthena Dev Teams - Licensed under GNU GPL
 // For more information, see LICENCE in the main folder
 
 #ifndef SCRIPT_HPP
@@ -1974,6 +1974,7 @@ enum e_hat_effects {
 	HAT_EF_C_SUDDEN_WEALTH_TW,
 	HAT_EF_C_ROMANCE_ROSE_TW,
 	HAT_EF_C_DISAPEAR_TIME_TW,
+	HAT_EF_BYAKUGANEF = 200,
 	HAT_EF_MAX
 };
 
